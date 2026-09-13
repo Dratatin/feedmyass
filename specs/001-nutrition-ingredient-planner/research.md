@@ -56,9 +56,19 @@ l'application insensible à l'indisponibilité d'un service tiers (FR-036).
 par l'ANSES, donc non citables comme référence officielle; DRI américains — cohérents mais moins
 pertinents pour un public France métropolitaine, conservés comme référence de recoupement.
 
-**À faire à l'implémentation**: saisir les coefficients de Henry par sexe et tranche d'âge et les
-valeurs RNP/AS de chaque nutriment depuis les publications ANSES, avec la version et la date de
-récupération dans le fichier de référence.
+**État au 2026-09-13**: fait. Les coefficients de Henry sont saisis dans
+ depuis la table transmise par le commanditaire
+(conservée dans ), et les valeurs RNP/AS dans
+.
+
+**Précision importante sur la variante retenue**: la table est celle des équations d'Oxford en
+version POIDS SEUL. La taille n'entre donc pas dans le calcul énergétique, alors que la
+spécification la cite parmi les entrées du calcul (FR-005). Elle reste collectée et validée au
+profil, mais n'influence aucune valeur de besoin aujourd'hui. Deux issues: basculer sur la variante
+poids + taille de Henry, ou amender FR-005. À trancher avant l'implémentation de T028.
+
+**Reste à confirmer**: les valeurs de NAP par niveau d'activité proviennent de sources secondaires
+citant l'ANSES; la valeur représentative retenue dans chaque intervalle est un choix du projet.
 
 ## R4 - Composition nutritionnelle des aliments
 
