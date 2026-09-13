@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+@import '../styles/tokens.css';
+
+/* Réglages globaux. Toute valeur visuelle vient de src/styles/tokens.css. */
+html {
+  font-family: var(--font-sans);
+  color: var(--color-neutral-900);
+  background-color: var(--color-base-white);
+}
+
+/* Cible de toucher confortable et absence de débordement horizontal de 320 px
+   à 1920 px (FR-031). */
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+}

@@ -20,18 +20,18 @@ critique, ce qui satisfait l'exigence de résilience sans mécanisme de repli co
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5.x sur Node.js 22 LTS
+**Language/Version**: TypeScript 6.0 sur Node.js >= 22 (v25.9 sur le poste de développement)
 
-**Primary Dependencies**: Next.js (App Router, React) en version stable majeure courante (>= 15);
-Tailwind CSS alimenté par les tokens extraits du design system Figma; `@supabase/supabase-js` et
-`@supabase/ssr`; solveur de programmation linéaire embarqué (`javascript-lp-solver` ou `glpk.js`);
+**Primary Dependencies**: Next.js 16.3 (App Router, React 19.3);
+Tailwind CSS 4.3 alimenté par les tokens extraits du design system Figma (configuration CSS-first via `@theme`); `@supabase/supabase-js` et
+`@supabase/ssr`; solveur de programmation linéaire embarqué (`javascript-lp-solver` 1.0);
 Zod pour la validation des entrées
 
 **Storage**: Supabase Postgres. Données applicatives (profils, historique) protégées par Row Level
 Security; données de référence (nutriments, apports, aliments, saisonnalité) versionnées dans le
 dépôt et chargées par migration/seed
 
-**Testing**: Vitest pour les tests unitaires et les invariants métier; Playwright pour les parcours
+**Testing**: Vitest 4.1 pour les tests unitaires et les invariants métier; Playwright pour les parcours
 de bout en bout et le rendu responsive
 
 **Target Platform**: navigateurs desktop et mobile modernes, de 320 px à 1920 px de large;

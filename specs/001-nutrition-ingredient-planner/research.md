@@ -123,10 +123,22 @@ composants React dans `src/components/ds`, et n'écrire les écrans qu'à partir
 **Rationale**: l'ordre tokens puis composants puis écrans évite de dupliquer des valeurs en dur dans
 les écrans et rend le principe VI vérifiable: tout style d'écran doit se ramener à un token.
 
-**Statut**: EN ATTENTE. Le serveur MCP Figma n'est pas accessible depuis la session qui a produit ce
-plan, les 33 noeuds n'ont donc pas encore été analysés. C'est une tâche bloquante pour les tâches
-d'interface, sans effet sur le domaine métier ni sur les données de référence, qui peuvent avancer
-en parallèle.
+**Statut**: EN COURS depuis le 2026-09-13, le serveur MCP Figma étant disponible.
+
+Relevé effectué:
+- Palette complète (145 couleurs: Base, Brand, Neutral, Red, Orange, Yellow, Green, Sky, Blue,
+  Indigo, Purple, Pink, Rose, Slate) et échelle typographique Inter (Display 2xl à xs, Text xl à xs,
+  en Regular, Medium, Semibold et Bold), depuis les noeuds de fondations 1525:271581 et 1023:36826.
+- Composant Buttons/Button (1038:34411, 528 variantes): propriétés Size (sm, md, lg, xl),
+  Hierarchy (7 valeurs), Icon (5 valeurs) et State (Default, Hover, Focused, Disabled).
+
+Constat à retenir: le fichier n'est pas publié comme bibliothèque (le plan Figma est starter), donc
+`search_design_system` ne renvoie rien. Le repérage des composants passe par `get_metadata` sur les
+pages, puis `get_design_context` sur chaque variante. La page Buttons pèse 190 000 caractères de
+métadonnées: la parcourir hors contexte (fichier + filtrage) est nécessaire.
+
+Reste à relever: champ de saisie, sélecteur, carte, tableau, bandeau, navigation, et les cinq
+hiérarchies de bouton non encore relevées.
 
 ## R8 - Mode invité et rattachement des résultats
 

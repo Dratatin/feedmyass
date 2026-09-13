@@ -29,12 +29,12 @@ validation indépendantes.
 Application web mono-déployable (décision de structure de plan.md): `src/` et `tests/` à la racine
 du dépôt, migrations et seed sous `supabase/`.
 
-## ⚠️ Dépendance externe bloquante
+## Dépendance Figma — levée
 
-T022 et T023 (tokens et composants du design system Figma) attendent que le serveur MCP Figma soit
-disponible dans la session. **Toutes les tâches d'interface en dépendent** (T032, T033, T047, T048,
-T060, T061, T062). Le domaine métier, les données de référence, le schéma de base, les contrats et
-leurs tests n'en dépendent pas et peuvent être menés entièrement en parallèle.
+Le serveur MCP Figma est disponible depuis le 2026-09-13. Les tokens sont extraits (T022) et
+`Button.tsx` est dérivé du composant Buttons/Button. Il reste à relever dans Figma les autres
+composants de base avant d'écrire les écrans (T032, T033, T047, T048, T060, T061, T062), qui
+dépendent toujours de T023.
 
 ---
 
@@ -42,13 +42,13 @@ leurs tests n'en dépendent pas et peuvent être menés entièrement en parallè
 
 **Purpose**: initialisation du projet et de l'outillage
 
-- [ ] T001 Initialiser le projet Next.js (App Router) en TypeScript à la racine: `package.json`, `tsconfig.json`, `next.config.ts`
-- [ ] T002 [P] Configurer ESLint et Prettier et les scripts `lint` / `typecheck` dans `package.json` et `eslint.config.mjs`
-- [ ] T003 [P] Configurer Vitest pour `tests/unit` et `tests/contract` dans `vitest.config.ts`
-- [ ] T004 [P] Configurer Playwright avec deux projets de viewport, 320 px et 1920 px, dans `playwright.config.ts`
-- [ ] T005 [P] Créer l'arborescence `src/{app,components,domain,data,lib,styles}` et `tests/{unit,contract,e2e}` conformément à plan.md
-- [ ] T006 [P] Créer `.env.example` avec `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` et `SUPABASE_SERVICE_ROLE_KEY`
-- [ ] T007 Créer le projet Supabase et le lier au dépôt via la CLI dans `supabase/config.toml`
+- [X] T001 Initialiser le projet Next.js (App Router) en TypeScript à la racine: `package.json`, `tsconfig.json`, `next.config.ts`
+- [X] T002 [P] Configurer ESLint et Prettier et les scripts `lint` / `typecheck` dans `package.json` et `eslint.config.mjs`
+- [X] T003 [P] Configurer Vitest pour `tests/unit` et `tests/contract` dans `vitest.config.ts`
+- [X] T004 [P] Configurer Playwright avec deux projets de viewport, 320 px et 1920 px, dans `playwright.config.ts`
+- [X] T005 [P] Créer l'arborescence `src/{app,components,domain,data,lib,styles}` et `tests/{unit,contract,e2e}` conformément à plan.md
+- [X] T006 [P] Créer `.env.example` avec `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` et `SUPABASE_SERVICE_ROLE_KEY`
+- [X] T007 Créer le projet Supabase et le lier au dépôt via la CLI dans `supabase/config.toml`
 
 ---
 
@@ -59,22 +59,22 @@ leurs tests n'en dépendent pas et peuvent être menés entièrement en parallè
 **⚠️ CRITICAL**: aucune user story ne démarre avant la fin de cette phase, à l'exception des
 tâches d'interface qui attendent en plus T022 et T023
 
-- [ ] T008 Écrire la migration du schéma de référence dans `supabase/migrations/0001_reference.sql`: tables `nutrients`, `reference_intakes`, `foods`, `seasonality` avec les colonnes de data-model.md, clé primaire `(food_code, month)` sur `seasonality` et contrainte de non-chevauchement des tranches d'âge sur `(nutrient_code, reference_sex, kind)`
-- [ ] T009 Écrire la migration des tables utilisateur dans `supabase/migrations/0002_user_data.sql`: `profiles` (PK `user_id`, FK `auth.users` en `ON DELETE CASCADE`) et `results` (`period` dans `day|week`, colonnes jsonb `profile_snapshot`, `needs`, `plan`, `reference_versions`)
-- [ ] T010 Écrire les politiques RLS dans `supabase/migrations/0003_rls.sql`: `profiles` en select/insert/update/delete si `user_id = auth.uid()`; `results` en select/insert/delete uniquement, sans aucune policy `update` (FR-027)
+- [X] T008 Écrire la migration du schéma de référence dans `supabase/migrations/0001_reference.sql`: tables `nutrients`, `reference_intakes`, `foods`, `seasonality` avec les colonnes de data-model.md, clé primaire `(food_code, month)` sur `seasonality` et contrainte de non-chevauchement des tranches d'âge sur `(nutrient_code, reference_sex, kind)`
+- [X] T009 Écrire la migration des tables utilisateur dans `supabase/migrations/0002_user_data.sql`: `profiles` (PK `user_id`, FK `auth.users` en `ON DELETE CASCADE`) et `results` (`period` dans `day|week`, colonnes jsonb `profile_snapshot`, `needs`, `plan`, `reference_versions`)
+- [X] T010 Écrire les politiques RLS dans `supabase/migrations/0003_rls.sql`: `profiles` en select/insert/update/delete si `user_id = auth.uid()`; `results` en select/insert/delete uniquement, sans aucune policy `update` (FR-027)
 - [ ] T011 [P] Constituer le référentiel des nutriments dans `src/data/reference/nutrients.json`: énergie, protéines, lipides, glucides, fibres, vitamines A, B1, B2, B3, B5, B6, B9, B12, C, D, E, K et minéraux calcium, fer, magnésium, potassium, zinc, iode, sélénium, cuivre, phosphore, avec `unit`, `category`, `display_order` et `is_priority` à vrai pour fer, calcium, magnésium, vitamine B12, vitamine D et vitamine C
 - [ ] T012 [P] Constituer les apports de référence ANSES (RNP et AS par nutriment, sexe et tranche d'âge) dans `src/data/reference/reference-intakes.json` avec `kind`, `source`, `version` et `retrieved_at` (R3)
 - [ ] T013 [P] Constituer les coefficients de Henry 2005 par sexe et tranche d'âge et les valeurs de NAP dans `src/data/reference/energy-equations.json` avec source et version (R3)
 - [ ] T014 [P] Extraire environ 250 aliments courants de la table CIQUAL dans `src/data/reference/foods.json`: composition pour 100 g indexée par code nutriment, `category`, `is_fruit_vegetable`, `is_fortified`, `diet_tags`, `excluded_by`, `min_qty_g`, `max_qty_g`, `unit_label`, `unit_grams`, source, version et licence (R4)
 - [ ] T015 [P] Constituer le calendrier de saisonnalité mensuel France métropolitaine dans `src/data/reference/seasonality.json` pour tous les aliments `is_fruit_vegetable`, avec sources datées (R5)
 - [ ] T016 Écrire le script de seed idempotent dans `scripts/seed-reference.ts`: refuse tout fichier de référence dépourvu de `source`, `version` ou `retrieved_at` (principe II) et charge les quatre tables
-- [ ] T017 [P] Définir les types du domaine dans `src/domain/types.ts`: `Profile` sans aucun champ de régime, `Diet`, `NutrientCode`, `Needs`, `IngredientPlan` aligné sur `contracts/ingredient-plan.schema.json`
-- [ ] T018 [P] Écrire les schémas de validation Zod dans `src/lib/validation.ts` avec les bornes exactes de data-model.md: `weight_kg` 30 à 250, `height_cm` 120 à 230, `age` 18 à 70, `reference_sex` dans `female|male`, `activity_level` dans `sedentary|low_active|active|very_active`, `diet_base` dans `omnivore|pescetarian|vegetarian|vegan`, `exclusions` sous-ensemble de `gluten|lactose|nuts`
+- [X] T017 [P] Définir les types du domaine dans `src/domain/types.ts`: `Profile` sans aucun champ de régime, `Diet`, `NutrientCode`, `Needs`, `IngredientPlan` aligné sur `contracts/ingredient-plan.schema.json`
+- [X] T018 [P] Écrire les schémas de validation Zod dans `src/lib/validation.ts` avec les bornes exactes de data-model.md: `weight_kg` 30 à 250, `height_cm` 120 à 230, `age` 18 à 70, `reference_sex` dans `female|male`, `activity_level` dans `sedentary|low_active|active|very_active`, `diet_base` dans `omnivore|pescetarian|vegetarian|vegan`, `exclusions` sous-ensemble de `gluten|lactose|nuts`
 - [ ] T019 [P] Implémenter les clients Supabase navigateur et serveur dans `src/lib/supabase.ts` avec `@supabase/ssr`
-- [ ] T020 Implémenter le format d'erreur commun et les codes `validation_error` 400, `profile_out_of_scope` 422, `unauthorized` 401, `not_found` 404 et `reference_data_unavailable` 503 dans `src/lib/errors.ts` conformément à contracts/api.md
+- [X] T020 Implémenter le format d'erreur commun et les codes `validation_error` 400, `profile_out_of_scope` 422, `unauthorized` 401, `not_found` 404 et `reference_data_unavailable` 503 dans `src/lib/errors.ts` conformément à contracts/api.md
 - [ ] T021 [P] Implémenter les accès en lecture aux données de référence dans `src/data/repositories/reference.ts`, en exposant les versions utilisées pour alimenter `reference_versions` (FR-038)
-- [ ] T022 Extraire les tokens du design system Figma (33 noeuds de l'Annexe A) vers `src/styles/tokens.css` et la configuration Tailwind — **bloqué tant que le MCP Figma n'est pas disponible** (R7)
-- [ ] T023 Générer les composants de base du design system dans `src/components/ds/` (bouton, champ, sélecteur, carte, tableau, bandeau, navigation) à partir des noeuds Figma — dépend de T022
+- [X] T022 Extraire les tokens du design system Figma (33 noeuds de l'Annexe A) vers `src/styles/tokens.css` et la configuration Tailwind (R7) — tokens extraits des noeuds de fondations 1525:271581 et 1023:36826
+- [ ] T023 Générer les composants de base du design system dans `src/components/ds/` à partir des noeuds Figma — dépend de T022. **En cours**: `Button.tsx` fait (4 tailles, hiérarchies Primary et Secondary gray, états hover et disabled, relevés sur les noeuds 1040:3, 1038:34410, 1040:9, 1040:15, 1041:34506, 1041:34790, 1041:35818). Restent: champ de saisie, sélecteur, carte, tableau, bandeau, navigation, et les cinq hiérarchies de bouton non relevées
 
 **Checkpoint**: socle prêt; les stories peuvent démarrer, les écrans après T023
 

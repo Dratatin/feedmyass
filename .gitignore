@@ -34,3 +34,6 @@ pnpm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Next.js (généré)
+next-env.d.ts
