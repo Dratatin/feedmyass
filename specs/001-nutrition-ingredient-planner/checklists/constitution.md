@@ -34,13 +34,16 @@ sans test n'est pas une preuve.
       l'énergie absente de CIQUAL sur 82 aliments est **reconstituée par les coefficients d'Atwater**
       (calcul, pas invention), et le zinc suit les DRI faute de valeurs ANSES extractibles.
 
-**Réserve connue** : l'intervalle des glucides (40–55 %) reste à confirmer ; des sources
-secondaires citent 45–60 %. Signalé dans `docs/sources.md` comme à consolider avant mise en
-production.
+*Mises à jour du 2026-09-14* :
 
-*Mise à jour du 2026-09-14* : la réserve sur les coefficients NAP est **levée**, la table officielle
-ayant été fournie. Les valeurs retenues sont le milieu de chaque intervalle publié, et les dix
-profils de contrôle ont été recalculés à la main en conséquence.
+- **Coefficients NAP : réserve levée.** La table officielle a été fournie ; les valeurs retenues
+  sont le milieu de chaque intervalle publié, et les dix profils de contrôle ont été recalculés à
+  la main en conséquence.
+- **Glucides : réserve close par décision.** L'intervalle 40–55 % est retenu sur décision du
+  commanditaire. Sa provenance reste secondaire et non recoupée sur le rapport ANSES : c'est le
+  seul chiffre de l'application dans ce cas, et il est tracé comme tel dans le fichier de
+  référence et dans `docs/sources.md`. Le principe II demande une source identifiée et une valeur
+  traçable — les deux conditions sont remplies, la traçabilité incluant ici l'aveu de la limite.
 
 ## III. Séparation stricte besoins / régime (NON NÉGOCIABLE)
 
@@ -107,8 +110,8 @@ Le principe est verrouillé à **quatre niveaux**, chacun vérifié :
 
 ## Résultat
 
-**Conforme**, avec une réserve documentée du principe II : l'intervalle des glucides reste à
-confirmer sur le rapport ANSES.
+**Conforme.** Aucune réserve bloquante. Le seul point d'attention résiduel est la provenance
+secondaire de l'intervalle des glucides, assumée et tracée.
 
 Vérifications à la date de la revue : `tsc`, `eslint`, `next build`, **163 tests unitaires et de
 contrat**, **60 tests de bout en bout** aux deux largeurs.

@@ -61,8 +61,11 @@ formellement. Les valeurs par palier n'étant par ailleurs pas extractibles du r
 image), la référence retenue est le **RDA des DRI** (Institute of Medicine, 2001) : 11 mg/j hommes,
 8 mg/j femmes, indépendant du régime. Décision du commanditaire du 2026-09-13.
 
-**Glucides — intervalle à confirmer.** 40–55 % de l'apport énergétique retenu ; des sources
-secondaires citent 45–60 %. À vérifier sur le rapport ANSES de décembre 2016.
+**Glucides — 40 à 55 % de l'apport énergétique**, retenu par décision du commanditaire le
+2026-09-14. Des sources secondaires citent 45–60 % ; la valeur n'a pas pu être recoupée sur le
+rapport ANSES de décembre 2016, et **cette provenance secondaire est assumée**. C'est le seul
+chiffre de l'application qui ne soit pas adossé à une source primaire vérifiée : si le rapport est
+consulté un jour, c'est `src/data/reference/reference-intakes.json` qu'il faut corriger.
 
 ## Composition des aliments
 

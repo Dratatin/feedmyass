@@ -8,7 +8,7 @@
       "basis: absolute = valeur par jour; per_kg = par kg de poids corporel; per_mj = par MJ d'apport énergétique; percent_energy = intervalle en % de l'apport énergétique (value = borne basse, value_max = borne haute).",
       "L'énergie n'est pas ici: elle se calcule par les équations de Henry (src/data/reference/energy-equations.json).",
       "FER: 11 mg/j pour les deux sexes. L ANSES retient 16 mg/j pour les femmes à pertes menstruelles élevées, information que le profil ne capture pas.",
-      "GLUCIDES: intervalle 40-55 % retenu; des sources secondaires citent 45-60 %. À confirmer sur le rapport ANSES de décembre 2016 avant mise en production.",
+      "GLUCIDES: intervalle 40-55 % de l'apport énergétique, retenu par décision du commanditaire le 2026-09-14. Des sources secondaires citent 45-60 %; la valeur n'a pas pu être recoupée sur le rapport ANSES de décembre 2016, et cette provenance secondaire est assumée. Si le rapport est consulté un jour et donne un autre intervalle, c'est ici qu'il faut le corriger.",
       "ZINC — écart assumé par rapport à l'ANSES, décision du commanditaire du 2026-09-13. L'ANSES fait dépendre la RNP zinc du niveau de phytates et recommande le palier 900 mg/j pour les alimentations végétales, ce qui reviendrait à faire dépendre un besoin du régime déclaré et violerait le principe III de la constitution. Les valeurs par palier étant par ailleurs non extractibles du rapport source (PDF image), la référence retenue est le RDA des DRI: valeur unique par sexe, indépendante du régime. Ces deux lignes portent donc leur propre source, différente du reste du fichier.",
       "ZINC — la borne DRI est 19 ans et plus; la tranche 18-70 de l'application applique la valeur adulte dès 18 ans."
     ]
