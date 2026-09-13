@@ -86,3 +86,11 @@ create index if not exists foods_category_idx on public.foods (category);
 create index if not exists foods_fruit_vegetable_idx on public.foods (is_fruit_vegetable);
 create index if not exists reference_intakes_lookup_idx
   on public.reference_intakes (nutrient_code, reference_sex, kind);
+
+-- Clé naturelle des apports de référence: c'est elle qui rend le seed idempotent
+-- (sans elle, chaque exécution insérerait des doublons avec de nouveaux uuid).
+alter table public.reference_intakes
+  drop constraint if exists reference_intakes_natural_key;
+alter table public.reference_intakes
+  add constraint reference_intakes_natural_key
+  unique (nutrient_code, reference_sex, age_min, age_max, kind);
