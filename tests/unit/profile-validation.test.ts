@@ -60,7 +60,7 @@ describe('validation du profil', () => {
   });
 
   it('refuse un champ manquant', () => {
-    const { age: _omitted, ...incomplete } = valid;
+    const incomplete = { weight_kg: valid.weight_kg, height_cm: valid.height_cm, reference_sex: valid.reference_sex, activity_level: valid.activity_level };
     expect(profileSchema.safeParse(incomplete).success).toBe(false);
   });
 });

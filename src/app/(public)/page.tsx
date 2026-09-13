@@ -1,10 +1,9 @@
+import Link from 'next/link';
+import { Button } from '@/components/ds/Button';
+
 /**
  * Accueil. Écran d'entrée du parcours public: le calcul des besoins et la liste
  * d'ingrédients sont accessibles sans compte (FR-024).
- *
- * Les appels à l'action vers /profil et /besoins seront ajoutés avec ces écrans
- * (tâches T032 et T033). `typedRoutes` refuse tout lien vers une route
- * inexistante, ce qui évite les liens morts.
  */
 export default function HomePage() {
   return (
@@ -21,6 +20,11 @@ export default function HomePage() {
         Estimation informative établie à partir de références nutritionnelles officielles. Ce
         service ne fournit ni diagnostic, ni conseil médical personnalisé.
       </p>
+      <div>
+        <Link href="/profil">
+          <Button size="lg">Calculer mes besoins</Button>
+        </Link>
+      </div>
     </main>
   );
 }

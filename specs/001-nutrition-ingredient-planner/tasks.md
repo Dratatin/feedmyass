@@ -104,7 +104,7 @@ refus motivé d'un profil hors bornes.
 
 - [X] T024 [P] [US1] Test d'invariant besoins/régime dans `tests/unit/needs-diet-invariant.test.ts`: `computeNeeds` n'expose aucun paramètre de régime et deux profils identiques produisent des besoins strictement identiques (SC-004, principe III)
 - [X] T025 [P] [US1] Tests de conformité sur au moins dix profils de contrôle documentés dans `tests/unit/needs-reference.test.ts`, écart inférieur à 5 % par rapport aux valeurs officielles (SC-005)
-- [ ] T026 [P] [US1] Test de contrat de `POST /api/needs` dans `tests/contract/needs.test.ts`: rejet de toute entrée contenant un champ de régime, réponse portant `daily`, `weekly`, `reference_versions` et `disclaimer`
+- [X] T026 [P] [US1] Test de contrat de `POST /api/needs` dans `tests/contract/needs.test.ts`: rejet de toute entrée contenant un champ de régime, réponse portant `daily`, `weekly`, `reference_versions` et `disclaimer`
 - [X] T027 [P] [US1] Test des bornes de validation du profil dans `tests/unit/profile-validation.test.ts`: hors bornes renvoie 400 avec le champ fautif, âge hors 18-70 renvoie `profile_out_of_scope`
 
 ### Implementation for User Story 1
@@ -112,11 +112,11 @@ refus motivé d'un profil hors bornes.
 - [X] T028 [US1] Implémenter le métabolisme de base par les équations de Henry et la dépense énergétique par NAP dans `src/domain/needs/energy.ts`
 - [X] T029 [US1] Implémenter la résolution des apports de référence par nutriment, sexe et tranche d'âge dans `src/domain/needs/reference-intakes.ts`, avec refus explicite si le profil ne tombe dans aucune tranche
 - [X] T030 [US1] Implémenter `computeNeeds(profile, period)` dans `src/domain/needs/index.ts`: signature sans régime (principe III), `weekly` égal à sept fois `daily` (FR-006), versions de référence remontées (dépend de T028, T029)
-- [ ] T031 [US1] Implémenter le route handler `POST /api/needs` dans `src/app/api/needs/route.ts` conformément à contracts/api.md, avec production d'un `needs_token` côté serveur
-- [ ] T032 [P] [US1] Écran de saisie du profil dans `src/app/(public)/profil/page.tsx`, composé uniquement de composants de `src/components/ds/` (dépend de T023)
-- [ ] T033 [P] [US1] Écran des besoins dans `src/app/(public)/besoins/page.tsx`: valeur, unité, `kind` et source par nutriment, bascule jour/semaine (FR-009, dépend de T023)
-- [ ] T034 [US1] Bandeau d'information non médicale et mention des profils non couverts dans `src/components/features/DisclaimerBanner.tsx`, affiché sur tout écran de résultat (FR-010, FR-011)
-- [ ] T035 [US1] Test e2e du parcours V1 dans `tests/e2e/us1-besoins.spec.ts`
+- [X] T031 [US1] Implémenter le route handler `POST /api/needs` dans `src/app/api/needs/route.ts` conformément à contracts/api.md, avec production d'un `needs_token` côté serveur
+- [X] T032 [P] [US1] Écran de saisie du profil dans `src/app/(public)/profil/page.tsx`, composé uniquement de composants de `src/components/ds/` (dépend de T023)
+- [X] T033 [P] [US1] Écran des besoins dans `src/app/(public)/besoins/page.tsx`: valeur, unité, `kind` et source par nutriment, bascule jour/semaine (FR-009, dépend de T023)
+- [X] T034 [US1] Bandeau d'information non médicale et mention des profils non couverts dans `src/components/features/DisclaimerBanner.tsx`, affiché sur tout écran de résultat (FR-010, FR-011)
+- [X] T035 [US1] Test e2e du parcours V1 dans `tests/e2e/us1-besoins.spec.ts`
 
 **Checkpoint**: US1 fonctionne seule — calculateur de besoins personnalisé et sourcé, utilisable sans compte
 
