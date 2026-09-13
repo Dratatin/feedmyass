@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useState, useSyncExternalStore } from 'react';
-import { Badge } from '@/components/ds/Badge';
 import { Button } from '@/components/ds/Button';
 import { Card } from '@/components/ds/Card';
 import { DataTable, type Column } from '@/components/ds/DataTable';
+import { DataFreshness } from '@/components/features/DataFreshness';
 import { DisclaimerBanner } from '@/components/features/DisclaimerBanner';
 import { SaveResultButton } from '@/components/features/SaveResultButton';
 import { getNeedsServerSnapshot, getNeedsSnapshot, subscribeNeeds, type StoredNeeds } from '@/lib/needs-session';
@@ -112,18 +112,7 @@ export default function NeedsPage() {
         </Card>
       ) : null}
 
-      <Card title="Traçabilité">
-        <p className="text-sm text-neutral-600">
-          Versions des données de référence utilisées pour ce résultat&nbsp;:
-        </p>
-        <ul className="flex flex-wrap gap-2">
-          {Object.entries(stored.needs.referenceVersions).map(([key, version]) => (
-            <li key={key}>
-              <Badge tone="success">{key}&nbsp;: {version}</Badge>
-            </li>
-          ))}
-        </ul>
-      </Card>
+      <DataFreshness />
 
       <SaveResultButton profile={stored.profile} period={period} />
 

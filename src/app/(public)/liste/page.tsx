@@ -9,6 +9,7 @@ import { DataTable, type Column } from '@/components/ds/DataTable';
 import { SelectField } from '@/components/ds/SelectField';
 import { CoveragePanel } from '@/components/features/CoveragePanel';
 import { DietChangeNotice } from '@/components/features/DietChangeNotice';
+import { DataFreshness } from '@/components/features/DataFreshness';
 import { DisclaimerBanner } from '@/components/features/DisclaimerBanner';
 import { SaveResultButton } from '@/components/features/SaveResultButton';
 import { getNeedsServerSnapshot, getNeedsSnapshot, subscribeNeeds, type StoredNeeds } from '@/lib/needs-session';
@@ -192,6 +193,8 @@ export default function IngredientListPage() {
           <CoveragePanel coverage={plan.coverage} gaps={plan.gaps} />
 
           <SaveResultButton profile={stored.profile} diet={{ base, exclusions }} period={plan.period} />
+
+          <DataFreshness />
         </>
       ) : null}
 

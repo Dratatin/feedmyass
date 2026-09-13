@@ -206,14 +206,14 @@ des besoins strictement identiques et des listes différentes, toutes deux confo
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T067 [P] Vérification d'accessibilité (contrastes AA, libellés de champs, navigation clavier) dans `tests/e2e/a11y.spec.ts` (FR-033)
-- [ ] T068 [P] Vérification responsive de 320 px à 1920 px sur tous les parcours dans `tests/e2e/responsive.spec.ts` (FR-031, SC-008)
-- [ ] T069 [P] Indicateur de fraîcheur des données de référence dans `src/components/features/DataFreshness.tsx` (FR-036)
-- [ ] T070 [P] Test de traçabilité dans `tests/unit/reference-versions.test.ts`: tout résultat enregistré porte les versions des tables utilisées (FR-038)
-- [ ] T071 [P] Mesure de performance dans `tests/e2e/performance.spec.ts`: résultat affiché en moins de 3 s au 95e centile (SC-010)
-- [ ] T072 [P] Documenter sources, versions et licences des données de référence dans `docs/sources.md` (CIQUAL sous Licence Ouverte, publications ANSES, calendrier de saisonnalité)
-- [ ] T073 Exécuter l'intégralité des scénarios V1 à V6 de `specs/001-nutrition-ingredient-planner/quickstart.md` et consigner les résultats
-- [ ] T074 Revue de conformité aux six principes de `.specify/memory/constitution.md` et mise à jour de `specs/001-nutrition-ingredient-planner/checklists/requirements.md`
+- [X] T067 [P] Vérification d'accessibilité (contrastes AA, libellés de champs, navigation clavier) dans `tests/e2e/a11y.spec.ts` (FR-033)
+- [X] T068 [P] Vérification responsive de 320 px à 1920 px sur tous les parcours dans `tests/e2e/responsive.spec.ts` (FR-031, SC-008)
+- [X] T069 [P] Indicateur de fraîcheur des données de référence dans `src/components/features/DataFreshness.tsx` (FR-036)
+- [X] T070 [P] Test de traçabilité dans `tests/unit/reference-versions.test.ts`: tout résultat enregistré porte les versions des tables utilisées (FR-038)
+- [X] T071 [P] Mesure de performance dans `tests/e2e/performance.spec.ts`: résultat affiché en moins de 3 s au 95e centile (SC-010)
+- [X] T072 [P] Documenter sources, versions et licences des données de référence dans `docs/sources.md` (CIQUAL sous Licence Ouverte, publications ANSES, calendrier de saisonnalité)
+- [X] T073 Exécuter l'intégralité des scénarios V1 à V6 de `specs/001-nutrition-ingredient-planner/quickstart.md` et consigner les résultats
+- [X] T074 Revue de conformité aux six principes de `.specify/memory/constitution.md` et mise à jour de `specs/001-nutrition-ingredient-planner/checklists/requirements.md`
 
 ---
 

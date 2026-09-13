@@ -4,10 +4,13 @@ import { NextResponse, type NextRequest } from 'next/server';
 /**
  * Rafraîchissement de la session Supabase à chaque requête.
  *
+ * Convention Next 16: ce qui s'appelait middleware s'appelle désormais proxy,
+ * dans un fichier src/proxy.ts exportant une fonction nommée proxy.
+ *
  * L'application ne gère ni mot de passe ni session: elle se contente de faire
  * circuler les cookies que Supabase Auth pose et renouvelle (FR-022, principe V).
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
