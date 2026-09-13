@@ -10,7 +10,8 @@
       "Variante retenue: POIDS SEUL. Henry publie aussi une variante poids + taille; c'est la variante poids seul qui figure dans la table de référence du projet. FR-005 a été amendée en conséquence le 2026-09-13: la taille est collectée et validée au profil mais n'intervient pas dans le calcul énergétique.",
       "Bornes d'âge: la table indique 18-30, 30-60 et +60. Interprétées en tranches entières disjointes 18-29, 30-59 et 60-70, la borne haute de 70 ans étant celle du périmètre de l'application.",
       "Les équations donnent le MÉTABOLISME DE BASE, pas le besoin journalier: la dépense énergétique journalière vaut MB x NAP.",
-      "NAP: les intervalles proviennent de sources secondaires citant l'ANSES, pas du rapport ANSES lui-même, et la valeur représentative retenue dans chaque intervalle est un choix du projet. Sources et valeurs validées par le commanditaire le 2026-09-13."
+      "NAP: coefficients officiels transmis par le commanditaire le 2026-09-14 (docs/sources/coefficients_NAP_ANSES.csv). La valeur retenue pour chaque niveau est le milieu de son intervalle officiel; l'intervalle lui-même est conservé dans documented_range.",
+      "NAP: la table officielle compte CINQ catégories. La cinquième (2,20 et plus: travail physique très lourd, athlète à l'entraînement quotidien) n'est pas proposée, les sportifs de haut niveau étant explicitement hors périmètre de la spécification."
     ]
   },
   "bmr_equations": [
@@ -60,27 +61,31 @@
   "activity_levels": [
     {
       "code": "sedentary",
-      "label": "Sédentaire",
-      "nap": 1.35,
-      "documented_range": "< 1,4"
+      "label": "Sédentaire / inactif",
+      "nap": 1.5,
+      "documented_range": "1,40 à 1,59",
+      "description": "Posture principalement assise (bureau, conduite), moins de 30 min de marche ou rangement."
     },
     {
       "code": "low_active",
-      "label": "Peu actif",
-      "nap": 1.45,
-      "documented_range": "1,4 à 1,5"
+      "label": "Légèrement actif",
+      "nap": 1.65,
+      "documented_range": "1,60 à 1,69",
+      "description": "Posture assise dominante avec quelques déplacements à pied, environ 1 h de marche légère."
     },
     {
       "code": "active",
-      "label": "Actif",
-      "nap": 1.7,
-      "documented_range": "1,6 à 1,8"
+      "label": "Modérément actif",
+      "nap": 1.8,
+      "documented_range": "1,70 à 1,89",
+      "description": "Posture debout fréquente ou déplacements constants. Sport 2 à 3 fois par semaine."
     },
     {
       "code": "very_active",
-      "label": "Très actif",
-      "nap": 1.9,
-      "documented_range": "1,9 et plus"
+      "label": "Actif / vigoureux",
+      "nap": 2.05,
+      "documented_range": "1,90 à 2,19",
+      "description": "Travail physique régulier ou entraînements sportifs soutenus 3 à 4 fois par semaine."
     }
   ]
 }

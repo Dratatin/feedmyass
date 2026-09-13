@@ -34,9 +34,13 @@ sans test n'est pas une preuve.
       l'énergie absente de CIQUAL sur 82 aliments est **reconstituée par les coefficients d'Atwater**
       (calcul, pas invention), et le zinc suit les DRI faute de valeurs ANSES extractibles.
 
-**Réserve connue** : les coefficients NAP proviennent de sources secondaires citant l'ANSES, et
-l'intervalle des glucides (40–55 %) reste à confirmer. Les deux sont signalés dans `docs/sources.md`
-comme à consolider avant mise en production.
+**Réserve connue** : l'intervalle des glucides (40–55 %) reste à confirmer ; des sources
+secondaires citent 45–60 %. Signalé dans `docs/sources.md` comme à consolider avant mise en
+production.
+
+*Mise à jour du 2026-09-14* : la réserve sur les coefficients NAP est **levée**, la table officielle
+ayant été fournie. Les valeurs retenues sont le milieu de chaque intervalle publié, et les dix
+profils de contrôle ont été recalculés à la main en conséquence.
 
 ## III. Séparation stricte besoins / régime (NON NÉGOCIABLE)
 
@@ -103,8 +107,8 @@ Le principe est verrouillé à **quatre niveaux**, chacun vérifié :
 
 ## Résultat
 
-**Conforme**, avec la réserve documentée du principe II (coefficients NAP et intervalle des glucides
-à consolider avant mise en production).
+**Conforme**, avec une réserve documentée du principe II : l'intervalle des glucides reste à
+confirmer sur le rapport ANSES.
 
 Vérifications à la date de la revue : `tsc`, `eslint`, `next build`, **163 tests unitaires et de
 contrat**, **60 tests de bout en bout** aux deux largeurs.

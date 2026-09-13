@@ -344,10 +344,11 @@ régime).
   genre.
 - **Niveau d'activité**: échelle fermée à quatre niveaux (sédentaire, peu actif, actif, très
   actif), rattachée aux coefficients d'activité physique de la source officielle retenue.
-- **Coefficients de niveau d'activité**: les intervalles de NAP proviennent de sources secondaires
-  citant l'ANSES, et la valeur représentative retenue dans chaque intervalle est un choix du projet
-  (1,35 sédentaire; 1,45 peu actif; 1,7 actif; 1,9 très actif). Sources secondaires validées par le
-  commanditaire le 2026-09-13.
+- **Coefficients de niveau d'activité**: table officielle des coefficients NAP fournie par le
+  commanditaire le 2026-09-14. La valeur retenue pour chaque niveau est le milieu de son intervalle
+  officiel: 1,50 (sédentaire / inactif, 1,40-1,59); 1,65 (légèrement actif, 1,60-1,69); 1,80
+  (modérément actif, 1,70-1,89); 2,05 (actif / vigoureux, 1,90-2,19). La cinquième catégorie
+  officielle (2,20 et plus) n'est pas proposée: les sportifs de haut niveau sont hors périmètre.
 - **Régimes v1**: régime de base (omnivore, pescétarien, végétarien, végane) combiné à des
   exclusions cumulables (sans gluten, sans lactose, sans fruits à coque). Les allergies et
   intolérances non listées ne sont pas modélisées dans cette version.

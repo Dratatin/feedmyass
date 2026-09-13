@@ -18,10 +18,23 @@ Table conservée dans [`table_henry_2005.xlsx`](./sources/table_henry_2005.xlsx)
 
 - **Variante utilisée : poids seul.** Henry publie aussi une variante poids + taille. La taille
   n'entre donc pas dans le calcul énergétique — FR-005 a été amendée en conséquence.
-- **Coefficients de niveau d'activité (NAP)** : 1,35 sédentaire, 1,45 peu actif, 1,7 actif,
-  1,9 très actif. Les intervalles proviennent de sources secondaires citant l'ANSES, et la valeur
-  retenue dans chaque intervalle est un choix du projet, validé par le commanditaire le 2026-09-13.
-  **À consolider sur le rapport ANSES lui-même avant mise en production.**
+- **Coefficients de niveau d'activité (NAP)** : table officielle transmise le 2026-09-14,
+  conservée dans [`coefficients_NAP_ANSES.csv`](./sources/coefficients_NAP_ANSES.csv). La valeur
+  retenue pour chaque niveau est **le milieu de son intervalle officiel** ; l'intervalle est conservé
+  dans le fichier de référence.
+
+  | Niveau | Intervalle officiel | Retenu |
+  |---|---|---|
+  | Sédentaire / inactif | 1,40 – 1,59 | 1,50 |
+  | Légèrement actif | 1,60 – 1,69 | 1,65 |
+  | Modérément actif | 1,70 – 1,89 | 1,80 |
+  | Actif / vigoureux | 1,90 – 2,19 | 2,05 |
+
+  La table compte une **cinquième** catégorie (2,20 et plus : travail physique très lourd, athlète à
+  l'entraînement quotidien) qui n'est pas proposée, les sportifs de haut niveau étant hors périmètre
+  de la spécification. Les descriptions officielles de chaque catégorie sont reprises telles quelles
+  dans le formulaire : le choix du niveau pèse directement sur le besoin calculé, l'utilisateur doit
+  pouvoir se situer sans ambiguïté.
 
 ## Apports de référence en nutriments
 

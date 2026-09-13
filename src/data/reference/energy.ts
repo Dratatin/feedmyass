@@ -27,6 +27,8 @@ export const energyReference: EnergyReference = {
       code: a.code as ActivityLevel,
       label: a.label,
       nap: a.nap,
+      documentedRange: a.documented_range,
+      description: a.description,
     }),
   ),
   source: raw._meta.source,

@@ -24,6 +24,10 @@ export type ActivityLevelReference = {
   code: ActivityLevel;
   label: string;
   nap: number;
+  /** Intervalle officiel dont `nap` est le milieu, conservé pour affichage et traçabilité. */
+  documentedRange: string;
+  /** Description officielle du profil quotidien, affichée pour guider le choix. */
+  description: string;
 };
 
 export type EnergyReference = {

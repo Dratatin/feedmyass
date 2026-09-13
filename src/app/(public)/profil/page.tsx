@@ -18,11 +18,21 @@ import { storeNeeds } from '@/lib/needs-session';
 
 type FieldErrors = Record<string, string>;
 
+/**
+ * Catégories et descriptions reprises de la table officielle des coefficients
+ * NAP (docs/sources/coefficients_NAP_ANSES.csv). Les descriptions comptent
+ * autant que les libellés: c'est ce qui permet à l'utilisateur de se situer
+ * correctement, et le choix du niveau pèse directement sur le besoin calculé.
+ *
+ * La cinquième catégorie officielle (NAP 2,20 et plus: travail physique très
+ * lourd, athlète à l'entraînement quotidien) n'est pas proposée, les sportifs de
+ * haut niveau étant hors périmètre de la spécification.
+ */
 const ACTIVITY_LEVELS = [
-  { value: 'sedentary', label: 'Sédentaire — peu ou pas d\'exercice' },
-  { value: 'low_active', label: 'Peu actif — marche quotidienne, exercice léger' },
-  { value: 'active', label: 'Actif — exercice régulier ou travail physique' },
-  { value: 'very_active', label: 'Très actif — exercice intense ou métier très physique' },
+  { value: 'sedentary', label: 'Sédentaire / inactif — posture surtout assise, moins de 30 min de marche par jour' },
+  { value: 'low_active', label: 'Légèrement actif — assis la plupart du temps, environ 1 h de marche légère' },
+  { value: 'active', label: 'Modérément actif — souvent debout ou en déplacement, sport 2 à 3 fois par semaine' },
+  { value: 'very_active', label: 'Actif / vigoureux — travail physique régulier ou sport soutenu 3 à 4 fois par semaine' },
 ];
 
 export default function ProfilePage() {

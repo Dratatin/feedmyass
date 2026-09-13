@@ -66,9 +66,11 @@ n'entre donc pas dans le calcul énergétique. Le commanditaire a arbitré en fa
 de FR-005 plutôt que de la recherche de la variante poids + taille: la spécification dit désormais
 explicitement que la taille est collectée et validée au profil sans intervenir dans le calcul.
 
-**Coefficients de NAP, validés le 2026-09-13**: les intervalles proviennent de sources secondaires
-citant l'ANSES et non du rapport ANSES lui-même; le commanditaire a validé ces sources. Les valeurs
-retenues sont 1,35 (sédentaire), 1,45 (peu actif), 1,7 (actif) et 1,9 (très actif).
+**Coefficients de NAP, source officielle obtenue le 2026-09-14**: la table officielle a remplacé
+les sources secondaires. Les valeurs retenues sont le milieu de chaque intervalle publié: 1,50;
+1,65; 1,80; 2,05. Elles sont sensiblement plus élevées que les valeurs provisoires, ce qui relève
+les besoins énergétiques d'environ 10 %. Les dix profils de contrôle ont été recalculés à la main
+et ont bien fait échouer les tests avant correction — c'était l'objet même de les écrire en dur.
 
 
 ## R4 - Composition nutritionnelle des aliments
