@@ -8,6 +8,7 @@ import { Card } from '@/components/ds/Card';
 import { DataTable, type Column } from '@/components/ds/DataTable';
 import { SelectField } from '@/components/ds/SelectField';
 import { CoveragePanel } from '@/components/features/CoveragePanel';
+import { DietChangeNotice } from '@/components/features/DietChangeNotice';
 import { DisclaimerBanner } from '@/components/features/DisclaimerBanner';
 import { SaveResultButton } from '@/components/features/SaveResultButton';
 import { getNeedsServerSnapshot, getNeedsSnapshot, subscribeNeeds, type StoredNeeds } from '@/lib/needs-session';
@@ -50,6 +51,8 @@ export default function IngredientListPage() {
   const [exclusions, setExclusions] = useState<Exclusion[]>([]);
   const [period, setPeriod] = useState<Period>('day');
   const [plan, setPlan] = useState<IngredientPlan | null>(null);
+  // Régime de la liste précédente, pour signaler un changement (US4).
+  const [previousBase, setPreviousBase] = useState<DietBase | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -80,6 +83,7 @@ export default function IngredientListPage() {
         setError(body.error?.message ?? 'La liste n\'a pas pu être générée.');
         return;
       }
+      setPreviousBase(plan ? plan.diet.base : null);
       setPlan(body as IngredientPlan);
     } catch {
       setError("La liste n'a pas pu être générée. Vérifiez votre connexion et réessayez.");
@@ -164,13 +168,22 @@ export default function IngredientListPage() {
         {error ? <p role="alert" className="text-sm text-red-500">{error}</p> : null}
       </Card>
 
+      {plan && previousBase && previousBase !== plan.diet.base ? (
+        <DietChangeNotice
+          previousDiet={DIET_BASES.find((d) => d.value === previousBase)?.label ?? previousBase}
+          currentDiet={DIET_BASES.find((d) => d.value === plan.diet.base)?.label ?? plan.diet.base}
+        />
+      ) : null}
+
       {plan ? (
         <>
           <Card
             title={'Liste ' + (plan.period === 'day' ? 'pour la journée' : 'pour la semaine')}
             description={
-              plan.items.length + ' ingrédients. Les fruits et légumes proposés sont de saison à la ' +
-              'date de génération.'
+              'Régime : ' + (DIET_BASES.find((d) => d.value === plan.diet.base)?.label ?? plan.diet.base) +
+              (plan.diet.exclusions.length ? ' (' + plan.diet.exclusions.join(', ') + ')' : '') +
+              ' — ' + plan.items.length + ' ingrédients. Les fruits et légumes proposés sont de saison ' +
+              'à la date de génération.'
             }
           >
             <DataTable columns={columns} rows={plan.items} rowKey={(row) => row.foodCode} />

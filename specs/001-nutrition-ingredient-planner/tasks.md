@@ -196,9 +196,9 @@ aux besoins.
 **Independent Test**: scénario V2 de quickstart.md — deux profils identiques sauf le régime donnent
 des besoins strictement identiques et des listes différentes, toutes deux conformes à leur régime.
 
-- [ ] T064 [P] [US4] Test e2e du parcours V2 dans `tests/e2e/us4-regime.spec.ts`: besoins identiques, listes différentes et conformes
-- [ ] T065 [US4] Action de changement de régime et régénération de la liste dans `src/app/(account)/profil/page.tsx` (FR-004, FR-013)
-- [ ] T066 [US4] Message explicite indiquant que les besoins sont inchangés et que seule la liste est recomposée, dans `src/components/features/DietChangeNotice.tsx`
+- [X] T064 [P] [US4] Test e2e du parcours V2 dans `tests/e2e/us4-regime.spec.ts`: besoins identiques, listes différentes et conformes
+- [X] T065 [US4] Action de changement de régime et régénération de la liste dans `src/app/(account)/profil/page.tsx` (FR-004, FR-013)
+- [X] T066 [US4] Message explicite indiquant que les besoins sont inchangés et que seule la liste est recomposée, dans `src/components/features/DietChangeNotice.tsx`
 
 **Checkpoint**: les quatre stories sont fonctionnelles et testables indépendamment
 
