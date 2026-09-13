@@ -61,14 +61,15 @@ pertinents pour un public France métropolitaine, conservés comme référence d
 (conservée dans `docs/sources/table_henry_2005.xlsx`), et les valeurs RNP/AS dans
 `reference-intakes.json`.
 
-**Précision importante sur la variante retenue**: la table est celle des équations d'Oxford en
-version POIDS SEUL. La taille n'entre donc pas dans le calcul énergétique, alors que la
-spécification la cite parmi les entrées du calcul (FR-005). Elle reste collectée et validée au
-profil, mais n'influence aucune valeur de besoin aujourd'hui. Deux issues: basculer sur la variante
-poids + taille de Henry, ou amender FR-005. À trancher avant l'implémentation de T028.
+**Variante retenue, tranchée le 2026-09-13**: équations de Henry en version POIDS SEUL. La taille
+n'entre donc pas dans le calcul énergétique. Le commanditaire a arbitré en faveur de l'amendement
+de FR-005 plutôt que de la recherche de la variante poids + taille: la spécification dit désormais
+explicitement que la taille est collectée et validée au profil sans intervenir dans le calcul.
 
-**Reste à confirmer**: les valeurs de NAP par niveau d'activité proviennent de sources secondaires
-citant l'ANSES; la valeur représentative retenue dans chaque intervalle est un choix du projet.
+**Coefficients de NAP, validés le 2026-09-13**: les intervalles proviennent de sources secondaires
+citant l'ANSES et non du rapport ANSES lui-même; le commanditaire a validé ces sources. Les valeurs
+retenues sont 1,35 (sédentaire), 1,45 (peu actif), 1,7 (actif) et 1,9 (très actif).
+
 
 ## R4 - Composition nutritionnelle des aliments
 

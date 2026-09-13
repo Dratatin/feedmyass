@@ -1,4 +1,5 @@
 import { createBrowserClient, createServerClient } from '@supabase/ssr';
+import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 
 /**
@@ -53,4 +54,15 @@ export async function createSupabaseServerClient() {
       },
     },
   });
+}
+
+/**
+ * Client de lecture des données de référence.
+ *
+ * Les tables de référence sont en lecture publique (politiques RLS `using (true)`),
+ * donc aucun contexte utilisateur n'est nécessaire. Ce client n'utilise pas les
+ * cookies, ce qui le rend utilisable hors requête HTTP: scripts, tests, tâches.
+ */
+export function createSupabaseReferenceClient() {
+  return createClient(supabaseUrl(), supabaseAnonKey(), { auth: { persistSession: false } });
 }

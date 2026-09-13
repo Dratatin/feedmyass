@@ -177,6 +177,11 @@ régime).
 
 - **FR-005**: Le système DOIT calculer, à partir du profil, les besoins journaliers en énergie, en
   protéines, et pour chaque vitamine et minéral du référentiel retenu (voir Assumptions).
+  Le besoin énergétique est calculé à partir du poids, de l'âge, du sexe de référence et du niveau
+  d'activité physique. **La taille n'entre pas dans le calcul**: la référence officielle retenue
+  (équations de Henry, variante poids seul) ne la fait pas intervenir. Elle reste saisie et validée
+  au profil (FR-001), où elle sert au contrôle de plausibilité. Amendement du 2026-09-13, arbitré
+  par le commanditaire après constat que la table de référence disponible est la variante poids seul.
 - **FR-006**: Le système DOIT présenter les mêmes besoins sur une base hebdomadaire, égale à sept
   fois la valeur journalière.
 - **FR-007**: Les besoins DOIVENT être dérivés de références nutritionnelles officielles publiées
@@ -339,6 +344,10 @@ régime).
   genre.
 - **Niveau d'activité**: échelle fermée à quatre niveaux (sédentaire, peu actif, actif, très
   actif), rattachée aux coefficients d'activité physique de la source officielle retenue.
+- **Coefficients de niveau d'activité**: les intervalles de NAP proviennent de sources secondaires
+  citant l'ANSES, et la valeur représentative retenue dans chaque intervalle est un choix du projet
+  (1,35 sédentaire; 1,45 peu actif; 1,7 actif; 1,9 très actif). Sources secondaires validées par le
+  commanditaire le 2026-09-13.
 - **Régimes v1**: régime de base (omnivore, pescétarien, végétarien, végane) combiné à des
   exclusions cumulables (sans gluten, sans lactose, sans fruits à coque). Les allergies et
   intolérances non listées ne sont pas modélisées dans cette version.

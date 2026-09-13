@@ -7,24 +7,80 @@
     "notes": [
       "Table transmise par le commanditaire le 2026-09-13 (table_henry_2005.xlsx, feuilles Hommes et Femmes).",
       "Recoupement indépendant: la ligne hommes 18-30 ans (0,0669 x W + 2,28 MJ/j) correspond à la valeur publiée citée par les sources secondaires, ce qui confirme qu'il s'agit bien des équations d'Oxford.",
-      "Variante retenue: POIDS SEUL. Henry publie aussi une variante poids + taille; c'est la variante poids seul qui figure dans la table de référence du projet. La taille reste collectée au profil mais n'entre pas dans le calcul énergétique.",
+      "Variante retenue: POIDS SEUL. Henry publie aussi une variante poids + taille; c'est la variante poids seul qui figure dans la table de référence du projet. FR-005 a été amendée en conséquence le 2026-09-13: la taille est collectée et validée au profil mais n'intervient pas dans le calcul énergétique.",
       "Bornes d'âge: la table indique 18-30, 30-60 et +60. Interprétées en tranches entières disjointes 18-29, 30-59 et 60-70, la borne haute de 70 ans étant celle du périmètre de l'application.",
       "Les équations donnent le MÉTABOLISME DE BASE, pas le besoin journalier: la dépense énergétique journalière vaut MB x NAP.",
-      "NAP — À CONFIRMER: les intervalles proviennent de sources secondaires citant l'ANSES, pas du rapport ANSES lui-même. La valeur représentative retenue dans chaque intervalle est un choix documenté du projet, à valider avant mise en production."
+      "NAP: les intervalles proviennent de sources secondaires citant l'ANSES, pas du rapport ANSES lui-même, et la valeur représentative retenue dans chaque intervalle est un choix du projet. Sources et valeurs validées par le commanditaire le 2026-09-13."
     ]
   },
   "bmr_equations": [
-    { "reference_sex": "male", "age_min": 18, "age_max": 29, "kcal_per_kg": 16.0, "kcal_constant": 545 },
-    { "reference_sex": "male", "age_min": 30, "age_max": 59, "kcal_per_kg": 14.2, "kcal_constant": 593 },
-    { "reference_sex": "male", "age_min": 60, "age_max": 70, "kcal_per_kg": 13.5, "kcal_constant": 514 },
-    { "reference_sex": "female", "age_min": 18, "age_max": 29, "kcal_per_kg": 13.1, "kcal_constant": 558 },
-    { "reference_sex": "female", "age_min": 30, "age_max": 59, "kcal_per_kg": 11.5, "kcal_constant": 636 },
-    { "reference_sex": "female", "age_min": 60, "age_max": 70, "kcal_per_kg": 11.0, "kcal_constant": 561 }
+    {
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 29,
+      "kcal_per_kg": 16,
+      "kcal_constant": 545
+    },
+    {
+      "reference_sex": "male",
+      "age_min": 30,
+      "age_max": 59,
+      "kcal_per_kg": 14.2,
+      "kcal_constant": 593
+    },
+    {
+      "reference_sex": "male",
+      "age_min": 60,
+      "age_max": 70,
+      "kcal_per_kg": 13.5,
+      "kcal_constant": 514
+    },
+    {
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 29,
+      "kcal_per_kg": 13.1,
+      "kcal_constant": 558
+    },
+    {
+      "reference_sex": "female",
+      "age_min": 30,
+      "age_max": 59,
+      "kcal_per_kg": 11.5,
+      "kcal_constant": 636
+    },
+    {
+      "reference_sex": "female",
+      "age_min": 60,
+      "age_max": 70,
+      "kcal_per_kg": 11,
+      "kcal_constant": 561
+    }
   ],
   "activity_levels": [
-    { "code": "sedentary",   "label": "Sédentaire",  "nap": 1.35, "documented_range": "< 1,4" },
-    { "code": "low_active",  "label": "Peu actif",   "nap": 1.45, "documented_range": "1,4 à 1,5" },
-    { "code": "active",      "label": "Actif",       "nap": 1.7,  "documented_range": "1,6 à 1,8" },
-    { "code": "very_active", "label": "Très actif",  "nap": 1.9,  "documented_range": "1,9 et plus" }
+    {
+      "code": "sedentary",
+      "label": "Sédentaire",
+      "nap": 1.35,
+      "documented_range": "< 1,4"
+    },
+    {
+      "code": "low_active",
+      "label": "Peu actif",
+      "nap": 1.45,
+      "documented_range": "1,4 à 1,5"
+    },
+    {
+      "code": "active",
+      "label": "Actif",
+      "nap": 1.7,
+      "documented_range": "1,6 à 1,8"
+    },
+    {
+      "code": "very_active",
+      "label": "Très actif",
+      "nap": 1.9,
+      "documented_range": "1,9 et plus"
+    }
   ]
 }
