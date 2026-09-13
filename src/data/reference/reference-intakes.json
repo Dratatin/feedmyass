@@ -7,9 +7,10 @@
     "notes": [
       "basis: absolute = valeur par jour; per_kg = par kg de poids corporel; per_mj = par MJ d'apport énergétique; percent_energy = intervalle en % de l'apport énergétique (value = borne basse, value_max = borne haute).",
       "L'énergie n'est pas ici: elle se calcule par les équations de Henry (src/data/reference/energy-equations.json).",
-      "ZINC ABSENT: sa référence ANSES dépend du niveau de phytates de l alimentation (RNP de 7 à 14 mg/j). Le rapport source est un PDF image dont les valeurs par palier n ont pas pu être relevées. Aucune valeur n est inventée: le zinc remonte donc en écart avec la raison no_source_available tant qu il n est pas saisi à la main.",
       "FER: 11 mg/j pour les deux sexes. L ANSES retient 16 mg/j pour les femmes à pertes menstruelles élevées, information que le profil ne capture pas.",
-      "GLUCIDES: intervalle 40-55 % retenu; des sources secondaires citent 45-60 %. À confirmer sur le rapport ANSES de décembre 2016 avant mise en production."
+      "GLUCIDES: intervalle 40-55 % retenu; des sources secondaires citent 45-60 %. À confirmer sur le rapport ANSES de décembre 2016 avant mise en production.",
+      "ZINC — écart assumé par rapport à l'ANSES, décision du commanditaire du 2026-09-13. L'ANSES fait dépendre la RNP zinc du niveau de phytates et recommande le palier 900 mg/j pour les alimentations végétales, ce qui reviendrait à faire dépendre un besoin du régime déclaré et violerait le principe III de la constitution. Les valeurs par palier étant par ailleurs non extractibles du rapport source (PDF image), la référence retenue est le RDA des DRI: valeur unique par sexe, indépendante du régime. Ces deux lignes portent donc leur propre source, différente du reste du fichier.",
+      "ZINC — la borne DRI est 19 ans et plus; la tranche 18-70 de l'application applique la valeur adulte dès 18 ans."
     ]
   },
   "reference_intakes": [
@@ -448,6 +449,30 @@
       "kind": "AS",
       "basis": "absolute",
       "value": 550
+    },
+    {
+      "nutrient_code": "zinc",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 11,
+      "source": "DRI / Institute of Medicine (2001) — Dietary Reference Intakes for Vitamin A, Vitamin K, ... and Zinc, RDA adultes 19+",
+      "version": "2001",
+      "retrieved_at": "2026-09-13"
+    },
+    {
+      "nutrient_code": "zinc",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 8,
+      "source": "DRI / Institute of Medicine (2001) — Dietary Reference Intakes for Vitamin A, Vitamin K, ... and Zinc, RDA adultes 19+",
+      "version": "2001",
+      "retrieved_at": "2026-09-13"
     }
   ]
 }
