@@ -36,6 +36,15 @@ Le serveur MCP Figma est disponible depuis le 2026-09-13. Les tokens sont extrai
 composants de base avant d'écrire les écrans (T032, T033, T047, T048, T060, T061, T062), qui
 dépendent toujours de T023.
 
+
+**Constat du 2026-09-13**: le design system ne contient ni sélecteur, ni carte, ni tableau, ni
+bandeau, ni navigation. Ses pages sont Buttons, Inputs, Badges, Tooltips, Modals, Icons, Logos et
+des assets décoratifs. Les quatre composants manquants sont donc composés à partir des tokens, avec
+la justification écrite qu'exige le principe VI.
+
+**Limite d'appels MCP Figma atteinte** sur le plan Starter du compte. Les relevés restants (couleur
+Warning du badge, tailles sm et lg, autres hiérarchies de bouton) attendent la réinitialisation du
+quota ou un plan supérieur. Sans effet sur les écrans prévus, qui n'utilisent que ce qui est relevé.
 ---
 
 ## Phase 1: Setup (Shared Infrastructure)
@@ -74,7 +83,7 @@ tâches d'interface qui attendent en plus T022 et T023
 - [X] T020 Implémenter le format d'erreur commun et les codes `validation_error` 400, `profile_out_of_scope` 422, `unauthorized` 401, `not_found` 404 et `reference_data_unavailable` 503 dans `src/lib/errors.ts` conformément à contracts/api.md
 - [X] T021 [P] Implémenter les accès en lecture aux données de référence dans `src/data/repositories/reference.ts`, en exposant les versions utilisées pour alimenter `reference_versions` (FR-038)
 - [X] T022 Extraire les tokens du design system Figma (33 noeuds de l'Annexe A) vers `src/styles/tokens.css` et la configuration Tailwind (R7) — tokens extraits des noeuds de fondations 1525:271581 et 1023:36826
-- [ ] T023 Générer les composants de base du design system dans `src/components/ds/` à partir des noeuds Figma — dépend de T022. **En cours**: `Button.tsx` fait (4 tailles, hiérarchies Primary et Secondary gray, états hover et disabled, relevés sur les noeuds 1040:3, 1038:34410, 1040:9, 1040:15, 1041:34506, 1041:34790, 1041:35818). Restent: champ de saisie, sélecteur, carte, tableau, bandeau, navigation, et les cinq hiérarchies de bouton non relevées
+- [X] T023 Générer les composants de base du design system dans `src/components/ds/` à partir des noeuds Figma. **Relevés dans Figma**: `Button.tsx` (1038:34411), `InputField.tsx` (1090:57817, avec son état destructif), `Badge.tsx` (1046:3819, couleurs Success et Error). **Composés à partir des tokens faute d'équivalent dans le design system, justification écrite dans chaque fichier (principe VI)**: `SelectField.tsx`, `Card.tsx`, `Banner.tsx`, `DataTable.tsx`. La navigation est laissée de côté: l'application n'a pas encore de parcours à naviguer.
 
 **Checkpoint**: socle prêt; les stories peuvent démarrer, les écrans après T023
 
