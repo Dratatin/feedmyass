@@ -47,6 +47,8 @@ export type NeedValue = {
   nutrient: NutrientCode;
   label: string;
   value: number;
+  /** Borne haute, pour les références exprimées en intervalle (lipides, glucides). */
+  valueMax?: number;
   unit: string;
   kind: IntakeKind;
   reference: { source: string; version: string };
@@ -55,6 +57,8 @@ export type NeedValue = {
 export type Needs = {
   daily: NeedValue[];
   weekly: NeedValue[];
+  /** Nutriments du référentiel sans apport de référence applicable. */
+  missingReferences: string[];
   referenceVersions: Record<string, string>;
 };
 
