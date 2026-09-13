@@ -72,6 +72,7 @@ export default function ProfilePage() {
         disclaimer: body.disclaimer,
         profileSummary:
           payload.weight_kg + ' kg, ' + payload.height_cm + ' cm, ' + payload.age + ' ans',
+        profile: payload,
       });
       router.push('/besoins');
     } catch {

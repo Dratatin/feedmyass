@@ -124,9 +124,14 @@ export default function NeedsPage() {
         </ul>
       </Card>
 
-      <Link href="/profil">
-        <Button hierarchy="secondary-gray">Modifier mon profil</Button>
-      </Link>
+      <div className="flex flex-wrap gap-3">
+        <Link href="/liste">
+          <Button size="lg">Obtenir ma liste d&apos;ingrédients</Button>
+        </Link>
+        <Link href="/profil">
+          <Button size="lg" hierarchy="secondary-gray">Modifier mon profil</Button>
+        </Link>
+      </div>
     </main>
   );
 }

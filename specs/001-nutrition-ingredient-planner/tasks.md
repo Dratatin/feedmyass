@@ -147,9 +147,9 @@ de couverture et le signalement des écarts.
 - [X] T044 [US2] Calcul des taux de couverture et arrondi aux unités d'achat via `unit_label` et `unit_grams` dans `src/domain/plan/coverage.ts` (FR-015, FR-016)
 - [X] T045 [US2] Assemblage de l'`IngredientPlan` dans `src/domain/plan/index.ts`: `schema_version` 1.0.0, `coverage`, `gaps`, `reference_versions`, marquage `is_fortified` (FR-037)
 - [X] T046 [US2] Route handler `POST /api/plan` dans `src/app/api/plan/route.ts` conformément à contracts/api.md
-- [ ] T047 [P] [US2] Écran de la liste d'ingrédients dans `src/app/(public)/liste/page.tsx`: quantité et unité par ligne, bascule jour/semaine, identification visible des aliments enrichis (dépend de T023)
-- [ ] T048 [P] [US2] Panneau de couverture et d'écarts dans `src/components/features/CoveragePanel.tsx`: pourcentage par nutriment et nutriments sous leur seuil nommés (FR-015, FR-017)
-- [ ] T049 [US2] Tests e2e des parcours V3 et V4 dans `tests/e2e/us2-liste.spec.ts`
+- [X] T047 [P] [US2] Écran de la liste d'ingrédients dans `src/app/(public)/liste/page.tsx`: quantité et unité par ligne, bascule jour/semaine, identification visible des aliments enrichis (dépend de T023)
+- [X] T048 [P] [US2] Panneau de couverture et d'écarts dans `src/components/features/CoveragePanel.tsx`: pourcentage par nutriment et nutriments sous leur seuil nommés (FR-015, FR-017)
+- [X] T049 [US2] Tests e2e des parcours V3 et V4 dans `tests/e2e/us2-liste.spec.ts`
 
 **Checkpoint**: US1 et US2 fonctionnent indépendamment — le produit délivre sa valeur complète sans compte
 

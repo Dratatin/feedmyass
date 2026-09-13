@@ -15,10 +15,20 @@ import type { Needs } from '@/domain/types';
 
 const KEY = 'feedmyass.needs';
 
+export type StoredProfile = {
+  weight_kg: number;
+  height_cm: number;
+  age: number;
+  reference_sex: string;
+  activity_level: string;
+};
+
 export type StoredNeeds = {
   needs: Needs;
   disclaimer: string;
   profileSummary: string;
+  /** Conservé pour la génération de la liste d'ingrédients, qui en a besoin. */
+  profile: StoredProfile;
 };
 
 // getSnapshot doit renvoyer une référence stable tant que la donnée n'a pas
