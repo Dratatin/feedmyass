@@ -155,6 +155,21 @@ const CATEGORY_RULES = {
   autre: { min: 0, max: 150, unitLabel: 'portion de 100 g', unitGrams: 100 },
 };
 
+/**
+ * Aliments qui se consomment en petite quantité: algues, levures, sons, germes
+ * et graines. Sans plafond spécifique, le solveur les choisit massivement parce
+ * qu'ils sont très denses en micronutriments, et produit des listes absurdes
+ * (150 g d'algue séchée par jour). Le plafond les ramène à un usage de
+ * condiment, ce qui est leur usage réel.
+ */
+const CONDIMENT_WORDS = ['algue', 'ascophylle', 'dulse', 'wakamé', 'wakame', 'kombu', 'nori',
+  'laitue de mer', 'levure', 'son ', "son d'", 'son de', 'germe de', 'graine', 'lin,', 'chia',
+  'sésame', 'sesame', 'luzerne', 'spiruline'];
+const CONDIMENT_MAX_G = 15;
+
+/** Formes non achetables telles quelles en magasin. */
+const NOT_PURCHASABLE = ['en poudre', 'poudre,', 'lyophilis', 'reconstitu'];
+
 const norm = (s) => s.toLowerCase();
 
 function hasGluten(nom) {
@@ -165,7 +180,12 @@ function hasGluten(nom) {
 
 function isRejected(nom) {
   const n = norm(nom);
-  return REJECT_WORDS.some((w) => n.includes(w));
+  return REJECT_WORDS.some((w) => n.includes(w)) || NOT_PURCHASABLE.some((w) => n.includes(w));
+}
+
+function isCondiment(nom) {
+  const n = norm(nom);
+  return CONDIMENT_WORDS.some((w) => n.includes(w));
 }
 
 function isTrueNut(nom) {
@@ -305,9 +325,9 @@ for (const [ssgrp, rule] of Object.entries(SUBGROUPS)) {
       excluded_by: excluded,
       composition: f.composition,
       min_qty_g: cat.min,
-      max_qty_g: cat.max,
-      unit_label: cat.unitLabel,
-      unit_grams: cat.unitGrams,
+      max_qty_g: isCondiment(f.nom) ? Math.min(cat.max, CONDIMENT_MAX_G) : cat.max,
+      unit_label: isCondiment(f.nom) ? 'cuillère à soupe de 10 g' : cat.unitLabel,
+      unit_grams: isCondiment(f.nom) ? 10 : cat.unitGrams,
     });
   }
 }
@@ -370,6 +390,7 @@ const out = {
       "vitamin_a est recomposée en équivalents rétinol: rétinol + bêta-carotène / 6.",
       "vitamin_k ne retient que la K1, forme sur laquelle porte la référence ANSES.",
       "Le gluten est détecté sur le libellé (blé, seigle, orge, épeautre, semoule, pain, pâtes, seitan...), ce qui est une heuristique et non une donnée: à revoir aliment par aliment avant mise en production.",
+      "Les aliments qui se consomment en condiment (algues, levures, sons, germes, graines) sont plafonnés à ${CONDIMENT_MAX_G} g par jour: sans ce plafond le solveur les retient massivement pour leur densité en micronutriments et produit des listes irréalistes.",
       "Sélection: par sous-groupe, les aliments les mieux documentés (nombre de nutriments renseignés), avec une préférence pour les formes crues. Les aliments sans énergie ni protéines sont écartés car inexploitables par le solveur.",
       "Énergie reconstituée par les coefficients d'Atwater (4/9/4, et 2 pour les fibres) quand CIQUAL ne la renseigne pas: " + selected.filter((f) => derivedEnergy.has(f.code.replace('ciqual-', ''))).length +
         " aliments concernés sur " + selected.length + ".",

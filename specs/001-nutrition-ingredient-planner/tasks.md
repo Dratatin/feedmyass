@@ -133,20 +133,20 @@ de couverture et le signalement des écarts.
 
 ### Tests for User Story 2
 
-- [ ] T036 [P] [US2] Test de compatibilité régime dans `tests/unit/diet-compatibility.test.ts`: pour chaque régime de base et chaque exclusion, aucun aliment exclu ne peut être candidat (SC-002)
-- [ ] T037 [P] [US2] Test de saisonnalité sur les douze mois dans `tests/unit/seasonality.test.ts`: aucun fruit ni légume hors saison proposé, quel que soit le mois (SC-003)
-- [ ] T038 [P] [US2] Tests du solveur dans `tests/unit/plan-solver.test.ts`: seuils de 100 % et 80 % respectés, bornes `min_qty_g` et `max_qty_g` respectées, cas infaisable produisant des `gaps` avec leur `reason`
-- [ ] T039 [P] [US2] Test de contrat de `POST /api/plan` dans `tests/contract/plan.test.ts`, avec validation de la réponse contre `contracts/ingredient-plan.schema.json`
+- [X] T036 [P] [US2] Test de compatibilité régime dans `tests/unit/diet-compatibility.test.ts`: pour chaque régime de base et chaque exclusion, aucun aliment exclu ne peut être candidat (SC-002)
+- [X] T037 [P] [US2] Test de saisonnalité sur les douze mois dans `tests/unit/seasonality.test.ts`: aucun fruit ni légume hors saison proposé, quel que soit le mois (SC-003)
+- [X] T038 [P] [US2] Tests du solveur dans `tests/unit/plan-solver.test.ts`: seuils de 100 % et 80 % respectés, bornes `min_qty_g` et `max_qty_g` respectées, cas infaisable produisant des `gaps` avec leur `reason`
+- [X] T039 [P] [US2] Test de contrat de `POST /api/plan` dans `tests/contract/plan.test.ts`, avec validation de la réponse contre `contracts/ingredient-plan.schema.json`
 
 ### Implementation for User Story 2
 
-- [ ] T040 [P] [US2] Filtrage par régime dans `src/domain/diet/filter.ts`: un aliment est candidat si `diet_base` figure dans `diet_tags` et si aucune exclusion du profil n'apparaît dans `excluded_by` (FR-013)
-- [ ] T041 [P] [US2] Filtrage par saison dans `src/domain/seasonality/filter.ts`: un aliment `is_fruit_vegetable` n'est candidat que s'il existe une ligne `seasonality` pour le mois de `generated_at` (FR-014)
-- [ ] T042 [US2] Modèle de programmation linéaire et solveur dans `src/domain/plan/solver.ts`: variables de quantité, contraintes de couverture de FR-016, bornes par aliment, objectif combinant masse minimale et variété (R6, dépend de T040, T041)
-- [ ] T043 [US2] Relaxation des contraintes infaisables et production des écarts dans `src/domain/plan/relax.ts`, avec `reason` dans `diet_restriction|seasonality_restriction|no_source_available` (FR-017, FR-018)
-- [ ] T044 [US2] Calcul des taux de couverture et arrondi aux unités d'achat via `unit_label` et `unit_grams` dans `src/domain/plan/coverage.ts` (FR-015, FR-016)
-- [ ] T045 [US2] Assemblage de l'`IngredientPlan` dans `src/domain/plan/index.ts`: `schema_version` 1.0.0, `coverage`, `gaps`, `reference_versions`, marquage `is_fortified` (FR-037)
-- [ ] T046 [US2] Route handler `POST /api/plan` dans `src/app/api/plan/route.ts` conformément à contracts/api.md
+- [X] T040 [P] [US2] Filtrage par régime dans `src/domain/diet/filter.ts`: un aliment est candidat si `diet_base` figure dans `diet_tags` et si aucune exclusion du profil n'apparaît dans `excluded_by` (FR-013)
+- [X] T041 [P] [US2] Filtrage par saison dans `src/domain/seasonality/filter.ts`: un aliment `is_fruit_vegetable` n'est candidat que s'il existe une ligne `seasonality` pour le mois de `generated_at` (FR-014)
+- [X] T042 [US2] Modèle de programmation linéaire et solveur dans `src/domain/plan/solver.ts`: variables de quantité, contraintes de couverture de FR-016, bornes par aliment, objectif combinant masse minimale et variété (R6, dépend de T040, T041)
+- [X] T043 [US2] Relaxation des contraintes infaisables et production des écarts dans `src/domain/plan/relax.ts`, avec `reason` dans `diet_restriction|seasonality_restriction|no_source_available` (FR-017, FR-018)
+- [X] T044 [US2] Calcul des taux de couverture et arrondi aux unités d'achat via `unit_label` et `unit_grams` dans `src/domain/plan/coverage.ts` (FR-015, FR-016)
+- [X] T045 [US2] Assemblage de l'`IngredientPlan` dans `src/domain/plan/index.ts`: `schema_version` 1.0.0, `coverage`, `gaps`, `reference_versions`, marquage `is_fortified` (FR-037)
+- [X] T046 [US2] Route handler `POST /api/plan` dans `src/app/api/plan/route.ts` conformément à contracts/api.md
 - [ ] T047 [P] [US2] Écran de la liste d'ingrédients dans `src/app/(public)/liste/page.tsx`: quantité et unité par ligne, bascule jour/semaine, identification visible des aliments enrichis (dépend de T023)
 - [ ] T048 [P] [US2] Panneau de couverture et d'écarts dans `src/components/features/CoveragePanel.tsx`: pourcentage par nutriment et nutriments sous leur seuil nommés (FR-015, FR-017)
 - [ ] T049 [US2] Tests e2e des parcours V3 et V4 dans `tests/e2e/us2-liste.spec.ts`

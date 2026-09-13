@@ -37,9 +37,9 @@ export const dietSchema = z
 
 export const planRequestSchema = z
   .object({
-    needs_token: z.string().min(1),
-    period: periodSchema,
+    profile: profileSchema,
     diet: dietSchema,
+    period: periodSchema,
     generated_at: z.iso.datetime().optional(),
   })
   .strict();

@@ -11,6 +11,7 @@
       "vitamin_a est recomposée en équivalents rétinol: rétinol + bêta-carotène / 6.",
       "vitamin_k ne retient que la K1, forme sur laquelle porte la référence ANSES.",
       "Le gluten est détecté sur le libellé (blé, seigle, orge, épeautre, semoule, pain, pâtes, seitan...), ce qui est une heuristique et non une donnée: à revoir aliment par aliment avant mise en production.",
+      "Les aliments qui se consomment en condiment (algues, levures, sons, germes, graines) sont plafonnés à ${CONDIMENT_MAX_G} g par jour: sans ce plafond le solveur les retient massivement pour leur densité en micronutriments et produit des listes irréalistes.",
       "Sélection: par sous-groupe, les aliments les mieux documentés (nombre de nutriments renseignés), avec une préférence pour les formes crues. Les aliments sans énergie ni protéines sont écartés car inexploitables par le solveur.",
       "Énergie reconstituée par les coefficients d'Atwater (4/9/4, et 2 pour les fibres) quand CIQUAL ne la renseigne pas: 84 aliments concernés sur 281."
     ]
@@ -56,9 +57,9 @@
         "vitamin_a": 0
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20998",
@@ -102,9 +103,9 @@
         "vitamin_a": 621.67
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-25224",
@@ -188,9 +189,9 @@
         "energy": 442
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-15013",
@@ -294,9 +295,9 @@
         "vitamin_a": 1.5
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20988",
@@ -340,9 +341,9 @@
         "vitamin_a": 2616.67
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-9660",
@@ -388,9 +389,9 @@
         "vitamin_a": 3.73
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-11009",
@@ -434,9 +435,9 @@
         "vitamin_a": 21.83
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-11010",
@@ -480,9 +481,9 @@
         "vitamin_a": 0
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-15052",
@@ -524,9 +525,9 @@
         "vitamin_a": 0.83
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-15034",
@@ -570,9 +571,9 @@
         "vitamin_a": 0
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-15032",
@@ -603,9 +604,9 @@
         "energy": 405.2
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-15029",
@@ -647,9 +648,9 @@
         "vitamin_a": 14.5
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20591",
@@ -786,9 +787,9 @@
         "vitamin_a": 0.83
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-15035",
@@ -832,9 +833,9 @@
         "vitamin_a": 6.67
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20901",
@@ -878,9 +879,9 @@
         "vitamin_a": 2.17
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-9640",
@@ -925,9 +926,9 @@
         "vitamin_a": 0
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-9621",
@@ -973,9 +974,9 @@
         "vitamin_a": 1
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-9643",
@@ -1018,9 +1019,9 @@
         "vitamin_a": 0
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-15203",
@@ -1062,9 +1063,9 @@
         "vitamin_a": 6.67
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20912",
@@ -1199,9 +1200,9 @@
         "vitamin_a": 5
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20984",
@@ -1245,9 +1246,9 @@
         "vitamin_a": 17333.33
       },
       "min_qty_g": 0,
-      "max_qty_g": 150,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-9310",
@@ -3152,9 +3153,9 @@
         "vitamin_a": 6.33
       },
       "min_qty_g": 0,
-      "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-13023",
@@ -6006,9 +6007,9 @@
         "vitamin_a": 318.33
       },
       "min_qty_g": 0,
-      "max_qty_g": 400,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20097",
@@ -7835,9 +7836,9 @@
         "vitamin_a": 0
       },
       "min_qty_g": 0,
-      "max_qty_g": 200,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-20506",
@@ -8300,6 +8301,49 @@
       "unit_grams": 10
     },
     {
+      "code": "ciqual-22070",
+      "label": "Oeuf d'oie, cru",
+      "category": "oeuf",
+      "is_fruit_vegetable": false,
+      "is_fortified": false,
+      "diet_tags": [
+        "omnivore",
+        "pescetarian",
+        "vegetarian"
+      ],
+      "excluded_by": [],
+      "composition": {
+        "energy": 180,
+        "protein": 13.8,
+        "lipids": 13.3,
+        "carbohydrates": 1.4,
+        "fiber": 0,
+        "vitamin_b1": 0.15,
+        "vitamin_b2": 0.38,
+        "vitamin_b3": 0.19,
+        "vitamin_b5": 1.76,
+        "vitamin_b6": 0.24,
+        "vitamin_b9": 76,
+        "vitamin_b12": 5.1,
+        "vitamin_c": 0,
+        "vitamin_d": 1.7,
+        "vitamin_e": 1.29,
+        "vitamin_k": 0.4,
+        "calcium": 60,
+        "iron": 3.64,
+        "magnesium": 16,
+        "potassium": 210,
+        "zinc": 1.33,
+        "copper": 0.062,
+        "phosphorus": 208,
+        "vitamin_a": 187.17
+      },
+      "min_qty_g": 0,
+      "max_qty_g": 120,
+      "unit_label": "œuf de 55 g",
+      "unit_grams": 55
+    },
+    {
       "code": "ciqual-22050",
       "label": "Oeuf de caille, cru",
       "category": "oeuf",
@@ -8514,51 +8558,6 @@
         "copper": 0.068,
         "phosphorus": 172,
         "vitamin_a": 63.33
-      },
-      "min_qty_g": 0,
-      "max_qty_g": 120,
-      "unit_label": "œuf de 55 g",
-      "unit_grams": 55
-    },
-    {
-      "code": "ciqual-22013",
-      "label": "Oeuf, en poudre",
-      "category": "oeuf",
-      "is_fruit_vegetable": false,
-      "is_fortified": false,
-      "diet_tags": [
-        "omnivore",
-        "pescetarian",
-        "vegetarian"
-      ],
-      "excluded_by": [],
-      "composition": {
-        "energy": 582,
-        "protein": 47.9,
-        "lipids": 42,
-        "carbohydrates": 3.11,
-        "fiber": 0,
-        "vitamin_b1": 0.19,
-        "vitamin_b2": 1.76,
-        "vitamin_b3": 0.32,
-        "vitamin_b5": 5.73,
-        "vitamin_b6": 0.44,
-        "vitamin_b9": 145,
-        "vitamin_b12": 3.67,
-        "vitamin_c": 0,
-        "vitamin_d": 3.1,
-        "vitamin_e": 1.11,
-        "vitamin_k": 1.2,
-        "calcium": 234,
-        "iron": 5.56,
-        "magnesium": 38,
-        "potassium": 517,
-        "zinc": 4.22,
-        "iodine": 21,
-        "selenium": 87.4,
-        "copper": 0.2,
-        "phosphorus": 730,
-        "vitamin_a": 210
       },
       "min_qty_g": 0,
       "max_qty_g": 120,
@@ -9223,9 +9222,9 @@
         "vitamin_a": 3
       },
       "min_qty_g": 0,
-      "max_qty_g": 200,
-      "unit_label": "portion de 100 g",
-      "unit_grams": 100
+      "max_qty_g": 15,
+      "unit_label": "cuillère à soupe de 10 g",
+      "unit_grams": 10
     },
     {
       "code": "ciqual-26006",

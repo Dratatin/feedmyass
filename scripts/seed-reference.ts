@@ -30,13 +30,25 @@ type ReferenceFile = {
   required: boolean;
   /** Colonnes de traçabilité que porte la table. nutrients n'en a aucune: c'est un référentiel de libellés, pas de valeurs. */
   traceColumns: Array<'source' | 'version' | 'retrieved_at'>;
+  /**
+   * 'upsert-prune': met à jour et SUPPRIME les lignes absentes du fichier, par
+   * clé technique. 'replace': vide la table puis réinsère, pour les tables à
+   * clé composée dont le contenu est entièrement dérivé.
+   *
+   * Sans élagage, un aliment retiré du fichier de référence resterait en base
+   * indéfiniment: le fichier et la base divergeraient en silence, ce qui ruine
+   * la traçabilité (principe II).
+   */
+  strategy: 'upsert-prune' | 'replace';
+  /** Clé technique utilisée pour l'élagage. */
+  pruneKey?: string;
 };
 
 const files: ReferenceFile[] = [
-  { name: 'nutrients.json', table: 'nutrients', key: 'nutrients', conflictTarget: 'code', required: true, traceColumns: [] },
-  { name: 'reference-intakes.json', table: 'reference_intakes', key: 'reference_intakes', conflictTarget: 'nutrient_code,reference_sex,age_min,age_max,kind', required: true, traceColumns: ['source', 'version', 'retrieved_at'] },
-  { name: 'foods.json', table: 'foods', key: 'foods', conflictTarget: 'code', required: true, traceColumns: ['source', 'version', 'retrieved_at'] },
-  { name: 'seasonality.json', table: 'seasonality', key: 'seasonality', conflictTarget: 'food_code,month', required: true, traceColumns: ['source', 'version'] },
+  { name: 'nutrients.json', table: 'nutrients', key: 'nutrients', conflictTarget: 'code', required: true, traceColumns: [], strategy: 'upsert-prune', pruneKey: 'code' },
+  { name: 'reference-intakes.json', table: 'reference_intakes', key: 'reference_intakes', conflictTarget: 'nutrient_code,reference_sex,age_min,age_max,kind', required: true, traceColumns: ['source', 'version', 'retrieved_at'], strategy: 'replace' },
+  { name: 'foods.json', table: 'foods', key: 'foods', conflictTarget: 'code', required: true, traceColumns: ['source', 'version', 'retrieved_at'], strategy: 'upsert-prune', pruneKey: 'code' },
+  { name: 'seasonality.json', table: 'seasonality', key: 'seasonality', conflictTarget: 'food_code,month', required: true, traceColumns: ['source', 'version'], strategy: 'replace' },
 ];
 
 function requireEnv(name: string): string {
@@ -99,12 +111,42 @@ async function main() {
       return { ...row, ...trace };
     });
 
+    if (file.strategy === 'replace') {
+      // Table entièrement dérivée: on repart d'une table vide pour que son
+      // contenu corresponde exactement au fichier de référence.
+      const { error: clearError } = await client.from(file.table).delete().gte('version', '');
+      if (clearError) throw new Error(`${file.table} (purge): ${clearError.message}`);
+
+      const { error: insertError } = await client.from(file.table).insert(withTrace);
+      if (insertError) throw new Error(`${file.table}: ${insertError.message}`);
+      console.log(`→ ${file.table}: ${withTrace.length} lignes remplacées`);
+      continue;
+    }
+
     const { error } = await client
       .from(file.table)
       .upsert(withTrace, { onConflict: file.conflictTarget });
-
     if (error) throw new Error(`${file.table}: ${error.message}`);
-    console.log(`→ ${file.table}: ${withTrace.length} lignes chargées`);
+
+    const key = file.pruneKey as string;
+    const keptKeys = new Set(withTrace.map((row) => String(row[key])));
+    const { data: existing, error: readError } = await client.from(file.table).select(key);
+    if (readError) throw new Error(`${file.table} (relecture): ${readError.message}`);
+
+    const stale = (existing ?? [])
+      .map((row) => String((row as unknown as Record<string, unknown>)[key]))
+      .filter((value) => !keptKeys.has(value));
+
+    for (let i = 0; i < stale.length; i += 100) {
+      const chunk = stale.slice(i, i + 100);
+      const { error: deleteError } = await client.from(file.table).delete().in(key, chunk);
+      if (deleteError) throw new Error(`${file.table} (élagage): ${deleteError.message}`);
+    }
+
+    console.log(
+      `→ ${file.table}: ${withTrace.length} lignes chargées` +
+        (stale.length > 0 ? `, ${stale.length} lignes obsolètes supprimées` : ''),
+    );
   }
 
   console.log('Seed terminé.');

@@ -30,3 +30,32 @@ export const intakesFixture: ReferenceIntake[] = intakesJson.reference_intakes.m
   source: 'source' in i ? (i.source as string) : intakesJson._meta.source,
   version: 'version' in i ? (i.version as string) : intakesJson._meta.version,
 }));
+
+import foodsJson from '@/data/reference/foods.json';
+import seasonalityJson from '@/data/reference/seasonality.json';
+import type { DietBase, Exclusion, Food } from '@/domain/types';
+
+export const foodsFixture: Food[] = foodsJson.foods.map((f) => ({
+  code: f.code,
+  label: f.label,
+  category: f.category,
+  isFruitVegetable: f.is_fruit_vegetable,
+  isFortified: f.is_fortified,
+  dietTags: f.diet_tags as DietBase[],
+  excludedBy: f.excluded_by as Exclusion[],
+  composition: f.composition as Record<string, number>,
+  minQtyG: f.min_qty_g,
+  maxQtyG: f.max_qty_g,
+  unitLabel: f.unit_label,
+  unitGrams: f.unit_grams,
+}));
+
+/** Codes d'aliments de saison, par mois (1 à 12). */
+export const seasonalCodesByMonth: Map<number, Set<string>> = (() => {
+  const map = new Map<number, Set<string>>();
+  for (let month = 1; month <= 12; month += 1) map.set(month, new Set<string>());
+  for (const row of seasonalityJson.seasonality) {
+    map.get(row.month)?.add(row.food_code);
+  }
+  return map;
+})();

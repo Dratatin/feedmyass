@@ -53,15 +53,23 @@ Produit la liste d'ingrédients couvrant des besoins donnés. Accessible sans co
 
 ```json
 {
-  "needs_token": "...",
-  "period": "week",
+  "profile": { "weight_kg": 75, "height_cm": 178, "age": 35, "reference_sex": "male", "activity_level": "active" },
   "diet": { "base": "vegan", "exclusions": ["gluten"] },
+  "period": "week",
   "generated_at": "2026-09-13T10:00:00Z"
 }
 ```
 
-`needs_token` référence le résultat de `/api/needs` calculé côté serveur; `generated_at` fixe le
-mois retenu pour la saisonnalité (FR-014).
+Le profil et le régime sont deux champs **séparés**: le profil sert au calcul des besoins, le régime
+uniquement à la sélection des aliments. La séparation du principe III reste donc lisible dans le
+contrat, même quand les deux voyagent dans la même requête. `generated_at` fixe le mois retenu pour
+la saisonnalité (FR-014).
+
+**Amendement du 2026-09-13**: la version initiale de ce contrat prévoyait un `needs_token`
+référençant un résultat stocké côté serveur. Ce stockage arrive avec le mode invité et le
+rattachement au compte (tâche T056); d'ici là, inventer un mécanisme de jeton aurait été une
+complexité sans usage. Le profil est donc transmis en clair, et `needs_token` le remplacera quand le
+stockage existera.
 
 **Réponse 200**: un objet `IngredientPlan` conforme à
 [ingredient-plan.schema.json](./ingredient-plan.schema.json).
