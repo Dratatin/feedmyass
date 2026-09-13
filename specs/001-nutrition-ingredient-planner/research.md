@@ -57,9 +57,9 @@ par l'ANSES, donc non citables comme référence officielle; DRI américains —
 pertinents pour un public France métropolitaine, conservés comme référence de recoupement.
 
 **État au 2026-09-13**: fait. Les coefficients de Henry sont saisis dans
- depuis la table transmise par le commanditaire
-(conservée dans ), et les valeurs RNP/AS dans
-.
+`src/data/reference/energy-equations.json` depuis la table transmise par le commanditaire
+(conservée dans `docs/sources/table_henry_2005.xlsx`), et les valeurs RNP/AS dans
+`reference-intakes.json`.
 
 **Précision importante sur la variante retenue**: la table est celle des équations d'Oxford en
 version POIDS SEUL. La taille n'entre donc pas dans le calcul énergétique, alors que la
