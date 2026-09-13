@@ -76,15 +76,32 @@ stockage existera.
 
 ## POST /api/results
 
-Enregistre un résultat dans l'historique. Authentification requise (FR-024).
+Enregistre un résultat dans l'historique, et sert aussi de rattachement d'un résultat obtenu en
+mode invité (FR-024, FR-026). Authentification requise.
 
-**Requête**: `{ "needs_token": "...", "plan_token": "..." }` — **Réponse 201**: `{ "id": "uuid" }`.
+**Requête**
 
-## POST /api/results/claim
+```json
+{
+  "profile": { "weight_kg": 75, "height_cm": 178, "age": 35, "reference_sex": "male", "activity_level": "active" },
+  "period": "day",
+  "diet": { "base": "vegan", "exclusions": [] }
+}
+```
 
-Rattache un résultat généré en mode invité au compte qui vient de se connecter (FR-024, R8).
-Authentification requise. **Requête**: `{ "guest_result_id": "..." }` — **Réponse 201**:
-`{ "id": "uuid" }`. Un résultat invité expiré renvoie `404`, ce qui déclenche le message prévu.
+**Réponse 201**: `{ "id": "uuid" }`.
+
+Le client n'envoie PAS les besoins calculés: il envoie le profil, et le serveur recalcule avant
+d'enregistrer. Une falsification côté navigateur est donc sans effet, et chaque entrée d'historique
+reste reproductible depuis ses seules entrées (FR-038).
+
+**Amendement du 2026-09-13**: la version initiale prévoyait un `needs_token` puis un point d'entrée
+`POST /api/results/claim` distinct, adossés à un stockage serveur des résultats invités (décision
+R8). Ce stockage a été abandonné: il aurait fallu une table lisible sans session, donc exposée à
+l'énumération, pour des données de santé. Conserver le résultat invité dans la session du navigateur
+et faire recalculer le serveur au moment de l'enregistrement atteint le même but sans cette surface
+de risque. Le rattachement est donc devenu un simple appel à `POST /api/results`, et
+`/api/results/claim` n'existe pas.
 
 ## GET /api/results
 

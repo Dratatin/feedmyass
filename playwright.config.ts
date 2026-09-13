@@ -1,4 +1,9 @@
+import fs from 'node:fs';
 import { defineConfig, devices } from '@playwright/test';
+
+// Les parcours de l'espace personnel créent leurs comptes de test via l'API
+// d'administration Supabase: ils ont besoin des variables d'environnement.
+if (fs.existsSync('.env.local')) process.loadEnvFile('.env.local');
 
 export default defineConfig({
   testDir: './tests/e2e',

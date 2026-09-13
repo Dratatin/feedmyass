@@ -7,6 +7,7 @@ import { Button } from '@/components/ds/Button';
 import { Card } from '@/components/ds/Card';
 import { DataTable, type Column } from '@/components/ds/DataTable';
 import { DisclaimerBanner } from '@/components/features/DisclaimerBanner';
+import { SaveResultButton } from '@/components/features/SaveResultButton';
 import { getNeedsServerSnapshot, getNeedsSnapshot, subscribeNeeds, type StoredNeeds } from '@/lib/needs-session';
 import type { NeedValue, Period } from '@/domain/types';
 
@@ -123,6 +124,8 @@ export default function NeedsPage() {
           ))}
         </ul>
       </Card>
+
+      <SaveResultButton profile={stored.profile} period={period} />
 
       <div className="flex flex-wrap gap-3">
         <Link href="/liste">

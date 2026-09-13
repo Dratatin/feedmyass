@@ -153,18 +153,22 @@ hiérarchies de bouton non encore relevées.
 
 ## R8 - Mode invité et rattachement des résultats
 
-**Décision**: un calcul sans compte s'exécute côté serveur et n'est conservé que dans la session du
-navigateur (cookie de session signé portant l'identifiant du résultat, contenu stocké côté serveur
-avec expiration courte). À la connexion, si un résultat de session existe, l'application propose de
-le rattacher au compte via un point d'entrée dédié; sans rattachement explicite, il expire.
+**Décision révisée le 2026-09-13**: le résultat obtenu sans compte reste dans la session du
+navigateur. Au moment de l'enregistrement, le navigateur renvoie le PROFIL et le serveur recalcule
+besoins et liste avant d'écrire en base. Le rattachement n'est donc pas un point d'entrée séparé:
+c'est le même `POST /api/results`.
 
-**Rationale**: FR-024 exige le mode invité, le rattachement proposé et l'avertissement préalable.
-Garder le résultat côté serveur plutôt qu'en `localStorage` évite de dupliquer la logique de
-validation et permet de rattacher le résultat exact qui a été affiché, avec ses versions de
-références.
+**Rationale**: la décision initiale prévoyait un stockage serveur des résultats invités, référencé
+par un cookie signé. La mise en œuvre a révélé le défaut: une telle table doit être lisible sans
+session, donc protégée par la seule imprévisibilité d'un identifiant, et une politique RLS de
+lecture ouverte l'exposerait à l'énumération — pour des données de santé. Faire recalculer le
+serveur atteint le même résultat sans cette surface de risque, et rend au passage toute
+falsification côté navigateur sans effet: une entrée d’historique est reproductible depuis ses
+seules entrées (FR-038).
 
-**Alternatives considérées**: tout garder dans le navigateur (`localStorage`) — perd les versions de
-référence et complique le rattachement; ne rien conserver — contredit FR-024.
+**Alternatives considérées**: table `guest_results` avec identifiant non devinable (écartée pour la
+raison ci-dessus); conservation du résultat calculé dans le navigateur puis enregistrement tel quel
+(écartée: le serveur aurait fait confiance à des valeurs venues du client).
 
 ## R9 - Tests et vérification
 

@@ -53,3 +53,21 @@ export const storedProfileSchema = profileSchema.extend({
 export type ProfileInput = z.infer<typeof profileSchema>;
 export type DietInput = z.infer<typeof dietSchema>;
 export type PlanRequestInput = z.infer<typeof planRequestSchema>;
+
+/**
+ * Enregistrement d'un résultat dans l'historique.
+ *
+ * Le client n'envoie PAS les besoins calculés: il envoie le profil, et le
+ * serveur recalcule. Une falsification côté navigateur est donc sans effet, et
+ * l'entrée d'historique reste reproductible depuis ses seules entrées.
+ */
+export const saveResultSchema = z
+  .object({
+    profile: profileSchema,
+    diet: dietSchema.optional(),
+    period: periodSchema,
+    generated_at: z.iso.datetime().optional(),
+  })
+  .strict();
+
+export type SaveResultInput = z.infer<typeof saveResultSchema>;

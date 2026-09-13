@@ -9,6 +9,7 @@ import { DataTable, type Column } from '@/components/ds/DataTable';
 import { SelectField } from '@/components/ds/SelectField';
 import { CoveragePanel } from '@/components/features/CoveragePanel';
 import { DisclaimerBanner } from '@/components/features/DisclaimerBanner';
+import { SaveResultButton } from '@/components/features/SaveResultButton';
 import { getNeedsServerSnapshot, getNeedsSnapshot, subscribeNeeds, type StoredNeeds } from '@/lib/needs-session';
 import type { DietBase, Exclusion, IngredientPlan, IngredientPlanItem, Period } from '@/domain/types';
 
@@ -176,6 +177,8 @@ export default function IngredientListPage() {
           </Card>
 
           <CoveragePanel coverage={plan.coverage} gaps={plan.gaps} />
+
+          <SaveResultButton profile={stored.profile} diet={{ base, exclusions }} period={plan.period} />
         </>
       ) : null}
 

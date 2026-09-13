@@ -1,4 +1,4 @@
-import { createSupabaseReferenceClient } from '@/lib/supabase';
+import { createSupabaseReferenceClient } from '@/lib/supabase-browser';
 import type { Food, Nutrient, IntakeKind, ReferenceSex } from '@/domain/types';
 
 /**

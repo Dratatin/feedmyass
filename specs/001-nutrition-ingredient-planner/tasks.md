@@ -166,23 +166,23 @@ le cloisonnement entre comptes et la suppression complète.
 
 ### Tests for User Story 3
 
-- [ ] T050 [P] [US3] Tests RLS dans `tests/contract/rls.test.ts`: un utilisateur ne lit et ne supprime que ses propres résultats, l'identifiant d'un résultat d'autrui renvoie 404, aucune mise à jour de `results` n'est possible (FR-028, FR-027)
-- [ ] T051 [P] [US3] Tests de contrat des points d'entrée `results`, `results/claim`, `account/export` et `account` dans `tests/contract/results.test.ts`
-- [ ] T052 [P] [US3] Test d'immuabilité de l'historique dans `tests/unit/history-immutability.test.ts`: modifier le profil ne change aucune entrée existante (FR-027)
+- [X] T050 [P] [US3] Tests RLS dans `tests/contract/rls.test.ts`: un utilisateur ne lit et ne supprime que ses propres résultats, l'identifiant d'un résultat d'autrui renvoie 404, aucune mise à jour de `results` n'est possible (FR-028, FR-027)
+- [X] T051 [P] [US3] Tests de contrat des points d'entrée `results`, `results/claim`, `account/export` et `account` dans `tests/contract/results.test.ts`
+- [X] T052 [P] [US3] Test d'immuabilité de l'historique dans `tests/unit/history-immutability.test.ts`: modifier le profil ne change aucune entrée existante (FR-027)
 
 ### Implementation for User Story 3
 
-- [ ] T053 [US3] Intégrer Supabase Auth (connexion, session, protection des routes) dans `src/middleware.ts` et `src/app/(account)/layout.tsx`, sans stockage de mot de passe ni gestion de session maison (FR-022)
-- [ ] T054 [P] [US3] Repository des profils dans `src/data/repositories/profiles.ts`
-- [ ] T055 [P] [US3] Repository des résultats dans `src/data/repositories/results.ts`: insert, select et delete uniquement, jamais d'update (FR-027)
-- [ ] T056 [US3] Stockage des résultats invités et cookie de session signé avec expiration courte dans `src/lib/guest-results.ts` (R8)
-- [ ] T057 [US3] Route handlers `POST /api/results` et `POST /api/results/claim` dans `src/app/api/results/route.ts` et `src/app/api/results/claim/route.ts`, un résultat invité expiré renvoyant 404 (FR-024)
-- [ ] T058 [P] [US3] Route handlers `GET /api/results`, `GET /api/results/{id}` et `DELETE /api/results/{id}` dans `src/app/api/results/[id]/route.ts`
-- [ ] T059 [P] [US3] Route handlers `GET /api/account/export` et `DELETE /api/account` dans `src/app/api/account/route.ts` (FR-029)
-- [ ] T060 [P] [US3] Écran de l'espace personnel avec profil pré-rempli dans `src/app/(account)/profil/page.tsx` (FR-025, dépend de T023)
-- [ ] T061 [P] [US3] Écran d'historique dans `src/app/(account)/historique/page.tsx`: résultats datés avec le profil utilisé au moment du calcul (FR-026, dépend de T023)
-- [ ] T062 [US3] Écran des données personnelles dans `src/app/(account)/donnees/page.tsx` (export, suppression de compte) et avertissement affiché avant connexion sur la perte d'un résultat non rattaché (FR-024, FR-029, FR-030, dépend de T023)
-- [ ] T063 [US3] Test e2e du parcours V5 dans `tests/e2e/us3-compte.spec.ts`
+- [X] T053 [US3] Intégrer Supabase Auth (connexion, session, protection des routes) dans `src/middleware.ts` et `src/app/(account)/layout.tsx`, sans stockage de mot de passe ni gestion de session maison (FR-022)
+- [X] T054 [P] [US3] Repository des profils dans `src/data/repositories/profiles.ts`
+- [X] T055 [P] [US3] Repository des résultats dans `src/data/repositories/results.ts`: insert, select et delete uniquement, jamais d'update (FR-027)
+- [X] T056 [US3] Mode invité: résultat conservé en session navigateur (`src/lib/needs-session.ts`) et recalculé par le serveur à l'enregistrement. R8 révisée: le stockage serveur envisagé aurait exposé des données de santé à l'énumération
+- [X] T057 [US3] Route handler `POST /api/results` dans `src/app/api/results/route.ts`, qui sert aussi de rattachement (FR-024). `/api/results/claim` n'existe pas: voir l'amendement de contracts/api.md
+- [X] T058 [P] [US3] Route handlers `GET /api/results`, `GET /api/results/{id}` et `DELETE /api/results/{id}` dans `src/app/api/results/[id]/route.ts`
+- [X] T059 [P] [US3] Route handlers `GET /api/account/export` et `DELETE /api/account` dans `src/app/api/account/route.ts` (FR-029)
+- [X] T060 [P] [US3] Écran de l'espace personnel avec profil pré-rempli dans `src/app/(account)/profil/page.tsx` (FR-025, dépend de T023)
+- [X] T061 [P] [US3] Écran d'historique dans `src/app/(account)/historique/page.tsx`: résultats datés avec le profil utilisé au moment du calcul (FR-026, dépend de T023)
+- [X] T062 [US3] Écran des données personnelles dans `src/app/(account)/donnees/page.tsx` (export, suppression de compte) et avertissement affiché avant connexion sur la perte d'un résultat non rattaché (FR-024, FR-029, FR-030, dépend de T023)
+- [X] T063 [US3] Test e2e du parcours V5 dans `tests/e2e/us3-compte.spec.ts`
 
 **Checkpoint**: les trois premières stories fonctionnent indépendamment
 
