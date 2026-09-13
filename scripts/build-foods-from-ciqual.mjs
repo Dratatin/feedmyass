@@ -124,7 +124,8 @@ const REJECT_WORDS = ['frit', 'panée', 'pané', 'sauce', 'apéritif', 'aperitif
   'sirop', 'sucré', 'sucre', 'nectar', 'plat ', 'préparation', 'dessert', 'crème dessert', 'beignet',
   'cheesecake', 'gâteau', 'gateau', 'pâte d', 'tarte', 'quiche', 'aromatisé', 'allégé',
   'barre', 'biscuit', 'bonbon', 'glace', 'pizza',
-  'aliment moyen', 'non précisé'];
+  'aliment moyen', 'non précisé',
+  'tapioca', 'perles du japon', 'pomme de terre noisette'];
 
 /**
  * Le sous-groupe CIQUAL 0205 mélange fruits à coque et graines oléagineuses.

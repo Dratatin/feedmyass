@@ -1,0 +1,55 @@
+{
+  "source_officielle": "ADEME / Manger Bouger (France)",
+  "derniere_mise_a_jour": "2026",
+  "fuseau_geographique": "France Metropolitaine",
+  "calendrier": {
+    "janvier": {
+      "legumes": ["Ail","Betterave","Carotte","Celeri-branche","Celeri-rave","Chou","Chou blanc","Chou de Bruxelles","Chou rouge","Chou frise","Chicoree","Endive","Epinard","Mache","Navet","Oignon","Panais","Poireau","Pomme de terre","Potiron","Potimarron","Radis noir","Salsifis","Topinambour"],
+      "fruits": ["Amande seche","Citron","Clementine","Kaki","Kiwi","Mandarine","Orange","Pamplemousse","Poire","Pomme"]
+    },
+    "fevrier": {
+      "legumes": ["Ail","Betterave","Carotte","Celeri-rave","Celeri-branche","Chou blanc","Chou de Bruxelles","Chou pomme","Chou-fleur","Cresson","Endive","Epinard","Mache","Navet","Oignon","Panais","Poireau","Pomme de terre","Rutabaga","Salsifis","Topinambour"],
+      "fruits": ["Ananas","Citron","Clementine","Kiwi","Mandarine","Orange","Pamplemousse","Physalis","Poire","Pomme","Pomelo"]
+    },
+    "mars": {
+      "legumes": ["Artichaut","Asperge","Betterave","Carotte","Celeri-rave","Chou-fleur","Chou rouge","Concombre","Cresson","Endive","Epinard","Fenouil","Mache","Navet","Oignon","Poireau","Radis","Radis noir"],
+      "fruits": ["Citron","Kaki","Kiwi","Orange","Pamplemousse","Poire","Pomme"]
+    },
+    "avril": {
+      "legumes": ["Artichaut","Asperge","Betterave","Carotte","Chou-fleur","Concombre","Cresson","Epinard","Fenouil","Herbes aromatiques fraiches","Laitue","Lentille","Mache","Morille","Navet","Oignon","Petit pois","Radis"],
+      "fruits": ["Citron","Fraise","Kiwi","Mandarine","Orange","Pomme","Rhubarbe"]
+    },
+    "mai": {
+      "legumes": ["Artichaut","Asperge","Aubergine","Bette","Betterave","Carotte","Chou-fleur","Concombre","Courgette","Cresson","Epinard","Fenouil","Laitue","Navet","Oseille","Patate douce","Persil","Petit pois","Radis"],
+      "fruits": ["Cerise","Fraise","Groseille","Melon","Rhubarbe","Tomate"]
+    },
+    "juin": {
+      "legumes": ["Artichaut","Asperge","Aubergine","Bette","Betterave","Brocoli","Carotte","Chou blanc","Chou-fleur","Chou rouge","Concombre","Courgette","Cresson","Epinard","Fenouil","Feve","Haricot vert","Laitue","Navet","Oignon","Petit pois","Poivron","Radis"],
+      "fruits": ["Abricot","Brugnon","Cerise","Fraise","Fraise des bois","Framboise","Groseille","Melon","Myrtille","Nectarine","Pasteque","Peche","Prune","Rhubarbe","Tomate"]
+    },
+    "juillet": {
+      "legumes": ["Ail","Artichaut","Aubergine","Bette","Betterave","Brocoli","Carotte","Celeri-branche","Chou blanc","Chou-fleur","Chou rouge","Concombre","Courgette","Cresson","Fenouil","Feve","Haricot vert","Laitue","Lentille","Mais","Navet","Oignon","Poivron","Radis"],
+      "fruits": ["Abricot","Brugnon","Cassis","Cerise","Figue","Fraise","Fraise des bois","Framboise","Groseille","Melon","Mure","Myrtille","Nectarine","Pasteque","Peche","Prune","Tomate"]
+    },
+    "aout": {
+      "legumes": ["Ail","Artichaut","Aubergine","Bette","Betterave","Brocoli","Carotte","Cepe","Celeri-branche","Chou blanc","Chou-fleur","Chou rouge","Concombre","Courge","Courgette","Cresson","Fenouil","Haricot vert","Laitue","Mais","Oignon","Poivron","Radis"],
+      "fruits": ["Abricot","Amande fraiche","Brugnon","Cassis","Figue","Fraise des bois","Framboise","Melon","Mirabelle","Mure","Myrtille","Nectarine","Pasteque","Peche","Poire","Prune","Raisin","Tomate"]
+    },
+    "septembre": {
+      "legumes": ["Ail","Artichaut","Aubergine","Bette","Betterave","Brocoli","Carotte","Celeri-branche","Champignons cultives","Chou blanc","Chou-fleur","Chou rouge","Chou frise","Concombre","Cornichon","Courge","Courgette","Cresson","Epinard","Fenouil","Haricot vert","Laitue","Mais","Navet","Oignon","Panais","Poireau","Poivron","Potiron","Radis"],
+      "fruits": ["Amande","Avocat","Brugnon","Cassis","Coing","Figue","Figue de Barbarie","Fraise des bois","Framboise","Melon","Mirabelle","Mure","Myrtille","Noisette","Noix","Peche","Poire","Pomme","Prune","Raisin","Tomate"]
+    },
+    "octobre": {
+      "legumes": ["Ail","Avocat","Betterave","Brocoli","Carotte","Celeri-branche","Celeri-rave","Chicoree","Chou blanc","Chou de Bruxelles","Chou-fleur","Chou rouge","Chou frise","Courges et potirons","Cresson","Echalote","Endive","Epinard","Fenouil","Laitue","Mache","Navet","Oignon","Panais","Poireau","Pomme de terre","Potimarron","Radis","Topinambour"],
+      "fruits": ["Ananas","Chataigne","Clementine","Coing","Datte","Figue de Barbarie","Kaki","Kiwi","Mandarine","Noisette","Noix","Orange","Pamplemousse","Poire","Pomme","Raisin","Tomate"]
+    },
+    "novembre": {
+      "legumes": ["Ail","Betterave","Carotte","Celeri-branche","Celeri-rave","Chou blanc","Chou de Bruxelles","Chou-fleur","Chou pomme","Chou kale","Champignons cultives","Citron","Endive","Epinard","Mache","Navet","Oignon","Panais","Poireau","Pomme de terre","Potiron","Potimarron","Salsifis","Topinambour"],
+      "fruits": ["Chataigne","Clementine","Coing","Kaki","Kiwi","Mandarine","Noisette","Noix","Noix de coco","Orange","Papaye","Pamplemousse","Poire","Pomme"]
+    },
+    "decembre": {
+      "legumes": ["Ail","Betterave","Carotte","Celeri-branche","Celeri-rave","Chou blanc","Chou de Bruxelles","Chou rouge","Chou frise","Champignon de Paris","Cresson","Endive","Epinard","Mache","Navet","Oignon","Panais","Poireau","Pomme de terre","Potiron","Potimarron","Salsifis","Topinambour"],
+      "fruits": ["Ananas","Carambole","Chataigne","Citron","Clementine","Coing","Datte","Figue","Goyave","Grenade","Kaki","Kiwi","Mandarine","Orange","Pamplemousse","Poire","Pomme","Prune","Raisin"]
+    }
+  }
+}

@@ -1,0 +1,1686 @@
+{
+  "_meta": {
+    "description": "Disponibilité mensuelle des fruits et légumes du catalogue, France métropolitaine.",
+    "source": "ADEME / Manger Bouger (France) — calendrier de saison, France Metropolitaine",
+    "version": "2026",
+    "retrieved_at": "2026-09-13",
+    "generated_by": "scripts/build-seasonality.mjs",
+    "notes": [
+      "Absence de ligne pour un couple (aliment, mois) = hors saison ce mois-là (FR-014).",
+      "Rapprochement par nom d'espèce normalisé, en correspondance exacte, complété par une table d'alias explicite pour les variétés (raisin blanc -> raisin, poivron rouge -> poivron, etc.).",
+      "Sans saison en France métropolitaine, donc jamais proposés, et c'est voulu: Banane, pulpe, crue ; Canneberge ou cranberry, crue ; Citron vert ou Lime, pulpe, cru ; Fruit de la passion ou maracudja, pulpe et pépins, cru ; Litchi, pulpe, cru ; Mangue, pulpe, crue ; Haricot mungo germé ou pousse de \"soja\", cru ; Pissenlit, cru",
+      "Fruits ou légumes du catalogue sans correspondance, donc jamais proposables — à apparier ou à dépointer de is_fruit_vegetable: aucun",
+      "Entrées du calendrier sans aliment correspondant au catalogue (information, sans effet sur l'application): ail ; potiron ; potimarron ; radis noir ; salsifis ; amande seche ; mandarine ; pamplemousse ; chou pomme ; physalis ; herbes aromatiques fraiches ; lentille ; morille ; oseille ; persil ; feve ; brugnon ; fraise des bois ; nectarine ; cepe ; amande fraiche ; mirabelle ; cornichon ; amande ; coing ; figue de barbarie ; noisette ; noix ; courges et potirons ; chataigne ; datte ; chou kale ; noix de coco"
+    ]
+  },
+  "seasonality": [
+    {
+      "food_code": "ciqual-13000",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13000",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13000",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13002",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13002",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13002",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13054",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13007",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13007",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13007",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13008",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-13008",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13008",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13009",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13009",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13009",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-13009",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-13009",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13009",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13024",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13024",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13024",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13024",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13024",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13012",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13012",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13012",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13012",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13014",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-13014",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-13014",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13014",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13015",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13015",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13015",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13015",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13083",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13018",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13020",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-13020",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13020",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13019",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-13019",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13019",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13066",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13066",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-13066",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13066",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13066",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13021",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13021",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13021",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-13021",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-13021",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13021",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13021",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13026",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-13026",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13026",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13026",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13026",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13742",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-13742",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13742",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13742",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13742",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13029",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13029",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13029",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13071",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13071",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13071",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13028",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13028",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13028",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13028",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13034",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13034",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13034",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-13034",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-13034",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13034",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13034",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13035",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13036",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13036",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13036",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13043",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13043",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13043",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13043",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13037",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13040",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13085",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-13039",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13041",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13041",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13041",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13041",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13041",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13100",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-13100",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-13100",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13100",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13100",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13044",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13044",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13044",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13044",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13045",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13045",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13045",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13045",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13112",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-13112",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13112",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-13112",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-13047",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-13047",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-13047",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20052",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20052",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20052",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20052",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20052",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20052",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20052",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20073",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20073",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20073",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20073",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20053",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20053",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20053",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20053",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20053",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13004",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-13004",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20004",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20004",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20004",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20004",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20004",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20091",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20057",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20057",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20057",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20057",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20057",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20009",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20023",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20055",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20055",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20055",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20055",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20055",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20055",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20056",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20010",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20010",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20116",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20167",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20058",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20058",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20058",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20058",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20058",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20218",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20218",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20218",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20218",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20014",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20069",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20016",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20065",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20019",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20019",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20019",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20019",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20019",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20019",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20019",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20139",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20139",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20020",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20020",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20020",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20020",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20020",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20022",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20097",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20026",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20026",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20026",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20026",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20026",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20026",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20059",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20028",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20061",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20061",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20061",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20061",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20200",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20200",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20200",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20200",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20200",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20200",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20200",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20171",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20171",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20171",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20171",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20171",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20171",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20171",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20031",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20031",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20031",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20031",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20031",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20031",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20031",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20099",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20099",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20099",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20099",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20099",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20099",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20099",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20108",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20108",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20108",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20064",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20034",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20181",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20181",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20181",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20181",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20181",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20181",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-4101",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20072",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20072",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20072",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20039",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20039",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20039",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20039",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20039",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20039",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20039",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20168",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20168",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20168",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20168",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20087",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20087",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20087",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20087",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20085",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20085",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20085",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20085",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-4008",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-4008",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-4008",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-4008",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-4008",
+      "month": 12
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 3
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 4
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20045",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20201",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20012",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20012",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20172",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20172",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20172",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20172",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20172",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20172",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20047",
+      "month": 5
+    },
+    {
+      "food_code": "ciqual-20047",
+      "month": 6
+    },
+    {
+      "food_code": "ciqual-20047",
+      "month": 7
+    },
+    {
+      "food_code": "ciqual-20047",
+      "month": 8
+    },
+    {
+      "food_code": "ciqual-20047",
+      "month": 9
+    },
+    {
+      "food_code": "ciqual-20047",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20196",
+      "month": 1
+    },
+    {
+      "food_code": "ciqual-20196",
+      "month": 2
+    },
+    {
+      "food_code": "ciqual-20196",
+      "month": 10
+    },
+    {
+      "food_code": "ciqual-20196",
+      "month": 11
+    },
+    {
+      "food_code": "ciqual-20196",
+      "month": 12
+    }
+  ]
+}
