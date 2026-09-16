@@ -107,3 +107,71 @@ test('supprime le compte et toutes ses données (FR-029)', async ({ page }) => {
   const { data } = await client.auth.admin.listUsers();
   expect(data.users.find((user) => user.email === email)).toBeUndefined();
 });
+
+test('ramène vers la page demandée après connexion (FR-022)', async ({ page }) => {
+  const email = userEmail('e2e-retour', test.info().project.name);
+  await resetUser(email);
+
+  // Page réservée demandée sans session: la destination voyage dans l'URL.
+  await page.goto('/historique');
+  await expect(page).toHaveURL(/\/connexion\?next=%2Fhistorique/);
+
+  await page.getByLabel('Adresse e-mail').fill(email);
+  await page.getByLabel('Mot de passe').fill(password);
+  await page.getByRole('button', { name: 'Se connecter' }).click();
+
+  await expect(page).toHaveURL(/\/historique/, { timeout: 15000 });
+});
+
+test('se déconnecte puis se reconnecte en retrouvant son historique', async ({ page }) => {
+  const email = userEmail('e2e-deconnexion', test.info().project.name);
+  await resetUser(email);
+  await signIn(page, email);
+
+  await computeNeeds(page, '82');
+  await page.getByRole('button', { name: 'Enregistrer dans mon historique' }).click();
+  await expect(page.getByText('Résultat enregistré')).toBeVisible({ timeout: 15000 });
+
+  await page.getByRole('button', { name: 'Se déconnecter' }).click();
+  await expect(page).toHaveURL(/\/$/, { timeout: 15000 });
+  // L'en-tête repasse à l'état visiteur.
+  await expect(page.getByRole('link', { name: 'Connexion' })).toBeVisible();
+
+  // Session réellement close: la page réservée n'est plus accessible.
+  await page.goto('/historique');
+  await expect(page).toHaveURL(/\/connexion/);
+
+  // Reconnexion depuis cet écran: l'historique enregistré avant la déconnexion
+  // est restitué à l'identique.
+  await page.getByLabel('Adresse e-mail').fill(email);
+  await page.getByLabel('Mot de passe').fill(password);
+  await page.getByRole('button', { name: 'Se connecter' }).click();
+  await expect(page).toHaveURL(/\/historique/, { timeout: 15000 });
+  await expect(page.getByText('Profil utilisé : 82 kg, 178 cm, 35 ans')).toBeVisible();
+});
+
+test('propose de rattacher un résultat calculé sans compte (scénario 6)', async ({ page }) => {
+  const email = userEmail('e2e-rattachement', test.info().project.name);
+  await resetUser(email);
+
+  // Calcul en invité, puis tentative d'enregistrement sans session.
+  await computeNeeds(page, '68');
+  await page.getByRole('button', { name: 'Enregistrer dans mon historique' }).click();
+  await page.getByRole('link', { name: 'Se connecter' }).click();
+  await expect(page).toHaveURL(/\/connexion/);
+
+  // L'écran annonce que le résultat en cours sera perdu sans enregistrement.
+  await expect(page.getByText('Votre résultat en cours')).toBeVisible();
+
+  await page.getByLabel('Adresse e-mail').fill(email);
+  await page.getByLabel('Mot de passe').fill(password);
+  await page.getByRole('button', { name: 'Se connecter' }).click();
+
+  // La connexion ramène au résultat, où le rattachement est proposé.
+  await expect(page).toHaveURL(/\/besoins/, { timeout: 15000 });
+  await page.getByRole('button', { name: 'Enregistrer dans mon historique' }).click();
+  await expect(page.getByText('Résultat enregistré')).toBeVisible({ timeout: 15000 });
+
+  await page.goto('/historique');
+  await expect(page.getByText('Profil utilisé : 68 kg, 178 cm, 35 ans')).toBeVisible();
+});

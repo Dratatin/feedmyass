@@ -217,6 +217,24 @@ des besoins strictement identiques et des listes différentes, toutes deux confo
 
 ---
 
+## Phase 8: Intégration du parcours de connexion (complément de US3)
+
+**Constat**: T053 avait posé le socle d'authentification (Supabase Auth, proxy, RLS, écran de
+connexion) mais T023 avait laissé la navigation de côté, « faute de parcours à naviguer ». Résultat:
+la connexion n'était atteignable que depuis l'état d'échec de l'enregistrement d'un résultat, la
+déconnexion n'existait que comme effet de bord de la suppression de compte, et le lien de
+confirmation d'e-mail n'aboutissait nulle part. Le scénario V5 de quickstart.md n'était donc pas
+jouable de bout en bout par un utilisateur.
+
+- [X] T075 [US3] En-tête commun portant l'état de connexion dans `src/components/features/SiteHeader.tsx`, rendu par `src/app/layout.tsx` (FR-022, FR-032: justification écrite du composant, le design system n'ayant pas de navigation)
+- [X] T076 [US3] Déconnexion dans `src/components/features/SignOutButton.tsx`: la session est effacée par le client Supabase, l'application n'en invalide aucune de son côté (FR-022)
+- [X] T077 [US3] Route d'échange du code contre une session dans `src/app/auth/callback/route.ts`, et `emailRedirectTo` renseigné à la création de compte: sans elle, un lien de confirmation aboutit sur une page anonyme et le compte validé reste inutilisable
+- [X] T078 [US3] Retour vers la page demandée après connexion: le proxy transporte la destination (`src/proxy.ts`), l'écran de connexion la consomme (`src/app/(public)/connexion/page.tsx` et `src/components/features/SignInForm.tsx`), et `src/lib/redirects.ts` empêche la redirection ouverte
+- [X] T079 [US3] Rattachement explicite du résultat invité après connexion (scénario US3 n°6): la connexion ramène à l'écran des besoins quand un calcul y attend, et `src/components/features/SaveResultButton.tsx` énonce la proposition
+- [X] T080 [P] [US3] Tests: `tests/unit/safe-internal-path.test.ts` (redirection ouverte), et dans `tests/e2e/us3-compte.spec.ts` le retour vers la page demandée, la déconnexion/reconnexion et le rattachement d'un résultat invité
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies

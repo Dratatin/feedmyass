@@ -9,6 +9,10 @@ import { getCurrentUserId } from '@/lib/auth';
  * La vérification est faite côté serveur à chaque rendu: un visiteur non
  * connecté n'atteint jamais ces pages. Le cloisonnement des DONNÉES ne repose
  * pas là-dessus mais sur RLS — ceci n'est qu'une commodité de navigation.
+ *
+ * Le proxy redirige déjà ces chemins en conservant la page demandée. Ce second
+ * filet garde son utilité: il protège aussi les pages qu'on ajouterait ici sans
+ * penser à compléter la liste du proxy.
  */
 export default async function AccountLayout({ children }: { children: ReactNode }) {
   const userId = await getCurrentUserId();

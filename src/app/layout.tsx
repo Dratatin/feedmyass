@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { SiteHeader } from '@/components/features/SiteHeader';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -13,7 +14,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   // lang="fr": l'interface est en français (FR-034).
   return (
     <html lang="fr">
-      <body>{children}</body>
+      <body>
+        {/* L'en-tête porte l'état de connexion, donc il est rendu pour toutes
+            les pages, publiques comprises: le calcul reste accessible sans
+            compte (FR-024) mais la connexion est toujours à portée. */}
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   );
 }

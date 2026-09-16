@@ -59,14 +59,24 @@ export function SaveResultButton({ profile, diet, period }: {
     );
   }
 
+  // La proposition est explicite plutôt que laissée à la seule présence du
+  // bouton: c'est elle que voit l'utilisateur qui vient de se connecter avec un
+  // résultat calculé en invité (scénario US3 n°6), puisque la connexion le
+  // ramène ici.
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button onClick={save} disabled={state === 'pending'}>
-        {state === 'pending' ? 'Enregistrement…' : 'Enregistrer dans mon historique'}
-      </Button>
-      {state === 'error' ? (
-        <p role="alert" className="text-sm text-red-500">L&apos;enregistrement a échoué.</p>
-      ) : null}
+    <div className="flex flex-col gap-2">
+      <p className="text-sm text-neutral-600">
+        Ce résultat n&apos;est conservé que le temps de votre visite. Enregistrez-le pour le
+        retrouver dans votre historique.
+      </p>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button onClick={save} disabled={state === 'pending'}>
+          {state === 'pending' ? 'Enregistrement…' : 'Enregistrer dans mon historique'}
+        </Button>
+        {state === 'error' ? (
+          <p role="alert" className="text-sm text-red-500">L&apos;enregistrement a échoué.</p>
+        ) : null}
+      </div>
     </div>
   );
 }

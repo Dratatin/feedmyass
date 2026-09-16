@@ -28,6 +28,17 @@ pnpm dev                            # http://localhost:3000
 `source`, `version` et `retrieved_at` — c'est la mise en application du principe II au niveau de
 l'outillage.
 
+### Autoriser le retour des liens de confirmation
+
+Supabase n'accepte de rediriger que vers des adresses déclarées. Ajouter
+`<origine>/auth/callback` à la liste des *Redirect URLs* du projet (tableau de bord Supabase,
+Authentication → URL Configuration), pour chaque origine utilisée: `http://localhost:3000` en
+développement, l'URL de déploiement ensuite. `supabase/config.toml` porte déjà l'équivalent pour un
+projet lancé en local.
+
+Sans cette déclaration, le lien de confirmation envoyé à la création d'un compte n'atterrit jamais
+sur la route qui échange son code contre une session, et le compte confirmé reste inutilisable.
+
 ## Commandes de vérification
 
 ```bash
