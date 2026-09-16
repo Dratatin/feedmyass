@@ -49,6 +49,12 @@ pnpm lint && pnpm typecheck
 pnpm test:a11y          # contrastes, labels, navigation clavier
 ```
 
+## Déploiement
+
+L'application exécute du code serveur — cookies, proxy, route handlers — et ne peut donc pas être
+servie par un hébergeur statique. La marche à suivre sur Vercel, les variables attendues et les
+URLs de retour à déclarer sont dans `docs/deploiement.md`.
+
 ## Scénarios de validation
 
 ### V1 - Besoins nutritionnels (US1, SC-001, SC-005)
