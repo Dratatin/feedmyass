@@ -106,7 +106,15 @@
   --font-display: var(--font-display-family), Georgia, serif;
   --font-sans: var(--font-sans-family), 'Segoe UI', system-ui, sans-serif;
 
-  /* Échelle display: crénage négatif, interligne serré, réservée aux titres. */
+  /* Échelle display: crénage négatif, interligne serré, réservée aux titres.
+   * display-xl n'est employée qu'au titre de l'accueil: c'est la seule phrase
+   * de l'application qui doive porter à travers la pièce (revue du 2026-09-18,
+   * le titre plafonnait à 48 px et se perdait sur grand écran).
+   */
+  --text-display-xl: 4.5rem;
+  --text-display-xl--line-height: 4.4rem;
+  --text-display-xl--letter-spacing: -0.03em;
+
   --text-display-lg: 3rem;
   --text-display-lg--line-height: 3rem;
   --text-display-lg--letter-spacing: -0.025em;

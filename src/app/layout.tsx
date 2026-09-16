@@ -41,12 +41,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   // lang="fr": l'interface est en français (FR-034).
   return (
     <html lang="fr" className={display.variable + ' ' + sans.variable}>
-      <body>
+      {/* Colonne pleine hauteur: le contenu occupe au minimum la fenêtre, quelle
+          que soit la page. Sans cela, un écran court — une connexion, un état
+          vide — laissait sous lui une bande de papier nu, et le pied de page
+          remontait au milieu de l'écran. */}
+      <body className="flex min-h-screen flex-col">
         {/* L'en-tête porte l'état de connexion, donc il est rendu pour toutes
             les pages, publiques comprises: le calcul reste accessible sans
             compte (FR-024) mais la connexion est toujours à portée. */}
         <SiteHeader />
-        {children}
+        <div className="flex flex-1 flex-col">{children}</div>
       </body>
     </html>
   );

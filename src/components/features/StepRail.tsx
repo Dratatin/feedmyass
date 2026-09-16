@@ -21,10 +21,19 @@ const STEPS = [
   { href: '/liste', label: 'Ingrédients' },
 ] as const;
 
-export function StepRail({ current, currentMonth }: {
+export function StepRail({ current, currentMonth, reached = 3 }: {
   /** Étape en cours, de 1 à 3. */
   current: 1 | 2 | 3;
   currentMonth: number;
+  /**
+   * Dernière étape atteignable, de 1 à 3.
+   *
+   * Une étape au-delà n'est pas un lien: on ne consulte pas ses besoins avant
+   * de les avoir calculés, ni sa liste avant d'avoir ses besoins (revue du
+   * 2026-09-18). Elle reste visible et annoncée comme indisponible — la masquer
+   * priverait l'utilisateur de la carte du parcours.
+   */
+  reached?: 1 | 2 | 3;
 }) {
   return (
     <>
@@ -33,37 +42,57 @@ export function StepRail({ current, currentMonth }: {
           const rank = index + 1;
           const isCurrent = rank === current;
           const isDone = rank < current;
+          const isLocked = rank > reached;
+
+          const rowClass =
+            'flex items-center gap-[10px] rounded-[var(--radius-champ)] ' +
+            (isCurrent
+              ? 'border-[1.5px] border-solid border-ink bg-surface px-[8.5px] py-[6.5px] text-ink'
+              : isLocked
+                ? 'px-[10px] py-[8px] text-ink-muted'
+                : 'px-[10px] py-[8px] text-ink-soft hover:bg-surface');
+
+          const marker = (
+            <span
+              aria-hidden="true"
+              className={
+                'grid size-[22px] shrink-0 place-items-center rounded-full border-[1.5px] border-solid text-xs type-data ' +
+                (isCurrent
+                  ? 'border-brand bg-brand text-surface'
+                  : isDone
+                    ? 'border-saison bg-saison text-surface'
+                    : isLocked
+                      ? 'border-line border-dashed text-ink-muted'
+                      : 'border-line-strong text-ink-muted')
+              }
+            >
+              {isDone ? '✓' : rank}
+            </span>
+          );
+
+          const label = (
+            <span className={'text-sm ' + (isCurrent ? 'font-semibold' : '')}>
+              {step.label}
+              {isDone ? <span className="sr-only"> (étape franchie)</span> : null}
+              {isLocked ? (
+                <span className="sr-only"> (indisponible, étape précédente à faire)</span>
+              ) : null}
+            </span>
+          );
 
           return (
             <li key={step.href}>
-              <Link
-                href={step.href}
-                aria-current={isCurrent ? 'step' : undefined}
-                className={
-                  'flex items-center gap-[10px] rounded-[var(--radius-champ)] ' +
-                  (isCurrent
-                    ? 'border-[1.5px] border-solid border-ink bg-surface px-[8.5px] py-[6.5px] text-ink'
-                    : 'px-[10px] py-[8px] text-ink-soft hover:bg-surface')
-                }
-              >
-                <span
-                  aria-hidden="true"
-                  className={
-                    'grid size-[22px] shrink-0 place-items-center rounded-full border-[1.5px] border-solid text-xs type-data ' +
-                    (isCurrent
-                      ? 'border-brand bg-brand text-surface'
-                      : isDone
-                        ? 'border-saison bg-saison text-surface'
-                        : 'border-line-strong text-ink-muted')
-                  }
-                >
-                  {isDone ? '✓' : rank}
+              {isLocked ? (
+                <span className={rowClass} aria-disabled="true">
+                  {marker}
+                  {label}
                 </span>
-                <span className={'text-sm ' + (isCurrent ? 'font-semibold' : '')}>
-                  {step.label}
-                  {isDone ? <span className="sr-only"> (étape franchie)</span> : null}
-                </span>
-              </Link>
+              ) : (
+                <Link href={step.href} aria-current={isCurrent ? 'step' : undefined} className={rowClass}>
+                  {marker}
+                  {label}
+                </Link>
+              )}
             </li>
           );
         })}

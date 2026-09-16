@@ -23,15 +23,18 @@ import type { ReactNode } from 'react';
 export function PageShell({ rail, children }: { rail?: ReactNode; children: ReactNode }) {
   if (!rail) {
     return (
-      <main className="mx-auto flex w-full max-w-[64rem] flex-col gap-6 px-4 py-10 md:px-8">
+      <main className="mx-auto flex w-full max-w-[64rem] flex-1 flex-col gap-6 px-4 py-10 md:px-8">
         {children}
       </main>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-page">
-      <div className="grid grid-cols-1 md:grid-cols-[17rem_minmax(0,1fr)]">
+    // `flex-1` puis `h-full` sur la grille: la colonne de paille descend jusqu'au
+    // bas de la fenêtre même sur un écran court, au lieu de s'arrêter à la
+    // hauteur de ses trois liens.
+    <div className="mx-auto flex w-full max-w-page flex-1 flex-col">
+      <div className="grid h-full flex-1 grid-cols-1 md:grid-cols-[17rem_minmax(0,1fr)]">
         <aside
           className={
             'relative flex flex-col gap-6 border-b-[1.5px] border-solid border-line bg-paper-deep ' +

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { buttonStyles } from '@/components/ds/Button';
 import { MonthRibbon } from '@/components/ds/MonthRibbon';
 import { Vignette, type VignetteName } from '@/components/ds/Vignette';
-import { monthName } from '@/lib/months';
+import { monthName, seasonRangeLabel } from '@/lib/months';
 import foods from '@/data/reference/foods.json';
 import seasonality from '@/data/reference/seasonality.json';
 import nutrients from '@/data/reference/nutrients.json';
@@ -47,6 +47,9 @@ function seasonalStall(month: number) {
     seasonality.seasonality.filter((row) => row.month === month).map((row) => row.food_code),
   );
 
+  const monthsOf = (code: string) =>
+    seasonality.seasonality.filter((row) => row.food_code === code).map((row) => row.month);
+
   const pick = (category: string) =>
     foods.foods
       .filter((f) => f.is_fruit_vegetable && f.category === category && inSeason.has(f.code))
@@ -55,6 +58,7 @@ function seasonalStall(month: number) {
         return {
           code: f.code,
           label,
+          months: monthsOf(f.code),
           vignette: VIGNETTES.find((v) => label.toLowerCase().startsWith(v.prefix))?.name,
         };
       })
@@ -85,15 +89,18 @@ export default function HomePage() {
   const month = new Date().getMonth() + 1;
   const stall = seasonalStall(month);
   const produceCount = foods.foods.filter((f) => f.is_fruit_vegetable).length;
+  const seasonalCount = new Set(
+    seasonality.seasonality.filter((row) => row.month === month).map((row) => row.food_code),
+  ).size;
 
   return (
     // Chaque bande occupe toute la largeur de la fenêtre et centre son contenu:
     // un fond coloré ne doit jamais s'arrêter au bord du conteneur, sinon il se
     // lit comme un bloc coupé (retour de revue du 2026-09-17).
-    <main className="w-full">
-      <div className="mx-auto grid w-full max-w-page grid-cols-1 gap-8 px-4 pt-10 pb-8 md:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] md:px-8">
+    <main className="flex w-full flex-1 flex-col">
+      <div className="mx-auto grid w-full max-w-page flex-1 grid-cols-1 content-center gap-10 px-4 pt-12 pb-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:px-8">
         <div className="flex flex-col gap-5">
-          <h1 className="max-w-[16ch] text-display-md text-ink md:text-display-lg">
+          <h1 className="max-w-[15ch] text-display-md text-ink md:text-display-lg lg:text-display-xl">
             Ce dont votre corps a besoin, et ce qu&apos;il y a{' '}
             <span className="text-saison">sur les étals</span>.
           </h1>
@@ -111,14 +118,12 @@ export default function HomePage() {
                 cliquait « voir ce qui est de saison » et tombait sur « Aucun
                 profil ». Il mène maintenant à l'étal, juste en dessous, qui
                 répond vraiment à la question posée. */}
-            {stall.length > 0 ? (
-              <a
-                href="#de-saison"
-                className={buttonStyles({ hierarchy: 'secondary', size: 'lg' })}
-              >
-                Voir ce qui est de saison
-              </a>
-            ) : null}
+            <Link
+              href="/de-saison"
+              className={buttonStyles({ hierarchy: 'secondary', size: 'lg' })}
+            >
+              Voir ce qui est de saison
+            </Link>
           </div>
 
           <ul className="flex flex-wrap gap-[7px]">
@@ -142,7 +147,7 @@ export default function HomePage() {
             retirée à la revue du 2026-09-18: le procédé vieillissait la page.
             Le caractère vient maintenant de la display et de la légère
             inclinaison, la seule de toute l'interface. */}
-        <aside className="flex flex-col gap-4 self-start rounded-[var(--radius-bloc)] bg-ink px-6 pt-6 pb-7 md:-rotate-[0.7deg]">
+        <aside className="flex flex-col gap-4 self-center rounded-[var(--radius-bloc)] bg-ink px-6 pt-6 pb-7 md:-rotate-[0.7deg]">
           <p className="type-display text-display-xs text-paper">
             Nous sommes en {monthName(month)}
           </p>
@@ -153,7 +158,7 @@ export default function HomePage() {
           <p className="text-sm text-line">
             {produceCount} fruits et légumes au catalogue,{' '}
             <strong className="font-semibold text-paper">
-              {stall.length ? stall.length : 'aucun'} de saison
+              {seasonalCount ? seasonalCount : 'aucun'} de saison
             </strong>{' '}
             aujourd&apos;hui.
           </p>
@@ -170,10 +175,9 @@ export default function HomePage() {
               <h2 className="type-data text-xs font-medium tracking-label uppercase text-ink-muted">
                 De saison en {monthName(month)}
               </h2>
-              <p className="text-sm text-ink-soft">
-                Ces produits entreront dans votre liste d&apos;ingrédients si vous calculez vos
-                besoins ce mois-ci.
-              </p>
+              <Link href="/de-saison" className="text-sm font-semibold text-brand">
+                Les {seasonalCount} produits de saison ce mois-ci →
+              </Link>
             </div>
             <ul className="grid grid-cols-2 gap-[10px] sm:grid-cols-4 lg:grid-cols-8">
               {stall.map((item) => (
@@ -183,6 +187,11 @@ export default function HomePage() {
                 >
                   {item.vignette ? <Vignette name={item.vignette} /> : null}
                   <span className="text-sm font-semibold text-ink">{item.label}</span>
+                  {/* La période, en trois mots: une carte n'a pas la place d'un
+                      ruban, mais elle doit dire jusqu'à quand. */}
+                  <span className="type-data text-xs tracking-label uppercase text-ink-muted">
+                    {seasonRangeLabel(item.months)}
+                  </span>
                 </li>
               ))}
             </ul>

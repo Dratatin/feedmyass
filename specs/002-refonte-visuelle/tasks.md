@@ -77,25 +77,25 @@ bout sont conservés à l'identique.
 
 Retours du commanditaire sur la direction, et constats du parcours refait à la main.
 
-- [X] T047 Retirer la famille manuscrite (Caveat) des jetons, du chargement des polices et de l'ardoise du marché (FR-117)
-- [X] T048 Sortir les fonds colorés de la largeur de page: bande de l'étal, pied de page et fond du rail vont d'un bord à l'autre de la fenêtre (FR-118)
-- [X] T049 Porter la largeur de contenu à 1520 px via le jeton  (FR-119)
-- [X] T050 « Voir ce qui est de saison » mène à l'étal de l'accueil et non plus à un écran qui réclame un profil (FR-120)
-- [X] T051 Conserver le rail sur les écrans de résultat vides, et y écrire ce qu'il reste à faire (FR-121)
-- [X] T052 Préremplir le formulaire de profil à partir de la dernière saisie de la visite (FR-122)
-- [X] T053 Signaler une liste qui ne correspond plus aux commandes de régime ou de période (FR-123)
-
-## Phase 7 — Revue du 2026-09-18
-
-Retours du commanditaire sur la direction, et constats du parcours refait à la main.
-
 - [X] T047 Retirer la famille manuscrite des jetons, du chargement des polices et de l'ardoise du marché (FR-117)
 - [X] T048 Sortir les fonds colorés de la largeur de page: étal, pied de page et fond du rail vont d'un bord à l'autre de la fenêtre (FR-118)
 - [X] T049 Porter la largeur de contenu à 1520 px via le jeton `--container-page` (FR-119)
-- [X] T050 « Voir ce qui est de saison » mène à l'étal de l'accueil et non plus à un écran qui réclame un profil (FR-120)
+- [X] T050 « Voir ce qui est de saison » ne mène plus à un écran qui réclame un profil (FR-120) — a d'abord pointé sur l'étal de l'accueil, puis sur l'écran dédié créé en phase 8
 - [X] T051 Conserver le rail sur les écrans de résultat vides, et y écrire ce qu'il reste à faire (FR-121)
 - [X] T052 Préremplir le formulaire de profil à partir de la dernière saisie de la visite (FR-122)
 - [X] T053 Signaler une liste qui ne correspond plus aux commandes de régime ou de période (FR-123)
+
+## Phase 8 — Revue du 2026-09-19
+
+- [X] T054 Nouvel écran public `(public)/de-saison` : tous les fruits et légumes du mois, groupés par famille, avec ruban et période; navigation mois par mois par `?mois=` (FR-124)
+- [X] T055 Rendre le ruban des mois cliquable (`hrefOf`) sans lui faire perdre son accessibilité: navigation nommée au lieu d'image porteuse de sens (FR-124)
+- [X] T056 Verrouiller les étapes non atteintes dans `StepRail` via `reached` (FR-125)
+- [X] T057 Colonne pleine hauteur: `body` en flex, `PageShell` et écrans publics en `flex-1` (FR-126)
+- [X] T058 `seasonRangeLabel` dans `src/lib/months.ts` + tests unitaires des cas limites, changement d'année compris (FR-127)
+- [X] T059 Échelle `display-xl` et titre d'accueil porté à 72 px sur grand écran (FR-128)
+- [X] T060 `HeaderNav` client: plus de lien vers la page courante, et accès au calendrier de saison depuis l'en-tête (FR-129)
+- [X] T061 `router.replace` à la validation du profil: le retour arrière ne rouvre plus le formulaire validé
+- [X] T062 Tests de bout en bout `us5-de-saison.spec.ts`: calendrier, verrouillage des étapes, reprise du profil, hauteur de page, accessibilité
 
 ## Dépendances
 

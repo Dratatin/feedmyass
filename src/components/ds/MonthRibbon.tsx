@@ -1,5 +1,7 @@
+import type { Route } from 'next';
+import Link from 'next/link';
 import { cn } from '@/lib/cn';
-import { MONTH_INITIALS, ribbonLabel, seasonOfMonth, type Season } from '@/lib/months';
+import { MONTH_INITIALS, MONTH_NAMES, ribbonLabel, seasonOfMonth, type Season } from '@/lib/months';
 
 /**
  * Ruban des douze mois: le motif d'identité de la direction.
@@ -31,44 +33,66 @@ const seasonWash: Record<Season, string> = {
   automne: 'bg-automne-wash text-ink',
 };
 
-export function MonthRibbon({ currentMonth, seasonMonths, size = 'md' }: {
+export function MonthRibbon({ currentMonth, seasonMonths, size = 'md', hrefOf }: {
   /** Mois en cours, de 1 à 12. Toujours mis en évidence. */
   currentMonth: number;
   /** Mois de disponibilité à teinter. Absent: seul le mois en cours est marqué. */
   seasonMonths?: number[];
   size?: 'sm' | 'md';
+  /**
+   * Rend chaque mois cliquable. Le ruban devient alors une navigation — il perd
+   * son rôle d'image et chaque case gagne le nom du mois en toutes lettres,
+   * puisqu'une initiale n'est pas une destination annonçable.
+   */
+  hrefOf?: (month: number) => string;
 }) {
   const inSeason = new Set(seasonMonths ?? []);
 
+  const cellClass = (month: number) => {
+    const season = seasonOfMonth(month);
+    return cn(
+      'block text-center type-data',
+      size === 'sm'
+        ? 'rounded-[3px] text-[10px] leading-[18px]'
+        : 'rounded-[var(--radius-champ)] text-xs leading-[22px]',
+      month === currentMonth
+        ? cn('font-semibold', seasonFull[season])
+        : inSeason.has(month)
+          ? seasonWash[season]
+          : 'bg-line-soft text-ink-muted',
+    );
+  };
+
+  const gridClass = cn('grid w-full grid-cols-12', size === 'sm' ? 'gap-[2px]' : 'gap-[3px]');
+
+  if (hrefOf) {
+    return (
+      <nav aria-label="Choisir un mois" className={gridClass}>
+        {MONTH_INITIALS.map((initial, index) => {
+          const month = index + 1;
+          return (
+            <Link
+              key={month}
+              href={hrefOf(month) as Route}
+              aria-current={month === currentMonth ? 'page' : undefined}
+              className={cn(cellClass(month), 'no-underline hover:opacity-80')}
+            >
+              <span aria-hidden="true">{initial}</span>
+              <span className="sr-only">{MONTH_NAMES[index]}</span>
+            </Link>
+          );
+        })}
+      </nav>
+    );
+  }
+
   return (
-    <div
-      role="img"
-      aria-label={ribbonLabel(currentMonth, seasonMonths)}
-      className={cn('grid w-full grid-cols-12', size === 'sm' ? 'gap-[2px]' : 'gap-[3px]')}
-    >
-      {MONTH_INITIALS.map((initial, index) => {
-        const month = index + 1;
-        const season = seasonOfMonth(month);
-        return (
-          <span
-            key={month}
-            aria-hidden="true"
-            className={cn(
-              'text-center type-data',
-              size === 'sm'
-                ? 'rounded-[3px] text-[10px] leading-[18px]'
-                : 'rounded-[var(--radius-champ)] text-xs leading-[22px]',
-              month === currentMonth
-                ? cn('font-semibold', seasonFull[season])
-                : inSeason.has(month)
-                  ? seasonWash[season]
-                  : 'bg-line-soft text-ink-muted',
-            )}
-          >
-            {initial}
-          </span>
-        );
-      })}
+    <div role="img" aria-label={ribbonLabel(currentMonth, seasonMonths)} className={gridClass}>
+      {MONTH_INITIALS.map((initial, index) => (
+        <span key={index + 1} aria-hidden="true" className={cellClass(index + 1)}>
+          {initial}
+        </span>
+      ))}
     </div>
   );
 }

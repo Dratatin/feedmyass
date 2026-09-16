@@ -97,7 +97,7 @@ vient désormais de la display et de sa légère inclinaison.
 
 | Rôle | Famille | Réglage | Emploi |
 | --- | --- | --- | --- |
-| Titres | **Fraunces** | `SOFT 60`, `WONK 1`, graisse 800 | `h1`, `h2`, chiffres clés, titres de blocs. Nulle part ailleurs. |
+| Titres | **Fraunces** | `SOFT 60`, `WONK 1`, graisse 800 | `h1`, `h2`, chiffres clés, titres de blocs. Nulle part ailleurs. Le titre de l'accueil monte à `display-xl` (72 px): c'est la seule phrase de l'application qui doit porter à travers la pièce. |
 | Interface | **Recursive** | `CASL 0.55`, `MONO 0` | Tout le texte courant, boutons, champs, libellés |
 | Données | **Recursive** | `MONO 1`, `CASL 0.3` | Chiffres, unités, codes RNP/AS/BEM, mois, en-têtes de tableau |
 
@@ -122,6 +122,8 @@ poser.
 - **Grille**: rail de 17rem + colonne principale, jusqu'à 760 px de large où le rail passe au-dessus.
 - **Largeur de page**: 1520 px de contenu utile (`--container-page`). Les registres font quatre
   colonnes dont une porte un ruban de douze cases: en dessous, ils se serrent sans raison.
+- **Hauteur**: le contenu occupe au minimum la hauteur de la fenêtre. `body` est une colonne flex,
+  les gabarits d'écran prennent `flex-1`, et la colonne de paille du rail descend jusqu'en bas.
 - **Les fonds ne sont jamais bornés par la largeur de page.** Une bande colorée — en-tête, rail,
   étal — occupe toute la largeur de la fenêtre et centre son contenu à l'intérieur. Un fond qui
   s'arrête au bord du conteneur centré se lit comme un bloc coupé.

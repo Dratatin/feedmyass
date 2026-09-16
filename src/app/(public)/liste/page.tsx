@@ -70,7 +70,7 @@ export default function IngredientListPage() {
     // précis où l'on ne sait pas où l'on est serait le pire moment pour la
     // retirer (constat du parcours à la main, 2026-09-18).
     return (
-      <PageShell rail={<StepRail current={3} currentMonth={currentMonth} />}>
+      <PageShell rail={<StepRail current={3} currentMonth={currentMonth} reached={1} />}>
         <h1 className="text-display-sm text-ink">Encore une étape</h1>
         <p className="max-w-[62ch] text-md text-ink-soft">
           La liste d&apos;ingrédients se construit à partir de vos besoins, et vos besoins se

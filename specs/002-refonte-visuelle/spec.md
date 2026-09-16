@@ -186,6 +186,22 @@ Trois retours sur la direction, et trois constats tirés du parcours refait à l
 - **FR-123**: Lorsque les commandes de régime ou de période ne correspondent plus à la liste affichée,
   l'écart DOIT être signalé explicitement.
 
+### Retours de revue du 2026-09-19
+
+- **FR-124**: Le calendrier de saison DOIT être un écran public à part entière, consultable sans
+  compte et sans profil, listant tous les fruits et légumes disponibles au mois consulté et
+  permettant d'en regarder un autre.
+- **FR-125**: Une étape du parcours dont la précédente n'est pas franchie NE DOIT pas être
+  atteignable depuis la navigation. Elle reste visible et annoncée comme indisponible: masquer la
+  suite du parcours priverait l'utilisateur de sa carte.
+- **FR-126**: Le contenu d'une page DOIT occuper au minimum la hauteur de la fenêtre, quel que soit
+  son volume.
+- **FR-127**: Une période de disponibilité affichée sous forme abrégée DOIT signaler qu'elle est
+  discontinue plutôt que de laisser croire à une saison unique.
+- **FR-128**: Le titre de l'accueil DOIT porter à la taille d'un titre d'affiche sur grand écran:
+  c'est la seule phrase de l'application qui a ce rôle.
+- **FR-129**: Aucun lien de navigation NE DOIT pointer vers la page déjà affichée.
+
 ### Invariants préservés (non négociables)
 
 - **FR-115**: Cette feature NE DOIT modifier aucune valeur nutritionnelle, aucune formule, aucun libellé

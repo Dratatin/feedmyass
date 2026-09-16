@@ -65,7 +65,7 @@ export default function NeedsPage() {
     // précis où l'on ne sait pas où l'on est serait le pire moment pour la
     // retirer (constat du parcours à la main, 2026-09-18).
     return (
-      <PageShell rail={<StepRail current={2} currentMonth={new Date().getMonth() + 1} />}>
+      <PageShell rail={<StepRail current={2} currentMonth={new Date().getMonth() + 1} reached={1} />}>
         <h1 className="text-display-sm text-ink">Aucun résultat pour l&apos;instant</h1>
         <p className="max-w-[62ch] text-md text-ink-soft">
           Vos besoins se calculent à partir de votre poids, de votre âge, de votre sexe de référence

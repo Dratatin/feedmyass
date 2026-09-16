@@ -112,7 +112,11 @@ export default function ProfilePage() {
           payload.weight_kg + ' kg, ' + payload.height_cm + ' cm, ' + payload.age + ' ans',
         profile: payload,
       });
-      router.push('/besoins');
+      // `replace` et non `push`: le formulaire et son résultat sont deux états
+      // de la même action. Revenir en arrière depuis les besoins ramène là d'où
+      // l'on venait, au lieu de rouvrir le formulaire qu'on vient de valider
+      // (constat du parcours à la main, 2026-09-18).
+      router.replace('/besoins');
     } catch {
       setGlobalError("Le calcul n'a pas pu aboutir. Vérifiez votre connexion et réessayez.");
     } finally {
@@ -126,7 +130,7 @@ export default function ProfilePage() {
     <PageShell
       rail={
         <>
-          <StepRail current={1} currentMonth={new Date().getMonth() + 1} />
+          <StepRail current={1} currentMonth={new Date().getMonth() + 1} reached={previous ? 3 : 1} />
           <p className="text-xs text-ink-muted">
             Rien ne quitte votre navigateur tant que vous n&apos;enregistrez pas de résultat.
           </p>

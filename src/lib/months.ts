@@ -153,3 +153,41 @@ export const CATEGORY_GROUP_LABELS: Record<string, string> = {
   fruit_a_coque: 'Fruits à coque',
   autre: 'Autres',
 };
+
+/**
+ * Période de disponibilité en une ligne: « Juil → Sep », « Sep → Jan ».
+ *
+ * La saisonnalité se lit d'un coup d'œil sur le ruban, mais une carte d'étal
+ * n'a pas la place d'en porter un: il lui faut la même information en trois
+ * mots. Les mois qui enjambent le changement d'année sont recollés — un chou
+ * frisé disponible en septembre, octobre, décembre et janvier est de saison
+ * « Sep → Jan », pas « Jan, Sep, Oct, Déc ».
+ */
+const MONTH_ABBR = [
+  'Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin',
+  'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc',
+] as const;
+
+export function seasonRangeLabel(months: number[]): string {
+  const set = new Set(months);
+  if (set.size === 0) return '';
+  if (set.size === 12) return "Toute l'année";
+
+  // Le premier mois d'une plage est celui dont le précédent est absent. En
+  // partant de là, on avance tant que le suivant est présent.
+  const start = [...set].sort((a, b) => a - b).find((m) => !set.has(m === 1 ? 12 : m - 1));
+  if (start === undefined) return '';
+
+  let end = start;
+  while (set.has(end === 12 ? 1 : end + 1) && (end === 12 ? 1 : end + 1) !== start) {
+    end = end === 12 ? 1 : end + 1;
+  }
+
+  // Un produit disponible en septembre et en novembre n'est pas « de saison en
+  // septembre » tout court: le « + » dit qu'il revient plus tard dans l'année.
+  const runLength = end >= start ? end - start + 1 : 12 - start + end + 1;
+  const from = MONTH_ABBR[start - 1] ?? '';
+  const to = MONTH_ABBR[end - 1] ?? '';
+  const range = start === end ? from : from + ' → ' + to;
+  return runLength < set.size ? range + ' +' : range;
+}
