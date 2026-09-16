@@ -17,7 +17,7 @@ bout sont conservés à l'identique.
 
 - [X] T005 Réécrire `src/styles/tokens.css`: encre, papier, filets, couleurs de sens, quatre saisons, sept familles, échelle typographique, géométrie. Ratio de contraste consigné pour chaque couleur portant du texte (FR-101, FR-103)
 - [X] T006 Réécrire `src/app/globals.css`: fond, couleur de texte, famille par défaut, titres en display, anneau de focus
-- [X] T007 Charger Fraunces, Recursive et Caveat par `next/font` dans `src/app/layout.tsx`, avec leurs axes variables (FR-105)
+- [X] T007 Charger Fraunces et Recursive par `next/font` dans `src/app/layout.tsx`, avec leurs axes variables (FR-105)
 - [X] T008 Créer `src/lib/months.ts`: initiales, noms, saison de chaque mois, libellés de famille d'aliment
 
 ## Phase 2 — Composants de la direction
@@ -72,6 +72,30 @@ bout sont conservés à l'identique.
 - [X] T044 `specs/001-.../plan.md`: porte VI et mentions Figma renvoyées vers la direction maison
 - [X] T045 `specs/001-.../tasks.md`: section « Dépendance Figma » marquée caduque, T022 et T023 annotés
 - [X] T046 `specs/001-.../checklists/constitution.md`: aligner les points relatifs au principe VI
+
+## Phase 7 — Revue du 2026-09-18
+
+Retours du commanditaire sur la direction, et constats du parcours refait à la main.
+
+- [X] T047 Retirer la famille manuscrite (Caveat) des jetons, du chargement des polices et de l'ardoise du marché (FR-117)
+- [X] T048 Sortir les fonds colorés de la largeur de page: bande de l'étal, pied de page et fond du rail vont d'un bord à l'autre de la fenêtre (FR-118)
+- [X] T049 Porter la largeur de contenu à 1520 px via le jeton  (FR-119)
+- [X] T050 « Voir ce qui est de saison » mène à l'étal de l'accueil et non plus à un écran qui réclame un profil (FR-120)
+- [X] T051 Conserver le rail sur les écrans de résultat vides, et y écrire ce qu'il reste à faire (FR-121)
+- [X] T052 Préremplir le formulaire de profil à partir de la dernière saisie de la visite (FR-122)
+- [X] T053 Signaler une liste qui ne correspond plus aux commandes de régime ou de période (FR-123)
+
+## Phase 7 — Revue du 2026-09-18
+
+Retours du commanditaire sur la direction, et constats du parcours refait à la main.
+
+- [X] T047 Retirer la famille manuscrite des jetons, du chargement des polices et de l'ardoise du marché (FR-117)
+- [X] T048 Sortir les fonds colorés de la largeur de page: étal, pied de page et fond du rail vont d'un bord à l'autre de la fenêtre (FR-118)
+- [X] T049 Porter la largeur de contenu à 1520 px via le jeton `--container-page` (FR-119)
+- [X] T050 « Voir ce qui est de saison » mène à l'étal de l'accueil et non plus à un écran qui réclame un profil (FR-120)
+- [X] T051 Conserver le rail sur les écrans de résultat vides, et y écrire ce qu'il reste à faire (FR-121)
+- [X] T052 Préremplir le formulaire de profil à partir de la dernière saisie de la visite (FR-122)
+- [X] T053 Signaler une liste qui ne correspond plus aux commandes de régime ou de période (FR-123)
 
 ## Dépendances
 

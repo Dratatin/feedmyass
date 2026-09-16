@@ -33,7 +33,7 @@ export async function SiteHeader() {
   return (
     <header className="bg-ink">
       <VignetteSprite />
-      <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-8">
         <Link
           href="/"
           className="type-display flex items-center gap-2 text-lg text-paper no-underline"

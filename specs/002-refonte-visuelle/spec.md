@@ -4,7 +4,7 @@
 
 **Created**: 2026-09-17
 
-**Status**: Validée (maquette approuvée le 2026-09-17)
+**Status**: Validée (maquette approuvée le 2026-09-17, amendée par la revue du 2026-09-18)
 
 **Input**: User description: "Le design actuel, composé à partir du design system Figma « BDD de composants de base », ne convient pas. Produire une nouvelle direction visuelle à partir du contenu existant du site et des spécifications, la valider sur maquette, puis l'implémenter. La direction doit être chaleureuse et joviale. Retirer les spécifications de design Figma et les remplacer par celles de la nouvelle direction."
 
@@ -136,7 +136,7 @@ lire les chiffres.
   courant). Le ratio mesuré DOIT être consigné à côté de la définition du token.
 - **FR-104**: La couleur NE DOIT jamais être le seul véhicule d'une information: tout état signalé par
   une couleur DOIT l'être aussi par un mot, une forme ou une position.
-- **FR-105**: Les trois familles typographiques DOIVENT être servies depuis le domaine de
+- **FR-105**: Les familles typographiques DOIVENT être servies depuis le domaine de
   l'application, sans requête vers un tiers au chargement de la page.
 
 ### Exigences d'écran
@@ -166,6 +166,25 @@ lire les chiffres.
   design system Figma; les références correspondantes DOIVENT renvoyer à la présente direction.
 - **FR-114**: L'Annexe A de la spécification 001 (33 nœuds Figma) DOIT être conservée comme trace
   historique, explicitement marquée comme abandonnée et sans valeur prescriptive.
+
+### Retours de revue du 2026-09-18
+
+Trois retours sur la direction, et trois constats tirés du parcours refait à la main.
+
+- **FR-117**: Aucune famille typographique manuscrite. La direction s'en tient à deux familles
+  (titres et interface, cette dernière servant aussi aux données par son axe monospace).
+- **FR-118**: Un fond coloré NE DOIT jamais être borné par la largeur de page: il occupe toute la
+  largeur de la fenêtre et centre son contenu à l'intérieur.
+- **FR-119**: La largeur de contenu utile DOIT être d'au moins 1500 px sur grand écran.
+- **FR-120**: Aucune action mise en avant NE DOIT mener à un écran qui refuse de répondre à ce
+  qu'elle promet. En particulier, « voir ce qui est de saison » mène à des produits de saison, pas à
+  une demande de profil.
+- **FR-121**: Un écran de résultat vide DOIT conserver la navigation du parcours: c'est au moment où
+  l'utilisateur ne sait pas où il en est qu'elle lui sert le plus.
+- **FR-122**: Revenir au formulaire de profil DOIT restituer la dernière saisie de la visite. Corriger
+  un poids ne DOIT pas obliger à ressaisir les cinq champs.
+- **FR-123**: Lorsque les commandes de régime ou de période ne correspondent plus à la liste affichée,
+  l'écart DOIT être signalé explicitement.
 
 ### Invariants préservés (non négociables)
 
@@ -208,7 +227,7 @@ lire les chiffres.
   structurés pour qu'un thème sombre puisse être ajouté sans les redéfinir.
 - Les libellés de champs, titres et textes de boutons de la 001 sont conservés à l'identique: ils sont
   les points d'ancrage des tests de bout en bout.
-- Les trois familles typographiques (Fraunces, Recursive, Caveat) sont disponibles sous licence libre
+- Les familles typographiques (Fraunces, Recursive) sont disponibles sous licence libre
   et embarquées au build.
 - L'extension du schéma du plan d'ingrédients est additive: un consommateur du schéma 1.0.0 continue de
   fonctionner sans modification.

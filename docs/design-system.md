@@ -4,7 +4,8 @@ Référence unique du design de FeedMyAss, au sens du principe VI de la constitu
 design system Figma « BDD de composants de base », abandonné le 2026-09-17 (amendement 2.0.0).
 
 - **Maquette de référence**: <https://claude.ai/artifact/55D5aGm3VAFjb872ALg5Lp> (v2, validée le
-  2026-09-17). Six écrans: accueil, profil, besoins, liste d'ingrédients, connexion, espace personnel.
+  2026-09-17, amendée par la revue du 2026-09-18). Six écrans: accueil, profil, besoins, liste
+  d'ingrédients, connexion, espace personnel.
 - **Implémentation des tokens**: `src/styles/tokens.css`. Ce fichier est la seule source de valeurs
   visuelles du code; ce document est la seule source du fichier.
 
@@ -87,15 +88,18 @@ lettres** — la couleur ne porte jamais seule l'information (principe VI).
 
 ## Typographie
 
-Trois familles, trois rôles, aucun recouvrement. Servies depuis le domaine de l'application par
-`next/font` — aucune requête vers un tiers au chargement (FR-105).
+Deux familles, trois rôles. Servies depuis le domaine de l'application par `next/font` — aucune
+requête vers un tiers au chargement (FR-105).
+
+*Revue du 2026-09-18*: une troisième famille manuscrite (Caveat) portait les annotations de
+l'ardoise du marché. Elle est retirée — le procédé vieillissait la page. Le caractère de l'ardoise
+vient désormais de la display et de sa légère inclinaison.
 
 | Rôle | Famille | Réglage | Emploi |
 | --- | --- | --- | --- |
 | Titres | **Fraunces** | `SOFT 60`, `WONK 1`, graisse 800 | `h1`, `h2`, chiffres clés, titres de blocs. Nulle part ailleurs. |
 | Interface | **Recursive** | `CASL 0.55`, `MONO 0` | Tout le texte courant, boutons, champs, libellés |
 | Données | **Recursive** | `MONO 1`, `CASL 0.3` | Chiffres, unités, codes RNP/AS/BEM, mois, en-têtes de tableau |
-| Ardoise | **Caveat** | graisse 500 | Annotations manuscrites. Trois emplois au maximum dans toute l'application. |
 
 Les axes `SOFT` et `WONK` de Fraunces sont ce qui lui donne ses formes un peu bancales: sans eux, c'est
 une autre police. L'axe `CASL` de Recursive fait toute la différence entre un ton administratif et un
@@ -115,7 +119,12 @@ poser.
   lignes.
 - **Aucune ombre portée dans l'interface.** La hiérarchie vient des fonds et des filets. Seule la
   maquette de présentation en emploie, pour détacher les écrans de la page qui les montre.
-- **Grille**: rail de 15,5rem + colonne principale, jusqu'à 760 px de large où le rail passe au-dessus.
+- **Grille**: rail de 17rem + colonne principale, jusqu'à 760 px de large où le rail passe au-dessus.
+- **Largeur de page**: 1520 px de contenu utile (`--container-page`). Les registres font quatre
+  colonnes dont une porte un ruban de douze cases: en dessous, ils se serrent sans raison.
+- **Les fonds ne sont jamais bornés par la largeur de page.** Une bande colorée — en-tête, rail,
+  étal — occupe toute la largeur de la fenêtre et centre son contenu à l'intérieur. Un fond qui
+  s'arrête au bord du conteneur centré se lit comme un bloc coupé.
 
 ## Composants
 
@@ -160,8 +169,8 @@ poser.
    unité en retrait et en `ink-muted`.
 4. **Le ruban des mois est présent sur tout écran du parcours.** C'est le fil qui rappelle que la
    réponse dépend de la date.
-5. **La craie est rare.** Trois annotations manuscrites au maximum dans toute l'application, sinon le
-   procédé s'use.
+5. **Un fond déborde toujours de la largeur de page.** Une bande colorée va d'un bord à l'autre de la
+   fenêtre et centre son contenu; seule la lecture est bornée, jamais la couleur.
 6. **Aucun état signalé par la seule couleur.** Une jauge sous son seuil porte aussi le mot « sous le
    seuil »; une pastille de famille porte aussi son nom.
 7. **Un ruban ou une jauge est une image porteuse de sens**: exposée aux lecteurs d'écran avec un texte

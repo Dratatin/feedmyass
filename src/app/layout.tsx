@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Caveat, Fraunces, Recursive } from 'next/font/google';
+import { Fraunces, Recursive } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { SiteHeader } from '@/components/features/SiteHeader';
 import './globals.css';
 
 /**
- * Les trois familles de la direction « Encre & Saison », chargées par
+ * Les deux familles de la direction « Encre & Saison », chargées par
  * next/font: les fichiers sont servis depuis notre propre domaine, sans appel
  * à Google au chargement de la page, et sans décalage de mise en page
  * (FR-105).
@@ -30,12 +30,6 @@ const sans = Recursive({
   display: 'swap',
 });
 
-const chalk = Caveat({
-  subsets: ['latin'],
-  variable: '--font-chalk-family',
-  display: 'swap',
-});
-
 export const metadata: Metadata = {
   title: 'FeedMyAss — besoins nutritionnels et ingrédients de saison',
   description:
@@ -46,7 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   // lang="fr": l'interface est en français (FR-034).
   return (
-    <html lang="fr" className={display.variable + ' ' + sans.variable + ' ' + chalk.variable}>
+    <html lang="fr" className={display.variable + ' ' + sans.variable}>
       <body>
         {/* L'en-tête porte l'état de connexion, donc il est rendu pour toutes
             les pages, publiques comprises: le calcul reste accessible sans

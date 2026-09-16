@@ -93,20 +93,18 @@
   --color-famille-grasse: #5d6a1a;
 
   /* --- Typographie ---
-   * Trois familles, trois rôles, aucun recouvrement. Chargées par next/font
-   * (src/app/layout.tsx), qui pose les variables --font-*-family sur <html>.
+   * Deux familles, trois rôles. Chargées par next/font (src/app/layout.tsx),
+   * qui pose les variables --font-*-family sur <html>.
    *
    *   display : Fraunces, axes SOFT 60 et WONK 1 — titres uniquement
    *   sans    : Recursive, axe CASL 0.55 — toute l'interface
    *   data    : Recursive, axe MONO 1 — chiffres, unités, codes, mois
-   *   chalk   : Caveat — annotations manuscrites, trois emplois au maximum
    *
    * Les axes font le caractère de ces polices: sans SOFT ni WONK, Fraunces est
    * une autre fonte. Ils sont appliqués par les classes de src/app/globals.css.
    */
   --font-display: var(--font-display-family), Georgia, serif;
   --font-sans: var(--font-sans-family), 'Segoe UI', system-ui, sans-serif;
-  --font-chalk: var(--font-chalk-family), 'Segoe Script', cursive;
 
   /* Échelle display: crénage négatif, interligne serré, réservée aux titres. */
   --text-display-lg: 3rem;
@@ -152,4 +150,15 @@
    */
   --radius-bloc: 10px;
   --radius-champ: 6px;
+
+  /* --- Largeur de page ---
+   * 1520 px de contenu utile. Les écrans de résultat affichent des registres de
+   * quatre colonnes dont une porte un ruban de douze cases: en dessous de cette
+   * largeur, ils se serrent sans raison sur un écran large.
+   *
+   * ATTENTION: cette largeur borne le CONTENU, jamais un fond. Un bloc coloré —
+   * en-tête, rail, étal — occupe toute la largeur de la fenêtre et centre son
+   * contenu à l'intérieur, sinon la couleur s'arrête net au milieu de l'écran.
+   */
+  --container-page: 95rem;
 }

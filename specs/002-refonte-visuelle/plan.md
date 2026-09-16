@@ -20,8 +20,8 @@ d'écrans, et `docs/design-system.md` qui tient lieu de règle.
 **Language/Version**: inchangé — TypeScript 6.0 sur Node.js >= 22
 
 **Primary Dependencies**: inchangées, à une près — Tailwind CSS 4.3 est désormais alimenté par les
-tokens de `docs/design-system.md` et non plus par une extraction Figma; `next/font` charge Fraunces,
-Recursive et Caveat au build
+tokens de `docs/design-system.md` et non plus par une extraction Figma; `next/font` charge Fraunces et
+Recursive au build
 
 **Storage**: inchangé. La table `seasonality` est déjà présente et porte les mois par aliment; seule
 la requête de lecture change
@@ -69,7 +69,7 @@ qu'elle va bien », il faut qu'elle veuille dire quelque chose.
 
 ### D2 — `next/font` plutôt qu'une feuille Google Fonts
 
-Trois familles chargées depuis un tiers, c'est trois requêtes bloquantes et une fuite d'adresse IP vers
+Des familles chargées depuis un tiers, ce sont autant de requêtes bloquantes et une fuite d'adresse IP vers
 Google à chaque visite. `next/font` les sert depuis notre domaine, sans décalage de mise en page. Les
 axes variables (`SOFT`, `WONK` de Fraunces, `CASL`, `MONO` de Recursive) sont demandés explicitement:
 ils sont le caractère même de ces polices.
@@ -122,5 +122,5 @@ respectivement par `Panel`, `Pill`, `Notice` et `Register`.
 | Ajout | Pourquoi nécessaire | Alternative écartée |
 |-------|---------------------|---------------------|
 | Extension du schéma du plan (1.1.0) | FR-107: sans les mois par aliment, le ruban par ligne est irréalisable | Se contenter d'une étiquette « de saison » — écarté à la revue du 2026-09-17, le ruban étant l'élément distinctif de la direction |
-| Trois familles typographiques | Trois rôles réellement distincts: titres, interface, données. La quatrième (Caveat) ne sert qu'aux annotations | Une seule famille variable — écarté: aucune ne couvre à la fois un display expressif et un mono tabulaire |
+| Deux familles typographiques | Trois rôles réellement distincts: titres, interface, données — Recursive couvrant les deux derniers par son axe MONO | Une seule famille — écartée: aucune ne couvre à la fois un display expressif et un mono tabulaire. Une troisième, manuscrite, a été essayée puis retirée à la revue du 2026-09-18 |
 | Cinq composants d'affichage nouveaux | Ruban, jauge, chiffres clés, vignette et pastille n'ont aucun équivalent | Les composer écran par écran — écarté: c'est exactement ce que le principe VI interdit |

@@ -87,8 +87,11 @@ export default function HomePage() {
   const produceCount = foods.foods.filter((f) => f.is_fruit_vegetable).length;
 
   return (
-    <main className="mx-auto w-full max-w-[1180px]">
-      <div className="grid grid-cols-1 gap-8 px-4 pt-10 pb-8 md:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] md:px-7">
+    // Chaque bande occupe toute la largeur de la fenêtre et centre son contenu:
+    // un fond coloré ne doit jamais s'arrêter au bord du conteneur, sinon il se
+    // lit comme un bloc coupé (retour de revue du 2026-09-17).
+    <main className="w-full">
+      <div className="mx-auto grid w-full max-w-page grid-cols-1 gap-8 px-4 pt-10 pb-8 md:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] md:px-8">
         <div className="flex flex-col gap-5">
           <h1 className="max-w-[16ch] text-display-md text-ink md:text-display-lg">
             Ce dont votre corps a besoin, et ce qu&apos;il y a{' '}
@@ -104,12 +107,18 @@ export default function HomePage() {
             <Link href="/profil" className={buttonStyles({ size: 'lg' })}>
               Calculer mes besoins
             </Link>
-            <Link
-              href="/liste"
-              className={buttonStyles({ hierarchy: 'secondary', size: 'lg' })}
-            >
-              Voir ce qui est de saison
-            </Link>
+            {/* Ce lien pointait vers /liste, qui exige un profil: le visiteur
+                cliquait « voir ce qui est de saison » et tombait sur « Aucun
+                profil ». Il mène maintenant à l'étal, juste en dessous, qui
+                répond vraiment à la question posée. */}
+            {stall.length > 0 ? (
+              <a
+                href="#de-saison"
+                className={buttonStyles({ hierarchy: 'secondary', size: 'lg' })}
+              >
+                Voir ce qui est de saison
+              </a>
+            ) : null}
           </div>
 
           <ul className="flex flex-wrap gap-[7px]">
@@ -129,52 +138,70 @@ export default function HomePage() {
           </ul>
         </div>
 
-        {/* L'ardoise du marché: le seul endroit de l'application où la craie
-            est employée avec le ruban, et l'un des trois au total. */}
-        <aside className="flex flex-col gap-[14px] self-start rounded-[var(--radius-bloc)] bg-ink px-[22px] pt-5 pb-[22px] md:-rotate-[0.7deg]">
-          <p className="type-chalk text-display-xs text-paper">
+        {/* L'ardoise du marché. Elle portait une écriture manuscrite (Caveat),
+            retirée à la revue du 2026-09-18: le procédé vieillissait la page.
+            Le caractère vient maintenant de la display et de la légère
+            inclinaison, la seule de toute l'interface. */}
+        <aside className="flex flex-col gap-4 self-start rounded-[var(--radius-bloc)] bg-ink px-6 pt-6 pb-7 md:-rotate-[0.7deg]">
+          <p className="type-display text-display-xs text-paper">
             Nous sommes en {monthName(month)}
           </p>
           <div className="flex flex-col gap-[9px]">
             <p className="type-data text-xs tracking-label uppercase text-line">Les douze mois</p>
             <MonthRibbon currentMonth={month} />
           </div>
-          <p className="type-chalk text-lg text-line">
-            {produceCount} fruits et légumes au catalogue, {stall.length ? stall.length : 'aucun'} de
-            saison aujourd&apos;hui.
+          <p className="text-sm text-line">
+            {produceCount} fruits et légumes au catalogue,{' '}
+            <strong className="font-semibold text-paper">
+              {stall.length ? stall.length : 'aucun'} de saison
+            </strong>{' '}
+            aujourd&apos;hui.
           </p>
         </aside>
       </div>
 
       {stall.length > 0 ? (
-        <section className="flex flex-col gap-[14px] border-t-[1.5px] border-solid border-line bg-paper-deep px-4 py-6 md:px-7">
-          <h2 className="type-data text-xs font-medium tracking-label uppercase text-ink-muted">
-            De saison aujourd&apos;hui
-          </h2>
-          <ul className="grid grid-cols-2 gap-[10px] sm:grid-cols-4">
-            {stall.map((item) => (
-              <li
-                key={item.code}
-                className="flex flex-col items-start gap-[7px] rounded-[var(--radius-bloc)] border-[1.5px] border-solid border-line bg-surface px-[13px] pt-3 pb-[13px]"
-              >
-                {item.vignette ? <Vignette name={item.vignette} /> : null}
-                <span className="text-sm font-semibold text-ink">{item.label}</span>
-              </li>
-            ))}
-          </ul>
+        <section
+          id="de-saison"
+          className="w-full scroll-mt-4 border-t-[1.5px] border-solid border-line bg-paper-deep"
+        >
+          <div className="mx-auto flex w-full max-w-page flex-col gap-[14px] px-4 py-7 md:px-8">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <h2 className="type-data text-xs font-medium tracking-label uppercase text-ink-muted">
+                De saison en {monthName(month)}
+              </h2>
+              <p className="text-sm text-ink-soft">
+                Ces produits entreront dans votre liste d&apos;ingrédients si vous calculez vos
+                besoins ce mois-ci.
+              </p>
+            </div>
+            <ul className="grid grid-cols-2 gap-[10px] sm:grid-cols-4 lg:grid-cols-8">
+              {stall.map((item) => (
+                <li
+                  key={item.code}
+                  className="flex flex-col items-start gap-[7px] rounded-[var(--radius-bloc)] border-[1.5px] border-solid border-line bg-surface px-[13px] pt-3 pb-[13px]"
+                >
+                  {item.vignette ? <Vignette name={item.vignette} /> : null}
+                  <span className="text-sm font-semibold text-ink">{item.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       ) : null}
 
-      <footer className="flex flex-col gap-[6px] border-t-[1.5px] border-solid border-line px-4 py-6 text-sm text-ink-muted md:px-7">
-        <p>
-          <strong className="font-semibold text-ink-soft">Estimation informative.</strong> Ni
-          diagnostic, ni conseil médical personnalisé. Ce service ne remplace pas un professionnel de
-          santé.
-        </p>
-        <p>
-          Références&nbsp;: ANSES 2021, Henry 2005, CIQUAL 2020, calendrier de saison France
-          métropolitaine.
-        </p>
+      <footer className="w-full border-t-[1.5px] border-solid border-line">
+        <div className="mx-auto flex w-full max-w-page flex-col gap-[6px] px-4 py-7 text-sm text-ink-muted md:px-8">
+          <p>
+            <strong className="font-semibold text-ink-soft">Estimation informative.</strong> Ni
+            diagnostic, ni conseil médical personnalisé. Ce service ne remplace pas un professionnel
+            de santé.
+          </p>
+          <p>
+            Références&nbsp;: ANSES 2021, Henry 2005, CIQUAL 2020, calendrier de saison France
+            métropolitaine.
+          </p>
+        </div>
       </footer>
     </main>
   );

@@ -61,11 +61,15 @@ export default function NeedsPage() {
   const [period, setPeriod] = useState<Period>('day');
 
   if (stored === null) {
+    // L'état vide garde le rail: perdre la navigation du parcours au moment
+    // précis où l'on ne sait pas où l'on est serait le pire moment pour la
+    // retirer (constat du parcours à la main, 2026-09-18).
     return (
-      <PageShell>
-        <h1 className="text-display-sm text-ink">Aucun résultat</h1>
-        <p className="text-md text-ink-soft">
-          Renseignez votre profil pour obtenir vos besoins nutritionnels.
+      <PageShell rail={<StepRail current={2} currentMonth={new Date().getMonth() + 1} />}>
+        <h1 className="text-display-sm text-ink">Aucun résultat pour l&apos;instant</h1>
+        <p className="max-w-[62ch] text-md text-ink-soft">
+          Vos besoins se calculent à partir de votre poids, de votre âge, de votre sexe de référence
+          et de votre niveau d&apos;activité. Aucun compte n&apos;est nécessaire.
         </p>
         <div>
           <Link href="/profil" className={buttonStyles({ size: 'lg' })}>

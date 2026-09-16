@@ -6,6 +6,7 @@ import { Button, buttonStyles } from '@/components/ds/Button';
 import { CheckboxField } from '@/components/ds/CheckboxField';
 import { CategoryDot, FamilyDot } from '@/components/ds/FamilyDot';
 import { MonthRibbon } from '@/components/ds/MonthRibbon';
+import { Notice } from '@/components/ds/Notice';
 import { PageShell } from '@/components/ds/PageShell';
 import { Pill } from '@/components/ds/Pill';
 import { Register, type Column } from '@/components/ds/Register';
@@ -65,12 +66,15 @@ export default function IngredientListPage() {
   const currentMonth = new Date().getMonth() + 1;
 
   if (stored === null) {
+    // L'état vide garde le rail: perdre la navigation du parcours au moment
+    // précis où l'on ne sait pas où l'on est serait le pire moment pour la
+    // retirer (constat du parcours à la main, 2026-09-18).
     return (
-      <PageShell>
-        <h1 className="text-display-sm text-ink">Aucun profil</h1>
-        <p className="text-md text-ink-soft">
-          La liste d&apos;ingrédients se construit à partir de vos besoins. Renseignez d&apos;abord
-          votre profil.
+      <PageShell rail={<StepRail current={3} currentMonth={currentMonth} />}>
+        <h1 className="text-display-sm text-ink">Encore une étape</h1>
+        <p className="max-w-[62ch] text-md text-ink-soft">
+          La liste d&apos;ingrédients se construit à partir de vos besoins, et vos besoins se
+          calculent à partir de votre profil. Comptez une dizaine de secondes.
         </p>
         <div>
           <Link href="/profil" className={buttonStyles({ size: 'lg' })}>
@@ -166,6 +170,22 @@ export default function IngredientListPage() {
     ? [...new Set(plan.items.map((item) => familyOfCategory(item.category)))]
     : [];
 
+  /**
+   * La liste affichée ne correspond plus aux commandes du rail.
+   *
+   * Constat du parcours à la main (2026-09-18): passer la période à « semaine »
+   * laissait à l'écran une liste titrée « pour la journée », sans rien qui
+   * signale qu'elle était périmée. La régénération n'est pas automatique — le
+   * solveur tourne pendant une seconde et l'utilisateur coche souvent plusieurs
+   * exclusions d'affilée — mais l'écart, lui, doit se voir.
+   */
+  const stale =
+    plan !== null &&
+    (plan.diet.base !== base ||
+      plan.period !== period ||
+      plan.diet.exclusions.length !== exclusions.length ||
+      !plan.diet.exclusions.every((e) => exclusions.includes(e)));
+
   return (
     <PageShell
       rail={
@@ -238,6 +258,13 @@ export default function IngredientListPage() {
           previousDiet={DIET_BASES.find((d) => d.value === previousBase)?.label ?? previousBase}
           currentDiet={DIET_BASES.find((d) => d.value === plan.diet.base)?.label ?? plan.diet.base}
         />
+      ) : null}
+
+      {stale ? (
+        <Notice tone="caution" title="Cette liste ne correspond plus à votre sélection">
+          Vous avez changé de régime ou de période depuis la dernière génération. Cliquez sur
+          «&nbsp;Générer ma liste&nbsp;» pour la mettre à jour.
+        </Notice>
       ) : null}
 
       {plan ? (

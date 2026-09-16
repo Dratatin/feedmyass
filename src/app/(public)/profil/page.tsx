@@ -1,14 +1,19 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { Button } from '@/components/ds/Button';
 import { InputField } from '@/components/ds/InputField';
 import { PageShell } from '@/components/ds/PageShell';
 import { Panel } from '@/components/ds/Panel';
 import { SelectField } from '@/components/ds/SelectField';
 import { StepRail } from '@/components/features/StepRail';
-import { storeNeeds } from '@/lib/needs-session';
+import {
+  getNeedsServerSnapshot,
+  getNeedsSnapshot,
+  storeNeeds,
+  subscribeNeeds,
+} from '@/lib/needs-session';
 
 /**
  * Écran de saisie du profil (FR-001, FR-002).
@@ -46,7 +51,23 @@ export default function ProfilePage() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+
+  /**
+   * Profil déjà saisi pendant la visite, s'il y en a un.
+   *
+   * « Modifier mon profil » renvoyait un formulaire vide: pour corriger un
+   * poids, il fallait ressaisir les cinq champs (constat du parcours à la main,
+   * 2026-09-18). Le formulaire repart donc de la dernière saisie.
+   *
+   * Le rendu serveur ne voit pas la session du navigateur: les valeurs arrivent
+   * après hydratation. La `key` du formulaire change à ce moment-là, ce qui
+   * remonte les champs avec leurs valeurs par défaut — un champ non contrôlé
+   * ignore une valeur par défaut qui change sans remontage.
+   */
+  const stored = useSyncExternalStore(subscribeNeeds, getNeedsSnapshot, getNeedsServerSnapshot);
+  const previous = stored?.profile;
   const [activity, setActivity] = useState('');
+  const selectedActivity = activity || previous?.activity_level || '';
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -99,7 +120,7 @@ export default function ProfilePage() {
     }
   }
 
-  const selectedNap = ACTIVITY_LEVELS.find((level) => level.value === activity)?.nap;
+  const selectedNap = ACTIVITY_LEVELS.find((level) => level.value === selectedActivity)?.nap;
 
   return (
     <PageShell
@@ -121,26 +142,35 @@ export default function ProfilePage() {
       </header>
 
       <Panel>
-        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+        <form
+          key={previous ? 'repris' : 'vierge'}
+          onSubmit={handleSubmit}
+          noValidate
+          className="flex flex-col gap-4"
+        >
           <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
             <InputField
               label="Poids (kg)" name="weight_kg" type="number" inputMode="decimal" step="0.1"
               min={30} max={250} required placeholder="70" hint="Entre 30 et 250 kg"
+              defaultValue={previous?.weight_kg ?? ''}
               error={errors.weight_kg}
             />
             <InputField
               label="Taille (cm)" name="height_cm" type="number" inputMode="numeric"
               min={120} max={230} required placeholder="175"
+              defaultValue={previous?.height_cm ?? ''}
               hint="Entre 120 et 230 cm. N'entre pas dans le calcul énergétique, sert au contrôle de cohérence."
               error={errors.height_cm}
             />
             <InputField
               label="Âge (années)" name="age" type="number" inputMode="numeric"
               min={18} max={70} required placeholder="35" hint="Entre 18 et 70 ans"
+              defaultValue={previous?.age ?? ''}
               error={errors.age}
             />
             <SelectField
-              label="Table de référence utilisée" name="reference_sex" required defaultValue=""
+              label="Table de référence utilisée" name="reference_sex" required
+              defaultValue={previous?.reference_sex ?? ''}
               hint="Les références officielles sont publiées par sexe. Ce choix ne préjuge pas de votre identité de genre."
               error={errors.reference_sex}
             >
@@ -151,7 +181,8 @@ export default function ProfilePage() {
           </div>
 
           <SelectField
-            label="Niveau d'activité physique" name="activity_level" required defaultValue=""
+            label="Niveau d'activité physique" name="activity_level" required
+            defaultValue={previous?.activity_level ?? ''}
             onChange={(event) => setActivity(event.target.value)}
             hint={
               selectedNap
