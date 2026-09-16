@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://feedmyass.local/contracts/ingredient-plan-1.0.0.json",
+  "$id": "https://feedmyass.local/contracts/ingredient-plan-1.1.0.json",
   "title": "IngredientPlan",
   "description": "Liste d'ingrédients et quantités couvrant des besoins nutritionnels pour une période. Contrat stable destiné à l'interface, au stockage et au futur service externe de génération de recettes (FR-037).",
   "type": "object",
   "required": ["schema_version", "period", "generated_at", "diet", "items", "coverage", "reference_versions"],
   "additionalProperties": false,
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "const": "1.1.0" },
     "period": { "enum": ["day", "week"] },
     "generated_at": { "type": "string", "format": "date-time" },
     "diet": {
@@ -41,6 +41,7 @@
             }
           },
           "is_seasonal_produce": { "type": "boolean" },
+          "season_months": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 12 }, "description": "Mois de disponibilité, pour les aliments soumis à saisonnalité. Ajouté en 1.1.0 (FR-107, FR-112 de la 002)." },
           "is_fortified": { "type": "boolean", "description": "Aliment enrichi, à identifier comme tel dans l'affichage (FR-018)" }
         }
       }

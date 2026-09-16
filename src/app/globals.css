@@ -3,9 +3,16 @@
 
 /* Réglages globaux. Toute valeur visuelle vient de src/styles/tokens.css. */
 html {
+  /* Le thème est sombre: les contrôles natifs (sélecteurs, cases à cocher,
+     barres de défilement) doivent l'être aussi, sinon ils arrivent en blanc
+     au milieu de la page. */
+  color-scheme: dark;
   font-family: var(--font-sans);
-  color: var(--color-neutral-900);
-  background-color: var(--color-base-white);
+  /* CASL est l'axe qui sépare un ton administratif d'un ton amical: c'est le
+     réglage de la direction, pas une préférence. */
+  font-variation-settings: 'CASL' 0.55, 'MONO' 0;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
 }
 
 /* Cible de toucher confortable et absence de débordement horizontal de 320 px
@@ -15,7 +22,73 @@ body {
   overflow-x: hidden;
 }
 
+/* Les titres portent la famille display et ses deux axes. Elle n'est employée
+   nulle part ailleurs, sauf sur les chiffres clés via .type-display. */
+h1,
+h2,
+h3,
+.type-display {
+  font-family: var(--font-display);
+  font-variation-settings:
+    'SOFT' 60,
+    'WONK' 1;
+  font-weight: 800;
+}
+
+/* Chiffres, unités, codes de référence, mois: même famille que l'interface,
+   axe MONO poussé à 1. Les chasses tabulaires sont indispensables dès que des
+   nombres se superposent en colonne. */
+@utility type-data {
+  font-family: var(--font-sans);
+  font-variation-settings:
+    'MONO' 1,
+    'CASL' 0.3;
+  font-variant-numeric: tabular-nums;
+}
+
 :focus-visible {
-  outline: 2px solid var(--color-brand-600);
+  outline: 2.5px solid var(--color-brand);
   outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Tout ce qui réagit au pointeur le fait en douceur, déclaré une fois ici
+   plutôt que composant par composant: une transition oubliée sur un bouton se
+   remarque immédiatement à côté des autres.
+
+   La liste des propriétés est fermée à dessein. `all` ferait aussi transiter la
+   hauteur d'un bloc qui s'ouvre ou la largeur d'une jauge, ce qui produit des
+   glissements involontaires. Le contour de focus en est exclu: il doit
+   apparaître au moment exact où le clavier arrive, sans fondu.
+
+   `translate`, `scale` et `rotate` sont listées EN PLUS de `transform`, et ce
+   n'est pas une redondance: Tailwind v4 n'écrit plus les déplacements dans
+   `transform` mais dans ces propriétés individuelles. Les avoir oubliées
+   laissait les couleurs fondre pendant que les mouvements sautaient — un défaut
+   invisible à qui compare l'état de départ et l'état d'arrivée, mais que l'œil
+   attrape immédiatement (revue du 2026-09-20). */
+a,
+button,
+input,
+select,
+textarea,
+summary,
+[role='button'] {
+  transition-property:
+    color, background-color, border-color, opacity, transform, translate, scale, rotate;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+/* Réglage système « réduire les animations »: on ne supprime pas les états, on
+   supprime leur durée. Le survol change toujours de couleur, instantanément. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

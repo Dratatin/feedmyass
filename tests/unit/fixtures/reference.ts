@@ -59,3 +59,15 @@ export const seasonalCodesByMonth: Map<number, Set<string>> = (() => {
   }
   return map;
 })();
+
+/** Mois de disponibilité par aliment, pour les rubans de saison (FR-107). */
+export const seasonMonthsByFood: Map<string, number[]> = (() => {
+  const map = new Map<string, number[]>();
+  for (const row of seasonalityJson.seasonality) {
+    const months = map.get(row.food_code);
+    if (months) months.push(row.month);
+    else map.set(row.food_code, [row.month]);
+  }
+  for (const months of map.values()) months.sort((a, b) => a - b);
+  return map;
+})();

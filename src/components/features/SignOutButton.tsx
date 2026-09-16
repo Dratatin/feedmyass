@@ -30,7 +30,7 @@ export function SignOutButton() {
   }
 
   return (
-    <Button hierarchy="secondary-gray" size="sm" onClick={signOut} disabled={pending}>
+    <Button hierarchy="secondary" size="sm" onClick={signOut} disabled={pending}>
       {pending ? 'Déconnexion…' : 'Se déconnecter'}
     </Button>
   );

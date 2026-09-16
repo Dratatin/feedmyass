@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Banner } from '@/components/ds/Banner';
 import { Button } from '@/components/ds/Button';
-import { Card } from '@/components/ds/Card';
+import { Notice } from '@/components/ds/Notice';
+import { Panel } from '@/components/ds/Panel';
 import { createSupabaseBrowserClient } from '@/lib/supabase-browser';
 
 /**
@@ -56,49 +56,63 @@ export default function PersonalDataPage() {
   }
 
   return (
-    <main className="flex flex-col gap-6">
+    <>
       <header className="flex flex-col gap-2">
-        <h1 className="text-display-xs font-semibold text-neutral-900">Mes données</h1>
-        <p className="text-sm text-neutral-600">
+        <h1 className="text-display-sm text-ink">Mes données</h1>
+        <p className="max-w-[68ch] text-md text-ink-soft">
           Cette application conserve votre profil physiologique, votre régime déclaré et
           l&apos;historique de vos résultats. Elle ne détient ni votre mot de passe ni vos sessions,
           qui sont gérés par notre fournisseur d&apos;identité.
         </p>
       </header>
 
-      <Card title="Exporter mes données" description="Tout ce que l'application détient sur vous, dans un fichier JSON.">
+      <Panel
+        title="Exporter mes données"
+        description="Tout ce que l'application détient sur vous, dans un fichier JSON."
+      >
         <div>
           <Button onClick={exportData} disabled={pending !== null}>
             {pending === 'export' ? 'Préparation…' : 'Télécharger mes données'}
           </Button>
         </div>
-      </Card>
+      </Panel>
 
-      <Card title="Supprimer mon compte" description="Profil et historique effacés définitivement.">
+      <Panel
+        title="Supprimer mon compte"
+        description="Profil et historique effacés définitivement."
+      >
         {confirming ? (
           <div className="flex flex-col gap-3">
-            <Banner tone="warning" title="Cette action est définitive">
+            <Notice tone="caution" title="Cette action est définitive">
               Votre profil, tout votre historique et votre compte seront supprimés. Il n&apos;est pas
               possible de revenir en arrière.
-            </Banner>
-            <div className="flex flex-wrap gap-3">
-              <Button onClick={deleteAccount} disabled={pending !== null}>
+            </Notice>
+            <div className="flex flex-wrap gap-[10px]">
+              <Button hierarchy="danger" onClick={deleteAccount} disabled={pending !== null}>
                 {pending === 'delete' ? 'Suppression…' : 'Confirmer la suppression'}
               </Button>
-              <Button hierarchy="secondary-gray" onClick={() => setConfirming(false)} disabled={pending !== null}>
+              <Button
+                hierarchy="secondary"
+                onClick={() => setConfirming(false)}
+                disabled={pending !== null}
+              >
                 Annuler
               </Button>
             </div>
           </div>
         ) : (
           <div>
-            <Button hierarchy="secondary-gray" onClick={() => setConfirming(true)}>
+            <Button hierarchy="danger" onClick={() => setConfirming(true)}>
               Supprimer mon compte
             </Button>
           </div>
         )}
-        {error ? <p role="alert" className="text-sm text-red-500">{error}</p> : null}
-      </Card>
-    </main>
+        {error ? (
+          <p role="alert" className="text-sm font-semibold text-framboise">
+            {error}
+          </p>
+        ) : null}
+      </Panel>
+    </>
   );
 }

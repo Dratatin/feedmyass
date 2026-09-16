@@ -29,7 +29,13 @@ validation indépendantes.
 Application web mono-déployable (décision de structure de plan.md): `src/` et `tests/` à la racine
 du dépôt, migrations et seed sous `supabase/`.
 
-## Dépendance Figma — levée
+## Dépendance Figma — levée, puis CADUQUE
+
+> **Caduque depuis le 2026-09-17.** Le design system Figma « BDD de composants de base » est
+> abandonné au profit de la direction visuelle « Encre & Saison » (`docs/design-system.md`, feature
+> `002-refonte-visuelle`). Les tokens et les composants qu'il a fournis entre le 2026-09-13 et le
+> 2026-09-17 ont été entièrement remplacés. Cette section est conservée comme trace: aucune de ses
+> contraintes ne s'applique plus.
 
 Le serveur MCP Figma est disponible depuis le 2026-09-13. Les tokens sont extraits (T022) et
 `Button.tsx` est dérivé du composant Buttons/Button. Il reste à relever dans Figma les autres
@@ -82,8 +88,8 @@ tâches d'interface qui attendent en plus T022 et T023
 - [X] T019 [P] Implémenter les clients Supabase navigateur et serveur dans `src/lib/supabase.ts` avec `@supabase/ssr`
 - [X] T020 Implémenter le format d'erreur commun et les codes `validation_error` 400, `profile_out_of_scope` 422, `unauthorized` 401, `not_found` 404 et `reference_data_unavailable` 503 dans `src/lib/errors.ts` conformément à contracts/api.md
 - [X] T021 [P] Implémenter les accès en lecture aux données de référence dans `src/data/repositories/reference.ts`, en exposant les versions utilisées pour alimenter `reference_versions` (FR-038)
-- [X] T022 Extraire les tokens du design system Figma (33 noeuds de l'Annexe A) vers `src/styles/tokens.css` et la configuration Tailwind (R7) — tokens extraits des noeuds de fondations 1525:271581 et 1023:36826
-- [X] T023 Générer les composants de base du design system dans `src/components/ds/` à partir des noeuds Figma. **Relevés dans Figma**: `Button.tsx` (1038:34411), `InputField.tsx` (1090:57817, avec son état destructif), `Badge.tsx` (1046:3819, couleurs Success et Error). **Composés à partir des tokens faute d'équivalent dans le design system, justification écrite dans chaque fichier (principe VI)**: `SelectField.tsx`, `Card.tsx`, `Banner.tsx`, `DataTable.tsx`. La navigation est laissée de côté: l'application n'a pas encore de parcours à naviguer.
+- [X] ~~T022 Extraire les tokens du design system Figma~~ **(caduque le 2026-09-17: tokens remplacés par `docs/design-system.md`)** — texte d’origine: Extraire les tokens du design system Figma (33 noeuds de l'Annexe A) vers `src/styles/tokens.css` et la configuration Tailwind (R7) — tokens extraits des noeuds de fondations 1525:271581 et 1023:36826
+- [X] ~~T023 Générer les composants de base du design system~~ **(caduque le 2026-09-17: composants remplacés par ceux de la direction « Encre & Saison »)** — texte d’origine: Générer les composants de base du design system dans `src/components/ds/` à partir des noeuds Figma. **Relevés dans Figma**: `Button.tsx` (1038:34411), `InputField.tsx` (1090:57817, avec son état destructif), `Badge.tsx` (1046:3819, couleurs Success et Error). **Composés à partir des tokens faute d'équivalent dans le design system, justification écrite dans chaque fichier (principe VI)**: `SelectField.tsx`, `Card.tsx`, `Banner.tsx`, `DataTable.tsx`. La navigation est laissée de côté: l'application n'a pas encore de parcours à naviguer.
 
 **Checkpoint**: socle prêt; les stories peuvent démarrer, les écrans après T023
 
@@ -253,10 +259,11 @@ jouable de bout en bout par un utilisateur.
 - **US3 (P3)**: démarre dès la fin de la Phase 2, indépendante d'US1 et US2
 - **US4 (P4)**: n'a de sens qu'une fois US1 et US2 livrées, dont elle démontre l'invariant
 
-### Dépendance Figma
+### Dépendance Figma (caduque le 2026-09-17)
 
-T022 puis T023 conditionnent T032, T033, T047, T048, T060, T061 et T062. Tant que le MCP Figma n'est
-pas disponible, ces sept tâches d'interface restent bloquées; les 67 autres ne le sont pas.
+T022 puis T023 conditionnaient T032, T033, T047, T048, T060, T061 et T062. Cette dépendance n'existe
+plus: le design system Figma est abandonné, et les tokens comme les composants viennent désormais de
+`docs/design-system.md` (feature `002-refonte-visuelle`).
 
 ### Within Each User Story
 

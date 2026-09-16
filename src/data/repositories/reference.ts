@@ -105,6 +105,29 @@ export async function fetchSeasonalFoodCodes(month: number): Promise<Set<string>
   return new Set((data ?? []).map((row) => row.food_code));
 }
 
+/**
+ * Calendrier complet: tous les mois de disponibilité, aliment par aliment.
+ *
+ * `fetchSeasonalFoodCodes` répond à « qu'est-ce qui est de saison ce mois-ci »,
+ * cette lecture répond à « quand cet aliment est-il de saison ». Les deux sont
+ * nécessaires: la première décide ce qui entre dans la liste, la seconde permet
+ * d'afficher la période de chaque ingrédient (FR-107 de la 002).
+ */
+export async function fetchSeasonalMonthsByFood(): Promise<Map<string, number[]>> {
+  const client = createSupabaseReferenceClient();
+  const { data, error } = await client.from('seasonality').select('food_code, month');
+  if (error) throw new Error('Lecture du calendrier de saison impossible: ' + error.message);
+
+  const byFood = new Map<string, number[]>();
+  for (const row of data ?? []) {
+    const months = byFood.get(row.food_code);
+    if (months) months.push(row.month);
+    else byFood.set(row.food_code, [row.month]);
+  }
+  for (const months of byFood.values()) months.sort((a, b) => a - b);
+  return byFood;
+}
+
 /** Versions des tables de référence, à figer dans chaque résultat (FR-038). */
 export async function fetchReferenceVersions(): Promise<Record<string, string>> {
   const client = createSupabaseReferenceClient();

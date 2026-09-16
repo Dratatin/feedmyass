@@ -1,18 +1,21 @@
 <!--
 Sync Impact Report
-- Version change: (modèle non renseigné) -> 1.0.0
-- Principes ajoutés:
-  - I. Spécification d'abord (SDD)
-  - II. Exactitude nutritionnelle traçable (NON NÉGOCIABLE)
-  - III. Séparation stricte besoins / régime (NON NÉGOCIABLE)
-  - IV. Information, jamais conseil médical
-  - V. Identité déléguée et minimisation des données personnelles
-  - VI. Design system d'abord, responsive et accessible
-- Sections ajoutées: Contraintes techniques et sources de données; Workflow de développement et
+- Version change: 1.0.0 -> 2.0.0 (MAJOR: redéfinition incompatible du principe VI)
+- Principe modifié:
+  - VI. « Design system d'abord » -> « Direction visuelle maison d'abord »
+    Le design system Figma « BDD de composants de base » cessait de servir le produit: interface
+    générique, sans rapport avec le sujet, et rejetée à la revue du 2026-09-16. La règle change de
+    référence, pas de nature: elle impose toujours une source unique de vérité visuelle, mais celle
+    du projet ("Encre & Saison", docs/design-system.md) et non plus celle d'un fichier Figma tiers.
+    Deux exigences sont ajoutées: le ratio de contraste consigné à côté de chaque token, et
+    l'interdiction de la couleur comme seul véhicule d'une information.
+- Principes inchangés: I, II, III, IV, V
+- Sections inchangées: Contraintes techniques et sources de données; Workflow de développement et
   portes qualité; Governance
-- Sections supprimées: aucune (remplacement intégral des placeholders du modèle)
 - Modèles dépendants: plan-template.md, spec-template.md, tasks-template.md, checklist-template.md
   -> aucune modification requise (la constitution est lue au runtime)
+- Artefacts à aligner: specs/001-nutrition-ingredient-planner/{spec,plan,tasks}.md (FR-032, Annexe A,
+  porte VI du plan) -> traité par la feature 002-refonte-visuelle (FR-113, FR-114)
 - TODO restants: aucun
 - Note: ce rapport est un artefact de revue temporaire, à retirer avant commit de l'amendement.
 -->
@@ -77,16 +80,28 @@ de compte incluse.
 **Rationale**: les données saisies (poids, taille, âge, sexe) sont des données de santé au sens du
 RGPD; en déléguer l'accès et en minimiser la conservation réduit la surface de risque à son minimum.
 
-### VI. Design system d'abord, responsive et accessible
+### VI. Direction visuelle maison d'abord, responsive et accessible
 
-Chaque écran DOIT être composé à partir des composants et des tokens du design system Figma
-existant ("BDD de composants de base"). La création d'un composant nouveau exige une justification
-écrite démontrant l'absence d'équivalent dans le design system. Toute interface DOIT être utilisable
-de 320 px à 1920 px de large sans perte de fonctionnalité ni défilement horizontal, respecter les
-contrastes WCAG 2.1 AA, être navigable au clavier et étiqueter tous les champs de formulaire.
+Chaque écran DOIT être composé à partir des tokens et des composants de la direction visuelle du
+projet, "Encre & Saison", dont la référence unique est `docs/design-system.md`. Aucune valeur
+visuelle — couleur, taille, interligne, rayon, graisse — NE DOIT apparaître dans un composant sans
+passer par un token de `src/styles/tokens.css`. La création d'un composant nouveau exige une
+justification écrite, dans le fichier du composant, nommant ce qu'il apporte que les composants
+existants ne couvrent pas.
 
-**Rationale**: réutiliser un design system existant garantit la cohérence visuelle et supprime le
-coût d'une charte graphique créée de zéro.
+Toute interface DOIT être utilisable de 320 px à 1920 px de large sans perte de fonctionnalité ni
+défilement horizontal, être navigable au clavier et étiqueter tous les champs de formulaire. Tout
+couple texte/fond DOIT atteindre au moins 4,5:1 (WCAG 2.1 AA, texte courant), et le ratio mesuré
+DOIT être consigné à côté de la définition du token. La couleur NE DOIT jamais être le seul véhicule
+d'une information: tout état qu'une couleur signale DOIT l'être aussi par un mot, une forme ou une
+position.
+
+**Rationale**: une source unique de vérité visuelle garantit la cohérence et évite qu'une valeur
+soit inventée écran par écran. Le design system Figma "BDD de composants de base" jouait ce rôle
+jusqu'au 2026-09-16; il produisait une interface générique, sans rapport avec un produit dont le
+sujet est la saison et la table de référence. La contrainte demeure, sa référence change — et elle
+se durcit sur deux points que le Figma ne couvrait pas: le contraste mesuré et l'interdiction du
+codage par la seule couleur.
 
 ## Contraintes techniques et sources de données
 
@@ -135,4 +150,4 @@ seule une modification de cette constitution peut les faire évoluer. Les règle
 quotidien (commandes, conventions d'outillage) sont tenues à jour dans les fichiers `.specify/`
 et dans les instructions agent du dépôt.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-13 | **Last Amended**: 2026-09-13
+**Version**: 2.0.0 | **Ratified**: 2026-09-13 | **Last Amended**: 2026-09-17

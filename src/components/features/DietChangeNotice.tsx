@@ -1,4 +1,4 @@
-import { Banner } from '@/components/ds/Banner';
+import { Notice } from '@/components/ds/Notice';
 
 /**
  * Message affiché après un changement de régime (US4).
@@ -13,11 +13,11 @@ export function DietChangeNotice({ previousDiet, currentDiet }: {
   currentDiet: string;
 }) {
   return (
-    <Banner title="Vos besoins n'ont pas changé">
+    <Notice tone="saison" title="Vos besoins n'ont pas changé">
       Vous êtes passé du régime <strong>{previousDiet}</strong> au régime{' '}
       <strong>{currentDiet}</strong>. Seule la liste d&apos;ingrédients est recomposée&nbsp;: vos
       besoins nutritionnels dépendent de votre poids, de votre âge, de votre sexe de référence et de
       votre niveau d&apos;activité, jamais de votre régime.
-    </Banner>
+    </Notice>
   );
 }

@@ -103,12 +103,18 @@ export type IngredientPlanItem = {
   quantityG: number;
   displayQuantity: { value: number; unit: string };
   isSeasonalProduce?: boolean;
+  /**
+   * Mois de disponibilité, de 1 à 12, pour les aliments soumis à saisonnalité.
+   * Absent pour les autres: un ruban vide ne voudrait rien dire, là où la
+   * mention « toute l'année » est une information (FR-107 de la 002).
+   */
+  seasonMonths?: number[];
   isFortified?: boolean;
 };
 
-/** Conforme à contracts/ingredient-plan.schema.json (version 1.0.0). */
+/** Conforme à contracts/ingredient-plan.schema.json (version 1.1.0). */
 export type IngredientPlan = {
-  schemaVersion: '1.0.0';
+  schemaVersion: '1.1.0';
   period: Period;
   generatedAt: string;
   diet: Diet;

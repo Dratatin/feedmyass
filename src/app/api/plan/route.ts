@@ -9,6 +9,7 @@ import {
   fetchNutrients,
   fetchReferenceIntakes,
   fetchSeasonalFoodCodes,
+  fetchSeasonalMonthsByFood,
 } from '@/data/repositories/reference';
 import type { Profile } from '@/domain/types';
 import { DISCLAIMER } from '@/app/api/needs/route';
@@ -45,11 +46,12 @@ export async function POST(request: Request) {
     const generatedAt = parsed.data.generated_at ? new Date(parsed.data.generated_at) : new Date();
     const month = generatedAt.getMonth() + 1;
 
-    const [nutrients, intakes, allFoods, seasonalCodes] = await Promise.all([
+    const [nutrients, intakes, allFoods, seasonalCodes, seasonMonthsByFood] = await Promise.all([
       fetchNutrients(),
       fetchReferenceIntakes(profile.referenceSex, profile.age),
       fetchFoods(),
       fetchSeasonalFoodCodes(month),
+      fetchSeasonalMonthsByFood(),
     ]);
 
     if (nutrients.length === 0 || intakes.length === 0 || allFoods.length === 0) {
@@ -67,6 +69,7 @@ export async function POST(request: Request) {
       nutrients,
       allFoods,
       seasonalCodes,
+      seasonMonthsByFood,
       diet: parsed.data.diet,
       period,
       generatedAt,
