@@ -3,6 +3,10 @@
 
 /* Réglages globaux. Toute valeur visuelle vient de src/styles/tokens.css. */
 html {
+  /* Le thème est sombre: les contrôles natifs (sélecteurs, cases à cocher,
+     barres de défilement) doivent l'être aussi, sinon ils arrivent en blanc
+     au milieu de la page. */
+  color-scheme: dark;
   font-family: var(--font-sans);
   /* CASL est l'axe qui sépare un ton administratif d'un ton amical: c'est le
      réglage de la direction, pas une préférence. */

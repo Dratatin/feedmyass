@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { buttonStyles } from '@/components/ds/Button';
-import { FamilyDot } from '@/components/ds/FamilyDot';
 import { MonthRibbon } from '@/components/ds/MonthRibbon';
-import { Vignette, type VignetteName } from '@/components/ds/Vignette';
-import { monthName, seasonRangeLabel } from '@/lib/months';
+import { FoodIcon } from '@/components/ds/FoodIcon';
+import { monthName, seasonRangeLabel, shortFoodLabel } from '@/lib/months';
 import foods from '@/data/reference/foods.json';
 import seasonality from '@/data/reference/seasonality.json';
 
@@ -29,22 +28,10 @@ export const metadata: Metadata = {
     'leur période de disponibilité.',
 };
 
-const VIGNETTES: { prefix: string; name: VignetteName }[] = [
-  { prefix: 'figue', name: 'figue' },
-  { prefix: 'courgette', name: 'courgette' },
-  { prefix: 'prune', name: 'prune' },
-  { prefix: 'chou', name: 'chou' },
-  { prefix: 'épinard', name: 'epinard' },
-  { prefix: 'poire', name: 'poire' },
-  { prefix: 'champignon', name: 'champignon' },
-  { prefix: 'pomme', name: 'pomme' },
-];
-
 type Produce = {
   code: string;
   label: string;
   months: number[];
-  vignette?: VignetteName;
 };
 
 /** Mois demandé, ramené à un mois valide: `?mois=17` n'existe pas. */
@@ -70,12 +57,11 @@ function produceOfMonth(month: number): { legumes: Produce[]; fruits: Produce[] 
     foods.foods
       .filter((f) => f.is_fruit_vegetable && f.category === category && inSeason.has(f.code))
       .map((f) => {
-        const label = f.label.split(',')[0] ?? f.label;
+        const label = shortFoodLabel(f.label);
         return {
           code: f.code,
           label,
           months: (monthsByFood.get(f.code) ?? []).sort((a, b) => a - b),
-          vignette: VIGNETTES.find((v) => label.toLowerCase().startsWith(v.prefix))?.name,
         };
       })
       .sort((a, b) => a.label.localeCompare(b.label, 'fr'));
@@ -97,13 +83,7 @@ function ProduceGrid({ items, family, month }: {
           className="flex flex-col gap-3 rounded-[var(--radius-bloc)] border-[1.5px] border-solid border-line bg-surface px-4 py-4"
         >
           <div className="flex items-start gap-3">
-            {item.vignette ? (
-              <Vignette name={item.vignette} size={32} />
-            ) : (
-              <span className="flex size-[32px] items-center justify-center">
-                <FamilyDot family={family} />
-              </span>
-            )}
+            <FoodIcon family={family} size={26} />
             <span className="flex flex-col gap-[2px]">
               <span className="text-sm font-semibold text-ink">{item.label}</span>
               <span className="type-data text-xs tracking-label uppercase text-ink-muted">
@@ -159,7 +139,7 @@ export default async function SeasonPage({ searchParams }: PageProps<'/de-saison
         {legumes.length > 0 ? (
           <section className="flex flex-col gap-3">
             <h2 className="flex items-center gap-[10px] text-display-xs text-ink">
-              <FamilyDot family="legume" />
+              <FoodIcon family="legume" size={24} />
               Légumes
               <span className="type-data text-xs font-normal tracking-label text-ink-muted">
                 {legumes.length}
@@ -172,7 +152,7 @@ export default async function SeasonPage({ searchParams }: PageProps<'/de-saison
         {fruits.length > 0 ? (
           <section className="flex flex-col gap-3">
             <h2 className="flex items-center gap-[10px] text-display-xs text-ink">
-              <FamilyDot family="fruit" />
+              <FoodIcon family="fruit" size={24} />
               Fruits
               <span className="type-data text-xs font-normal tracking-label text-ink-muted">
                 {fruits.length}

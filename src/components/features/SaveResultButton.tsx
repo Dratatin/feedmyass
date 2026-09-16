@@ -70,7 +70,9 @@ export function SaveResultButton({ profile, diet, period }: {
         retrouver dans votre historique.
       </p>
       <div className="flex flex-wrap items-center gap-3">
-        <Button onClick={save} disabled={state === 'pending'}>
+        {/* Secondaire: l'action primaire de ces écrans est le calcul ou la
+            génération de la liste, une par écran (docs/design-system.md). */}
+        <Button hierarchy="secondary" onClick={save} disabled={state === 'pending'}>
           {state === 'pending' ? 'Enregistrement…' : 'Enregistrer dans mon historique'}
         </Button>
         {state === 'error' ? (

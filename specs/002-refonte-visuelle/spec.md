@@ -202,6 +202,19 @@ Trois retours sur la direction, et trois constats tirés du parcours refait à l
   c'est la seule phrase de l'application qui a ce rôle.
 - **FR-129**: Aucun lien de navigation NE DOIT pointer vers la page déjà affichée.
 
+### Retours de revue du 2026-09-19 (soir)
+
+- **FR-130**: La direction visuelle DOIT être en fond sombre. Le thème clair n'est plus maintenu, et
+  `color-scheme: dark` DOIT être déclaré pour que les contrôles natifs suivent.
+- **FR-131**: Les pictogrammes d'aliments DOIVENT venir d'une banque d'icônes publiée, à raison d'une
+  icône par famille. Illustrer une poignée de produits sur 281 est exclu: le catalogue paraîtrait
+  illustré au hasard.
+- **FR-132**: L'en-tête DOIT afficher le mois en cours dans la couleur de sa saison. C'est la
+  variable dont dépend tout le produit, et le seul bandeau où elle a sa place sur les écrans sans
+  rail.
+- **FR-133**: L'en-tête NE DOIT porter aucune action primaire: celle-ci appartient à l'écran, une par
+  écran.
+
 ### Invariants préservés (non négociables)
 
 - **FR-115**: Cette feature NE DOIT modifier aucune valeur nutritionnelle, aucune formule, aucun libellé

@@ -30,7 +30,7 @@ const sizeClasses: Record<Size, string> = {
 const hierarchyClasses: Record<Hierarchy, string> = {
   primary: cn(
     'bg-brand border-brand text-surface',
-    'hover:bg-brand-deep hover:border-brand-deep',
+    'hover:bg-brand-hover hover:border-brand-hover',
     'disabled:bg-line disabled:border-line disabled:text-ink-muted',
   ),
   secondary: cn(

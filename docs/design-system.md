@@ -15,10 +15,14 @@ Le produit n'est pas une application de recettes, c'est un registre: des référ
 côté, un calendrier de saison de l'autre. La direction assume les deux — la rigueur d'une table de
 composition, la chaleur d'un étal de marché.
 
+*Revue du 2026-09-19*: la direction est passée au **fond sombre**. La maquette lue en thème sombre
+était jugée plus lisible et plus harmonieuse que sa version claire; les rôles des jetons n'ont pas
+bougé, leurs valeurs si. Le thème clair n'est plus maintenu.
+
 Trois décisions en découlent:
 
-1. **Le papier est kraft, l'encre est brune.** Aucun gris neutre dans l'interface. Les fonds tirent
-   vers la paille, les textes vers le brou de noix.
+1. **Le fond est brun sombre, l'encre est claire.** Aucun gris neutre dans l'interface: les fonds
+   tirent vers le brou de noix, les textes vers le papier kraft.
 2. **La couleur dit quelque chose ou n'est pas là.** Le vert dit « de saison » ou « seuil atteint », le
    miel « sous le seuil », la framboise « refusé », la myrtille « action ». Les teintes de saison et de
    famille d'aliment encodent des catégories réelles du domaine.
@@ -31,33 +35,34 @@ Chaque ligne indique le ratio de contraste mesuré. Les valeurs portant du texte
 4,5:1 (WCAG 2.1 AA, texte courant). **Modifier une couleur sans recalculer son ratio casse les tests
 axe-core.**
 
-### Encre et papier
+### Encre et fonds
 
 | Token | Valeur | Emploi | Contraste |
 | --- | --- | --- | --- |
-| `ink` | `#2A1C12` | Titres, texte courant, barre de navigation | 16,0:1 sur `surface` |
-| `ink-soft` | `#5C4633` | Texte secondaire, descriptions | 8,6:1 sur `surface` |
-| `ink-muted` | `#715C49` | Légendes, unités, étiquettes | 6,1:1 sur `surface`, 5,1:1 sur `paper-deep` |
-| `paper` | `#FBF2E2` | Fond de page | — |
-| `paper-deep` | `#F3E6CC` | Fond du rail, de l'étal | — |
-| `surface` | `#FFFBF3` | Fond des blocs encadrés, des champs | — |
-| `line` | `#E0CFAE` | Filets d'encadrement | décoratif |
-| `line-soft` | `#EFE3CC` | Filets entre lignes de tableau | décoratif |
-| `line-strong` | `#A2885E` | Bordure des champs de saisie | 3:1 (WCAG 1.4.11) |
+| `ink` | `#F5E8D5` | Titres, texte courant | 14,8:1 sur `paper` |
+| `ink-soft` | `#D3BDA2` | Texte secondaire, descriptions | 9,9:1 sur `paper` |
+| `ink-muted` | `#B39C81` | Légendes, unités, étiquettes | 6,8:1 sur `paper`, 5,3:1 sur `line-soft` |
+| `paper` | `#1D1610` | Fond de page | — |
+| `paper-deep` | `#17110C` | Bandes: rail, étal | — |
+| `surface` | `#271E16` | Blocs encadrés, champs | — |
+| `band` | `#140F0A` | En-tête, ardoise du marché | — |
+| `line` | `#46372A` | Filets d'encadrement | décoratif |
+| `line-soft` | `#362A20` | Filets entre lignes de tableau | décoratif |
+| `line-strong` | `#85705A` | Bordure des champs de saisie | 3,5:1 (WCAG 1.4.11) |
 
 ### Couleurs de sens
 
 | Token | Valeur | Signification | Contraste |
 | --- | --- | --- | --- |
-| `brand` (myrtille) | `#3A4FA0` | Action, lien, focus, ligne d'énergie | 7,3:1 sur `surface`, 6,1:1 sur `brand-wash` |
-| `brand-deep` | `#2A3A7C` | Survol d'une action | — |
-| `brand-wash` | `#E5E8F6` | Fond d'une action ou d'une ligne mise en avant | — |
-| `saison` (basilic) | `#34702A` | De saison, seuil atteint | 5,8:1 sur `surface`, 5,1:1 sur `saison-wash` |
-| `saison-wash` | `#E8F0DC` | Fond des états « de saison » | — |
-| `miel` | `#8E5C0A` | Sous le seuil, précaution, mention non médicale | 5,5:1 sur `surface`, 4,8:1 sur `miel-wash` |
-| `miel-wash` | `#F7EBD2` | Fond des avertissements | — |
-| `framboise` | `#B0244A` | Refus de saisie, erreur, suppression | 6,4:1 sur `surface`, 5,4:1 sur `framboise-wash` |
-| `framboise-wash` | `#FAE3E7` | Fond des erreurs | — |
+| `brand` (myrtille) | `#9FB0EF` | Action, lien, focus, ligne d'énergie | 8,5:1 sur `paper`, 6,6:1 sur `brand-wash` |
+| `brand-hover` | `#C2CDF7` | Survol d'une action — sur fond sombre, l'emphase va vers le clair | — |
+| `brand-wash` | `#232A4A` | Fond d'une action ou d'une ligne mise en avant | — |
+| `saison` (basilic) | `#8CC97C` | De saison, seuil atteint | 9,2:1 sur `paper`, 7,2:1 sur `saison-wash` |
+| `saison-wash` | `#1E3018` | Fond des états « de saison » | — |
+| `miel` | `#E0AA53` | Sous le seuil, précaution, mention non médicale | 8,6:1 sur `paper`, 7,0:1 sur `miel-wash` |
+| `miel-wash` | `#362614` | Fond des avertissements | — |
+| `framboise` | `#F0899F` | Refus de saisie, erreur, suppression | 7,5:1 sur `paper`, 6,7:1 sur `framboise-wash` |
+| `framboise-wash` | `#3A1620` | Fond des erreurs | — |
 
 ### Les quatre saisons
 
@@ -66,25 +71,30 @@ la couleur de juillet parce qu'on n'y mange pas la même chose.
 
 | Saison | Mois | Teinte | Fond |
 | --- | --- | --- | --- |
-| Hiver | 12, 1, 2 | `#41586B` | `#DEE6EC` |
-| Printemps | 3, 4, 5 | `#34702A` | `#E8F0DC` |
-| Été | 6, 7, 8 | `#B4501A` | `#FBE4D2` |
-| Automne | 9, 10, 11 | `#8E5C0A` | `#F7EBD2` |
+| Hiver | 12, 1, 2 | `#93AEC6` | `#1C2831` |
+| Printemps | 3, 4, 5 | `#8CC97C` | `#1E3018` |
+| Été | 6, 7, 8 | `#EFA171` | `#372015` |
+| Automne | 9, 10, 11 | `#E0AA53` | `#362614` |
 
 ### Familles d'aliments
 
-Une pastille colorée précède chaque ingrédient, **toujours accompagnée du nom de la famille en toutes
-lettres** — la couleur ne porte jamais seule l'information (principe VI).
+Une pastille ou un pictogramme précède chaque ingrédient, **toujours accompagné du nom de la famille
+en toutes lettres** — la couleur ne porte jamais seule l'information (principe VI).
+
+Les pictogrammes viennent de **Lucide** (<https://lucide.dev>, licence ISC), un par famille: carotte,
+pomme, épi, haricot, œuf, noix, gouttes. *Revue du 2026-09-19*: huit vignettes dessinées à la main
+couvraient auparavant une poignée de produits sur 281, ce qui donnait un catalogue illustré au
+hasard. Une banque officielle et une icône par famille valent mieux qu'un demi-bestiaire.
 
 | Famille | Teinte | Contraste sur `surface` |
 | --- | --- | --- |
-| Légumes | `#34702A` | 5,8:1 |
-| Fruits | `#B0244A` | 6,4:1 |
-| Céréales | `#8A6208` | 5,3:1 |
-| Légumineuses | `#8A5B2A` | 5,6:1 |
-| Œufs et laitiers | `#6B3F7A` | 7,8:1 |
-| Fruits à coque | `#8A4B2A` | 6,5:1 |
-| Matières grasses | `#5D6A1A` | 5,7:1 |
+| Légumes | `#8CC97C` | 8,4:1 |
+| Fruits | `#F0899F` | 6,8:1 |
+| Céréales | `#DCAE52` | 8,0:1 |
+| Légumineuses | `#D09A68` | 6,6:1 |
+| Œufs et laitiers | `#C79AD6` | 7,0:1 |
+| Fruits à coque | `#D29777` | 6,6:1 |
+| Matières grasses | `#B3C063` | 8,3:1 |
 
 ## Typographie
 
@@ -136,7 +146,7 @@ poser.
 | --- | --- |
 | `PageShell` | Rail + colonne principale, bascule en une colonne sous 760 px |
 | `StepRail` | Parcours en trois étapes: en cours cerclée d'encre, franchies marquées d'un ✓ |
-| `SiteHeader` | Barre d'encre, marque avec vignette, état de connexion |
+| `SiteHeader` | Bandeau sombre: marque, mois en cours dans la couleur de sa saison, navigation et état de connexion |
 
 ### Affichage
 
@@ -148,7 +158,7 @@ poser.
 | `CoverageMeter` | Jauge avec le seuil applicable matérialisé à sa position réelle sur l'échelle |
 | `Pill` | Étiquette d'état: de saison, sous le seuil, neutre |
 | `FamilyDot` | Pastille de famille d'aliment, toujours suivie du nom de la famille |
-| `Vignette` | Huit dessins de produits, en SVG, dans les couleurs des familles |
+| `FoodIcon` | Pictogramme de famille (Lucide), dans la couleur de la famille |
 | `Notice` | Message encadré: information, précaution, saison |
 | `Panel` | Bloc encadré. Réservé aux formulaires et aux blocs d'action |
 
@@ -180,8 +190,7 @@ poser.
 
 ## Ce que la direction ne fait pas
 
-- Pas de thème sombre en v1. Les tokens sont structurés pour qu'il puisse être ajouté sans les
-  redéfinir, mais l'application reste en thème clair.
-- Pas d'illustration pour les 281 aliments du catalogue: huit vignettes de produits de saison et sept
-  pastilles de familles.
+- Pas de thème clair. La direction est sombre depuis le 2026-09-19; `color-scheme: dark` est déclaré
+  pour que les contrôles natifs suivent.
+- Pas d'illustration par aliment: sept pictogrammes de familles, et rien de plus.
 - Pas d'animation au-delà des états de survol et de focus.

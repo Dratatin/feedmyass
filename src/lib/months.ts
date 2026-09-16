@@ -1,5 +1,5 @@
 /**
- * Mois, saisons et familles d'aliments.
+ * Calendrier et libellés du catalogue.
  *
  * Le ruban des douze mois et les pastilles de familles sont les deux motifs
  * porteurs de sens de la direction « Encre & Saison » (docs/design-system.md).
@@ -190,4 +190,17 @@ export function seasonRangeLabel(months: number[]): string {
   const to = MONTH_ABBR[end - 1] ?? '';
   const range = start === end ? from : from + ' → ' + to;
   return runLength < set.size ? range + ' +' : range;
+}
+
+/**
+ * Nom d'usage d'un aliment, à partir de son libellé CIQUAL.
+ *
+ * Le catalogue écrit « Melon cantaloup (par ex.: Charentais, de Cavaillon)
+ * pulpe, cru »: couper à la première virgule laissait une parenthèse ouverte à
+ * l'écran. On coupe donc à la première virgule OU parenthèse, et le libellé
+ * complet reste dans les données pour qui veut le vérifier.
+ */
+export function shortFoodLabel(label: string): string {
+  const cut = label.search(/[,(]/);
+  return (cut === -1 ? label : label.slice(0, cut)).trim();
 }

@@ -32,7 +32,7 @@ bout sont conservés à l'identique.
 - [X] T016 `ds/MonthRibbon.tsx` — ruban des douze mois teinté par saison, exposé comme image porteuse de sens (FR-106, FR-107)
 - [X] T017 `ds/CoverageMeter.tsx` — jauge avec seuil matérialisé à sa position réelle (FR-110)
 - [X] T018 [P] `ds/KeyFigures.tsx` — chiffres clés (FR-108)
-- [X] T019 [P] `ds/Vignette.tsx` — huit dessins SVG de produits de saison
+- [X] ~~T019 `ds/Vignette.tsx` — huit dessins SVG de produits de saison~~ **(remplacé en phase 9 par `ds/FoodIcon.tsx`, une icône Lucide par famille)**
 - [X] T020 [P] `ds/FamilyDot.tsx` — pastille de famille, toujours suivie du nom (FR-111, FR-104)
 - [X] T021 `ds/PageShell.tsx` — rail + colonne principale, bascule en une colonne sous 760 px
 - [X] T022 `features/StepRail.tsx` — parcours en trois étapes (FR-109)
@@ -48,7 +48,7 @@ bout sont conservés à l'identique.
 
 ## Phase 4 — Écrans
 
-- [X] T029 `features/SiteHeader.tsx` — barre d'encre, marque avec vignette, état de connexion
+- [X] T029 `features/SiteHeader.tsx` — refait en phase 9: marque, mois en cours coloré par sa saison, état de connexion
 - [X] T030 [P] `features/DisclaimerBanner.tsx`, `DietChangeNotice.tsx`, `DataFreshness.tsx` — portés sur `Notice` et les nouveaux tokens
 - [X] T031 `(public)/page.tsx` — accueil: héros, ardoise du marché, étal de saison
 - [X] T032 `(public)/profil/page.tsx` — rail de parcours, formulaire, coefficient NAP affiché
@@ -96,6 +96,15 @@ Retours du commanditaire sur la direction, et constats du parcours refait à la 
 - [X] T060 `HeaderNav` client: plus de lien vers la page courante, et accès au calendrier de saison depuis l'en-tête (FR-129)
 - [X] T061 `router.replace` à la validation du profil: le retour arrière ne rouvre plus le formulaire validé
 - [X] T062 Tests de bout en bout `us5-de-saison.spec.ts`: calendrier, verrouillage des étapes, reprise du profil, hauteur de page, accessibilité
+
+## Phase 9 — Revue du 2026-09-19 (soir)
+
+- [X] T063 Passer la palette au fond sombre dans `tokens.css`, jeton `band` pour l'en-tête et l'ardoise, `brand-hover` en remplacement de `brand-deep`, ratios recalculés et consignés (FR-130)
+- [X] T064 Déclarer `color-scheme: dark` et porter les composants qui employaient `bg-ink` comme surface sombre (FR-130)
+- [X] T065 Remplacer les huit vignettes dessinées par sept pictogrammes Lucide, un par famille (`ds/FoodIcon.tsx`), et supprimer `ds/Vignette.tsx` (FR-131)
+- [X] T066 Refaire l'en-tête: marque, mois en cours coloré par sa saison, liens de texte, action de compte en secondaire (FR-132, FR-133)
+- [X] T067 `shortFoodLabel`: couper les libellés CIQUAL à la première virgule ou parenthèse
+- [X] T068 Passer la maquette de référence en fond sombre, sans bascule de thème
 
 ## Dépendances
 

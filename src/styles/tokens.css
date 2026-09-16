@@ -1,6 +1,7 @@
 /* Jetons de la direction visuelle « Encre & Saison ».
  *
- * Source     : docs/design-system.md — maquette validée le 2026-09-17
+ * Source     : docs/design-system.md — maquette validée le 2026-09-17,
+ *              passée au fond sombre à la revue du 2026-09-19
  * Remplace   : les jetons extraits du Figma « BDD de composants de base »,
  *              abandonnés par l'amendement 2.0.0 de la constitution.
  *
@@ -12,85 +13,93 @@
  */
 
 @theme {
-  /* --- Encre sépia: textes et fonds sombres ---
-   * ink       : 16,0:1 sur surface — titres, texte courant, barre de navigation
-   * ink-soft  :  8,6:1 sur surface — texte secondaire
-   * ink-muted :  6,1:1 sur surface, 5,1:1 sur paper-deep — légendes, unités,
-   *              étiquettes. C'est la valeur la plus claire encore lisible sur
-   *              le fond du rail: ne pas l'éclaircir.
+  /* --- Encre claire: le texte ---
+   * La direction est passée au fond sombre à la revue du 2026-09-19: la
+   * maquette lue en thème sombre était jugée plus lisible et plus harmonieuse
+   * que la version claire. Les rôles n'ont pas bougé, les valeurs si.
+   *
+   * ink       : 14,8:1 sur paper — titres, texte courant
+   * ink-soft  :  9,9:1 sur paper — texte secondaire
+   * ink-muted :  6,8:1 sur paper, 5,3:1 sur line-soft — légendes, unités
    */
-  --color-ink: #2a1c12;
-  --color-ink-soft: #5c4633;
-  --color-ink-muted: #715c49;
+  --color-ink: #f5e8d5;
+  --color-ink-soft: #d3bda2;
+  --color-ink-muted: #b39c81;
 
-  /* --- Papier kraft: fonds clairs ---
-   * Neutres tirés vers la paille, jamais du gris.
+  /* --- Fonds ---
+   * paper      : le fond de page
+   * paper-deep : les bandes (rail, étal) — plus sombre que la page
+   * surface    : les blocs et les champs — plus clair que la page
+   * band       : l'en-tête et l'ardoise, le plus sombre de tous
+   *
+   * Aucun gris: tous tirent vers le brun.
    */
-  --color-paper: #fbf2e2;
-  --color-paper-deep: #f3e6cc;
-  --color-surface: #fffbf3;
+  --color-paper: #1d1610;
+  --color-paper-deep: #17110c;
+  --color-surface: #271e16;
+  --color-band: #140f0a;
 
   /* --- Filets ---
-   * line-strong borde les champs de saisie: 3:1 contre surface, seuil WCAG
-   * 1.4.11 pour un élément d'interface. line et line-soft sont décoratifs.
+   * line-strong borde les champs de saisie: 3,5:1 contre surface, au-dessus du
+   * seuil WCAG 1.4.11. line et line-soft sont décoratifs.
    */
-  --color-line: #e0cfae;
-  --color-line-soft: #efe3cc;
-  --color-line-strong: #a2885e;
+  --color-line: #46372a;
+  --color-line-soft: #362a20;
+  --color-line-strong: #85705a;
 
   /* --- Myrtille: action, lien, focus ---
-   * brand sur surface 7,3:1; surface sur brand 7,3:1; brand sur brand-wash 6,1:1.
+   * brand sur paper 8,5:1; sur surface 7,7:1; sur brand-wash 6,6:1.
+   * surface sur brand 7,7:1 — c'est le texte des boutons pleins.
+   * brand-hover éclaircit au survol: sur fond sombre, l'emphase va vers le clair.
    */
-  --color-brand: #3a4fa0;
-  --color-brand-deep: #2a3a7c;
-  --color-brand-wash: #e5e8f6;
+  --color-brand: #9fb0ef;
+  --color-brand-hover: #c2cdf7;
+  --color-brand-wash: #232a4a;
 
   /* --- Basilic: de saison, seuil atteint ---
-   * Jamais décoratif. saison sur surface 5,8:1; sur saison-wash 5,1:1;
-   * surface sur saison 5,8:1.
+   * Jamais décoratif. saison sur paper 9,2:1; sur saison-wash 7,2:1.
    */
-  --color-saison: #34702a;
-  --color-saison-wash: #e8f0dc;
+  --color-saison: #8cc97c;
+  --color-saison-wash: #1e3018;
 
   /* --- Miel: sous le seuil, précaution, mention non médicale ---
-   * miel sur surface 5,5:1; sur miel-wash 4,8:1.
+   * miel sur paper 8,6:1; sur miel-wash 7,0:1.
    */
-  --color-miel: #8e5c0a;
-  --color-miel-wash: #f7ebd2;
+  --color-miel: #e0aa53;
+  --color-miel-wash: #362614;
 
   /* --- Framboise: refus de saisie, erreur, suppression ---
-   * framboise sur surface 6,4:1; sur framboise-wash 5,4:1.
+   * framboise sur paper 7,5:1; sur framboise-wash 6,7:1.
    */
-  --color-framboise: #b0244a;
-  --color-framboise-wash: #fae3e7;
+  --color-framboise: #f0899f;
+  --color-framboise-wash: #3a1620;
 
   /* --- Les quatre saisons ---
-   * Teintent le ruban des douze mois. Ce n'est pas un ornement: décembre n'a
-   * pas la couleur de juillet parce qu'on n'y mange pas la même chose. Les
-   * teintes pleines ne portent que du texte `surface` (5,1:1 au minimum), les
-   * fonds `-wash` ne portent que de l'encre.
+   * Teintent le ruban des douze mois. Décembre n'a pas la couleur de juillet
+   * parce qu'on n'y mange pas la même chose. Les teintes pleines ne portent que
+   * du texte `surface` (7,1:1 au minimum), les fonds `-wash` que de l'encre.
    */
-  --color-hiver: #41586b;
-  --color-hiver-wash: #dee6ec;
-  --color-printemps: #34702a;
-  --color-printemps-wash: #e8f0dc;
-  --color-ete: #b4501a;
-  --color-ete-wash: #fbe4d2;
-  --color-automne: #8e5c0a;
-  --color-automne-wash: #f7ebd2;
+  --color-hiver: #93aec6;
+  --color-hiver-wash: #1c2831;
+  --color-printemps: #8cc97c;
+  --color-printemps-wash: #1e3018;
+  --color-ete: #efa171;
+  --color-ete-wash: #372015;
+  --color-automne: #e0aa53;
+  --color-automne-wash: #362614;
 
   /* --- Familles d'aliments ---
    * Chaque pastille est TOUJOURS accompagnée du nom de la famille en toutes
    * lettres: la couleur ne porte jamais seule l'information (principe VI).
-   * Ratios sur surface: 5,8 / 6,4 / 5,3 / 5,6 / 7,8 / 6,5 / 5,7.
+   * Ratios sur surface: 8,4 / 6,8 / 8,0 / 6,6 / 7,0 / 6,6 / 8,3.
    */
-  --color-famille-legume: #34702a;
-  --color-famille-fruit: #b0244a;
-  --color-famille-cereale: #8a6208;
-  --color-famille-legumineuse: #8a5b2a;
-  --color-famille-proteine: #6b3f7a;
-  --color-famille-coque: #8a4b2a;
-  --color-famille-grasse: #5d6a1a;
+  --color-famille-legume: #8cc97c;
+  --color-famille-fruit: #f0899f;
+  --color-famille-cereale: #dcae52;
+  --color-famille-legumineuse: #d09a68;
+  --color-famille-proteine: #c79ad6;
+  --color-famille-coque: #d29777;
+  --color-famille-grasse: #b3c063;
 
   /* --- Typographie ---
    * Deux familles, trois rôles. Chargées par next/font (src/app/layout.tsx),

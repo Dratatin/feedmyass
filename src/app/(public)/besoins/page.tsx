@@ -177,7 +177,7 @@ export default function NeedsPage() {
               className={
                 'type-data px-[18px] py-[8px] text-xs tracking-label uppercase ' +
                 (period === value
-                  ? 'bg-ink font-semibold text-paper'
+                  ? 'bg-ink font-semibold text-band'
                   : 'text-ink-soft hover:bg-brand-wash')
               }
             >

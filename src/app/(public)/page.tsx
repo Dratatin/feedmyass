@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { buttonStyles } from '@/components/ds/Button';
 import { MonthRibbon } from '@/components/ds/MonthRibbon';
-import { Vignette, type VignetteName } from '@/components/ds/Vignette';
-import { monthName, seasonRangeLabel } from '@/lib/months';
+import { FoodIcon } from '@/components/ds/FoodIcon';
+import { monthName, seasonRangeLabel, shortFoodLabel } from '@/lib/months';
 import foods from '@/data/reference/foods.json';
 import seasonality from '@/data/reference/seasonality.json';
 import nutrients from '@/data/reference/nutrients.json';
@@ -16,24 +16,6 @@ import nutrients from '@/data/reference/nutrients.json';
  * L'étal en dessous affiche de vrais produits de saison, lus dans la table du
  * projet — pas une liste écrite à la main qui mentirait en février.
  */
-
-/**
- * Vignettes disponibles, associées au début du libellé CIQUAL.
- *
- * Le catalogue nomme « Courgette, pulpe et peau, crue » ce que l'étal appelle
- * une courgette: l'appariement se fait donc sur le premier mot, et un produit
- * sans vignette s'affiche très bien sans.
- */
-const VIGNETTES: { prefix: string; name: VignetteName }[] = [
-  { prefix: 'figue', name: 'figue' },
-  { prefix: 'courgette', name: 'courgette' },
-  { prefix: 'prune', name: 'prune' },
-  { prefix: 'chou', name: 'chou' },
-  { prefix: 'épinard', name: 'epinard' },
-  { prefix: 'poire', name: 'poire' },
-  { prefix: 'champignon', name: 'champignon' },
-  { prefix: 'pomme', name: 'pomme' },
-];
 
 /**
  * Huit produits de saison ce mois-ci, lus dans la table du projet.
@@ -54,15 +36,15 @@ function seasonalStall(month: number) {
     foods.foods
       .filter((f) => f.is_fruit_vegetable && f.category === category && inSeason.has(f.code))
       .map((f) => {
-        const label = f.label.split(',')[0] ?? f.label;
+        const label = shortFoodLabel(f.label);
         return {
           code: f.code,
           label,
           months: monthsOf(f.code),
-          vignette: VIGNETTES.find((v) => label.toLowerCase().startsWith(v.prefix))?.name,
+          family: category === 'fruit' ? ('fruit' as const) : ('legume' as const),
         };
       })
-      .sort((a, b) => Number(Boolean(b.vignette)) - Number(Boolean(a.vignette)));
+      .sort((a, b) => a.label.localeCompare(b.label, 'fr'));
 
   const fruits = pick('fruit');
   const legumes = pick('legume');
@@ -147,17 +129,17 @@ export default function HomePage() {
             retirée à la revue du 2026-09-18: le procédé vieillissait la page.
             Le caractère vient maintenant de la display et de la légère
             inclinaison, la seule de toute l'interface. */}
-        <aside className="flex flex-col gap-4 self-center rounded-[var(--radius-bloc)] bg-ink px-6 pt-6 pb-7 md:-rotate-[0.7deg]">
-          <p className="type-display text-display-xs text-paper">
+        <aside className="flex flex-col gap-4 self-center rounded-[var(--radius-bloc)] border-[1.5px] border-solid border-line bg-band px-6 pt-6 pb-7 md:-rotate-[0.7deg]">
+          <p className="type-display text-display-xs text-ink">
             Nous sommes en {monthName(month)}
           </p>
           <div className="flex flex-col gap-[9px]">
-            <p className="type-data text-xs tracking-label uppercase text-line">Les douze mois</p>
+            <p className="type-data text-xs tracking-label uppercase text-ink-muted">Les douze mois</p>
             <MonthRibbon currentMonth={month} />
           </div>
-          <p className="text-sm text-line">
+          <p className="text-sm text-ink-soft">
             {produceCount} fruits et légumes au catalogue,{' '}
-            <strong className="font-semibold text-paper">
+            <strong className="font-semibold text-ink">
               {seasonalCount ? seasonalCount : 'aucun'} de saison
             </strong>{' '}
             aujourd&apos;hui.
@@ -185,7 +167,7 @@ export default function HomePage() {
                   key={item.code}
                   className="flex flex-col items-start gap-[7px] rounded-[var(--radius-bloc)] border-[1.5px] border-solid border-line bg-surface px-[13px] pt-3 pb-[13px]"
                 >
-                  {item.vignette ? <Vignette name={item.vignette} /> : null}
+                  <FoodIcon family={item.family} />
                   <span className="text-sm font-semibold text-ink">{item.label}</span>
                   {/* La période, en trois mots: une carte n'a pas la place d'un
                       ruban, mais elle doit dire jusqu'à quand. */}
