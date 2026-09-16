@@ -62,3 +62,12 @@ exigences réécrites. Il ne reste aucun marqueur dans la spécification.
   FR-011 et FR-018 le principe IV (information, jamais conseil médical), FR-022 et FR-029 le
   principe V (identité déléguée, minimisation), FR-031 à FR-033 le principe VI (design system,
   responsive, accessibilité).
+
+### Revue de conformité à la constitution (2026-09-14)
+
+La tâche T074 a produit une revue distincte, principe par principe et preuve par preuve:
+[constitution.md](./constitution.md). Résultat: conforme, avec une réserve documentée sur le
+principe II (coefficients NAP et intervalle des glucides à consolider avant mise en production).
+
+Les quatre amendements de spécification décidés pendant l'implémentation y sont recensés: à la date
+de cette revue, la spécification et le code ne divergent sur aucun point connu.

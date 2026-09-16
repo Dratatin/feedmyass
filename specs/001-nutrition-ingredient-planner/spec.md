@@ -177,6 +177,11 @@ régime).
 
 - **FR-005**: Le système DOIT calculer, à partir du profil, les besoins journaliers en énergie, en
   protéines, et pour chaque vitamine et minéral du référentiel retenu (voir Assumptions).
+  Le besoin énergétique est calculé à partir du poids, de l'âge, du sexe de référence et du niveau
+  d'activité physique. **La taille n'entre pas dans le calcul**: la référence officielle retenue
+  (équations de Henry, variante poids seul) ne la fait pas intervenir. Elle reste saisie et validée
+  au profil (FR-001), où elle sert au contrôle de plausibilité. Amendement du 2026-09-13, arbitré
+  par le commanditaire après constat que la table de référence disponible est la variante poids seul.
 - **FR-006**: Le système DOIT présenter les mêmes besoins sur une base hebdomadaire, égale à sept
   fois la valeur journalière.
 - **FR-007**: Les besoins DOIVENT être dérivés de références nutritionnelles officielles publiées
@@ -339,6 +344,11 @@ régime).
   genre.
 - **Niveau d'activité**: échelle fermée à quatre niveaux (sédentaire, peu actif, actif, très
   actif), rattachée aux coefficients d'activité physique de la source officielle retenue.
+- **Coefficients de niveau d'activité**: table officielle des coefficients NAP fournie par le
+  commanditaire le 2026-09-14. La valeur retenue pour chaque niveau est le milieu de son intervalle
+  officiel: 1,50 (sédentaire / inactif, 1,40-1,59); 1,65 (légèrement actif, 1,60-1,69); 1,80
+  (modérément actif, 1,70-1,89); 2,05 (actif / vigoureux, 1,90-2,19). La cinquième catégorie
+  officielle (2,20 et plus) n'est pas proposée: les sportifs de haut niveau sont hors périmètre.
 - **Régimes v1**: régime de base (omnivore, pescétarien, végétarien, végane) combiné à des
   exclusions cumulables (sans gluten, sans lactose, sans fruits à coque). Les allergies et
   intolérances non listées ne sont pas modélisées dans cette version.

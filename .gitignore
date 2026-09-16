@@ -34,3 +34,15 @@ pnpm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Next.js (généré)
+next-env.d.ts
+
+# Export EFSA Food Composition Dashboard (548 Mo) — données de travail, pas un livrable
+European Food Composition Dashboard.csv
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+.last-run.json

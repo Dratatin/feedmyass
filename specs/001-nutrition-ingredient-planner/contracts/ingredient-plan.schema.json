@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feedmyass.local/contracts/ingredient-plan-1.0.0.json",
+  "title": "IngredientPlan",
+  "description": "Liste d'ingrédients et quantités couvrant des besoins nutritionnels pour une période. Contrat stable destiné à l'interface, au stockage et au futur service externe de génération de recettes (FR-037).",
+  "type": "object",
+  "required": ["schema_version", "period", "generated_at", "diet", "items", "coverage", "reference_versions"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "period": { "enum": ["day", "week"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "diet": {
+      "type": "object",
+      "required": ["base", "exclusions"],
+      "additionalProperties": false,
+      "properties": {
+        "base": { "enum": ["omnivore", "pescetarian", "vegetarian", "vegan"] },
+        "exclusions": { "type": "array", "items": { "enum": ["gluten", "lactose", "nuts"] } }
+      }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["food_code", "label", "category", "quantity_g", "display_quantity"],
+        "additionalProperties": false,
+        "properties": {
+          "food_code": { "type": "string" },
+          "label": { "type": "string" },
+          "category": { "type": "string" },
+          "quantity_g": { "type": "number", "exclusiveMinimum": 0 },
+          "display_quantity": {
+            "type": "object",
+            "required": ["value", "unit"],
+            "additionalProperties": false,
+            "properties": {
+              "value": { "type": "number", "exclusiveMinimum": 0 },
+              "unit": { "type": "string" }
+            }
+          },
+          "is_seasonal_produce": { "type": "boolean" },
+          "is_fortified": { "type": "boolean", "description": "Aliment enrichi, à identifier comme tel dans l'affichage (FR-018)" }
+        }
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "description": "Une entrée par nutriment du référentiel (FR-015).",
+      "items": {
+        "type": "object",
+        "required": ["nutrient", "label", "unit", "needed", "provided", "ratio", "threshold", "meets_threshold"],
+        "additionalProperties": false,
+        "properties": {
+          "nutrient": { "type": "string" },
+          "label": { "type": "string" },
+          "unit": { "type": "string" },
+          "needed": { "type": "number", "minimum": 0 },
+          "provided": { "type": "number", "minimum": 0 },
+          "ratio": { "type": "number", "minimum": 0, "description": "provided / needed" },
+          "threshold": { "type": "number", "enum": [0.8, 1.0], "description": "1.0 pour l'énergie, les protéines et les micronutriments prioritaires; 0.8 sinon (FR-016)" },
+          "meets_threshold": { "type": "boolean" }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Nutriments sous leur seuil, à signaler explicitement (FR-017). Vide si tous les seuils sont atteints.",
+      "items": {
+        "type": "object",
+        "required": ["nutrient", "ratio", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "nutrient": { "type": "string" },
+          "ratio": { "type": "number", "minimum": 0 },
+          "reason": { "enum": ["diet_restriction", "seasonality_restriction", "no_source_available"] }
+        }
+      }
+    },
+    "reference_versions": {
+      "type": "object",
+      "description": "Versions des tables de référence utilisées, pour rendre le résultat reproductible (FR-038).",
+      "additionalProperties": { "type": "string" }
+    },
+    "disclaimer": { "type": "string" }
+  }
+}

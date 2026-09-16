@@ -1,0 +1,478 @@
+{
+  "_meta": {
+    "description": "Apports de référence ANSES pour adultes de 18 à 70 ans, par sexe de référence.",
+    "source": "ANSES — Les références nutritionnelles en vitamines et minéraux; et Actualisation des repères du PNNS: références nutritionnelles en protéines, lipides, glucides et fibres (avis et rapport de décembre 2016)",
+    "version": "2025-02-21",
+    "retrieved_at": "2026-09-13",
+    "notes": [
+      "basis: absolute = valeur par jour; per_kg = par kg de poids corporel; per_mj = par MJ d'apport énergétique; percent_energy = intervalle en % de l'apport énergétique (value = borne basse, value_max = borne haute).",
+      "L'énergie n'est pas ici: elle se calcule par les équations de Henry (src/data/reference/energy-equations.json).",
+      "FER: 11 mg/j pour les deux sexes. L ANSES retient 16 mg/j pour les femmes à pertes menstruelles élevées, information que le profil ne capture pas.",
+      "GLUCIDES: intervalle 40-55 % de l'apport énergétique, retenu par décision du commanditaire le 2026-09-14. Des sources secondaires citent 45-60 %; la valeur n'a pas pu être recoupée sur le rapport ANSES de décembre 2016, et cette provenance secondaire est assumée. Si le rapport est consulté un jour et donne un autre intervalle, c'est ici qu'il faut le corriger.",
+      "ZINC — écart assumé par rapport à l'ANSES, décision du commanditaire du 2026-09-13. L'ANSES fait dépendre la RNP zinc du niveau de phytates et recommande le palier 900 mg/j pour les alimentations végétales, ce qui reviendrait à faire dépendre un besoin du régime déclaré et violerait le principe III de la constitution. Les valeurs par palier étant par ailleurs non extractibles du rapport source (PDF image), la référence retenue est le RDA des DRI: valeur unique par sexe, indépendante du régime. Ces deux lignes portent donc leur propre source, différente du reste du fichier.",
+      "ZINC — la borne DRI est 19 ans et plus; la tranche 18-70 de l'application applique la valeur adulte dès 18 ans."
+    ]
+  },
+  "reference_intakes": [
+    {
+      "nutrient_code": "protein",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "per_kg",
+      "value": 0.83
+    },
+    {
+      "nutrient_code": "protein",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "per_kg",
+      "value": 0.83
+    },
+    {
+      "nutrient_code": "lipids",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "percent_energy",
+      "value": 35,
+      "value_max": 40
+    },
+    {
+      "nutrient_code": "lipids",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "percent_energy",
+      "value": 35,
+      "value_max": 40
+    },
+    {
+      "nutrient_code": "carbohydrates",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "percent_energy",
+      "value": 40,
+      "value_max": 55
+    },
+    {
+      "nutrient_code": "carbohydrates",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "percent_energy",
+      "value": 40,
+      "value_max": 55
+    },
+    {
+      "nutrient_code": "fiber",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 30
+    },
+    {
+      "nutrient_code": "fiber",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 30
+    },
+    {
+      "nutrient_code": "vitamin_a",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 750
+    },
+    {
+      "nutrient_code": "vitamin_a",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 650
+    },
+    {
+      "nutrient_code": "vitamin_b1",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "per_mj",
+      "value": 0.1
+    },
+    {
+      "nutrient_code": "vitamin_b1",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "per_mj",
+      "value": 0.1
+    },
+    {
+      "nutrient_code": "vitamin_b2",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 1.6
+    },
+    {
+      "nutrient_code": "vitamin_b2",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 1.6
+    },
+    {
+      "nutrient_code": "vitamin_b3",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "per_mj",
+      "value": 1.6
+    },
+    {
+      "nutrient_code": "vitamin_b3",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "per_mj",
+      "value": 1.6
+    },
+    {
+      "nutrient_code": "vitamin_b5",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 6
+    },
+    {
+      "nutrient_code": "vitamin_b5",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 5
+    },
+    {
+      "nutrient_code": "vitamin_b6",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 1.7
+    },
+    {
+      "nutrient_code": "vitamin_b6",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 1.6
+    },
+    {
+      "nutrient_code": "vitamin_b9",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 330
+    },
+    {
+      "nutrient_code": "vitamin_b9",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 330
+    },
+    {
+      "nutrient_code": "vitamin_b12",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 4
+    },
+    {
+      "nutrient_code": "vitamin_b12",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 4
+    },
+    {
+      "nutrient_code": "vitamin_c",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 110
+    },
+    {
+      "nutrient_code": "vitamin_c",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 110
+    },
+    {
+      "nutrient_code": "vitamin_d",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 15
+    },
+    {
+      "nutrient_code": "vitamin_d",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 15
+    },
+    {
+      "nutrient_code": "vitamin_e",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 10
+    },
+    {
+      "nutrient_code": "vitamin_e",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 9
+    },
+    {
+      "nutrient_code": "vitamin_k",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 79
+    },
+    {
+      "nutrient_code": "vitamin_k",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 79
+    },
+    {
+      "nutrient_code": "calcium",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 950
+    },
+    {
+      "nutrient_code": "calcium",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 950
+    },
+    {
+      "nutrient_code": "iron",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 11
+    },
+    {
+      "nutrient_code": "iron",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 11
+    },
+    {
+      "nutrient_code": "magnesium",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 380
+    },
+    {
+      "nutrient_code": "magnesium",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 300
+    },
+    {
+      "nutrient_code": "potassium",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 3500
+    },
+    {
+      "nutrient_code": "potassium",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 3500
+    },
+    {
+      "nutrient_code": "iodine",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 150
+    },
+    {
+      "nutrient_code": "iodine",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 150
+    },
+    {
+      "nutrient_code": "selenium",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 70
+    },
+    {
+      "nutrient_code": "selenium",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 70
+    },
+    {
+      "nutrient_code": "copper",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 1.9
+    },
+    {
+      "nutrient_code": "copper",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 1.5
+    },
+    {
+      "nutrient_code": "phosphorus",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 550
+    },
+    {
+      "nutrient_code": "phosphorus",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "AS",
+      "basis": "absolute",
+      "value": 550
+    },
+    {
+      "nutrient_code": "zinc",
+      "reference_sex": "male",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 11,
+      "source": "DRI / Institute of Medicine (2001) — Dietary Reference Intakes for Vitamin A, Vitamin K, ... and Zinc, RDA adultes 19+",
+      "version": "2001",
+      "retrieved_at": "2026-09-13"
+    },
+    {
+      "nutrient_code": "zinc",
+      "reference_sex": "female",
+      "age_min": 18,
+      "age_max": 70,
+      "kind": "RNP",
+      "basis": "absolute",
+      "value": 8,
+      "source": "DRI / Institute of Medicine (2001) — Dietary Reference Intakes for Vitamin A, Vitamin K, ... and Zinc, RDA adultes 19+",
+      "version": "2001",
+      "retrieved_at": "2026-09-13"
+    }
+  ]
+}

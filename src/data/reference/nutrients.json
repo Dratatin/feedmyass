@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "description": "Référentiel des nutriments suivis par l'application (libellés, unités, catégories, seuils).",
+    "source": "Spécification 001-nutrition-ingredient-planner, section Assumptions (référentiel de nutriments v1)",
+    "version": "1.0.0",
+    "retrieved_at": "2026-09-13",
+    "notes": [
+      "is_priority = true déclenche le seuil de couverture de 100 % (FR-016): fer, calcium, magnésium, vitamine B12, vitamine D, vitamine C, arbitrage du 2026-09-13.",
+      "L'énergie et les protéines sont soumises au seuil de 100 % par la règle de FR-016, indépendamment de is_priority.",
+      "Lipides, glucides et fibres sont suivis à titre informatif: les références ANSES les expriment en intervalle de pourcentage de l'apport énergétique, pas en valeur absolue. Leur traitement est à fixer avec les valeurs de référence (tâche T012).",
+      "Les valeurs de besoins ne sont PAS dans ce fichier: elles vivent dans reference-intakes.json avec leur source officielle."
+    ]
+  },
+  "nutrients": [
+    { "code": "energy", "label": "Énergie", "unit": "kcal", "category": "energy", "is_priority": false, "display_order": 10 },
+    { "code": "protein", "label": "Protéines", "unit": "g", "category": "macro", "is_priority": false, "display_order": 20 },
+    { "code": "lipids", "label": "Lipides", "unit": "g", "category": "macro", "is_priority": false, "display_order": 30 },
+    { "code": "carbohydrates", "label": "Glucides", "unit": "g", "category": "macro", "is_priority": false, "display_order": 40 },
+    { "code": "fiber", "label": "Fibres", "unit": "g", "category": "macro", "is_priority": false, "display_order": 50 },
+
+    { "code": "vitamin_a", "label": "Vitamine A", "unit": "µg", "category": "vitamin", "is_priority": false, "display_order": 100 },
+    { "code": "vitamin_b1", "label": "Vitamine B1 (thiamine)", "unit": "mg", "category": "vitamin", "is_priority": false, "display_order": 110 },
+    { "code": "vitamin_b2", "label": "Vitamine B2 (riboflavine)", "unit": "mg", "category": "vitamin", "is_priority": false, "display_order": 120 },
+    { "code": "vitamin_b3", "label": "Vitamine B3 (niacine)", "unit": "mg", "category": "vitamin", "is_priority": false, "display_order": 130 },
+    { "code": "vitamin_b5", "label": "Vitamine B5 (acide pantothénique)", "unit": "mg", "category": "vitamin", "is_priority": false, "display_order": 140 },
+    { "code": "vitamin_b6", "label": "Vitamine B6", "unit": "mg", "category": "vitamin", "is_priority": false, "display_order": 150 },
+    { "code": "vitamin_b9", "label": "Vitamine B9 (folates)", "unit": "µg", "category": "vitamin", "is_priority": false, "display_order": 160 },
+    { "code": "vitamin_b12", "label": "Vitamine B12", "unit": "µg", "category": "vitamin", "is_priority": true, "display_order": 170 },
+    { "code": "vitamin_c", "label": "Vitamine C", "unit": "mg", "category": "vitamin", "is_priority": true, "display_order": 180 },
+    { "code": "vitamin_d", "label": "Vitamine D", "unit": "µg", "category": "vitamin", "is_priority": true, "display_order": 190 },
+    { "code": "vitamin_e", "label": "Vitamine E", "unit": "mg", "category": "vitamin", "is_priority": false, "display_order": 200 },
+    { "code": "vitamin_k", "label": "Vitamine K", "unit": "µg", "category": "vitamin", "is_priority": false, "display_order": 210 },
+
+    { "code": "calcium", "label": "Calcium", "unit": "mg", "category": "mineral", "is_priority": true, "display_order": 300 },
+    { "code": "iron", "label": "Fer", "unit": "mg", "category": "mineral", "is_priority": true, "display_order": 310 },
+    { "code": "magnesium", "label": "Magnésium", "unit": "mg", "category": "mineral", "is_priority": true, "display_order": 320 },
+    { "code": "potassium", "label": "Potassium", "unit": "mg", "category": "mineral", "is_priority": false, "display_order": 330 },
+    { "code": "zinc", "label": "Zinc", "unit": "mg", "category": "mineral", "is_priority": false, "display_order": 340 },
+    { "code": "iodine", "label": "Iode", "unit": "µg", "category": "mineral", "is_priority": false, "display_order": 350 },
+    { "code": "selenium", "label": "Sélénium", "unit": "µg", "category": "mineral", "is_priority": false, "display_order": 360 },
+    { "code": "copper", "label": "Cuivre", "unit": "mg", "category": "mineral", "is_priority": false, "display_order": 370 },
+    { "code": "phosphorus", "label": "Phosphore", "unit": "mg", "category": "mineral", "is_priority": false, "display_order": 380 }
+  ]
+}

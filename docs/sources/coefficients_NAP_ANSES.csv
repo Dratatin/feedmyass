@@ -1,0 +1,6 @@
+Coefficient NAP,Catégorie d'activité,Description du profil quotidien
+"1,40 à 1,59",Sédentaire / Inactif,"Posture principalement assise (bureau, conduite), moins de 30 min de marche ou rangement."
+"1,60 à 1,69",Légèrement actif,"Posture assise dominante avec quelques déplacements à pied, environ 1h de marche légère."
+"1,70 à 1,89",Modérément actif,Posture debout fréquente ou déplacements constants (vendeur). Sport 2-3 fois par semaine.
+"1,90 à 2,19",Actif / Vigoureux,Travail physique régulier ou entraînements sportifs soutenus 3 à 4 fois par semaine.
+"2,20 et plus",Très actif / Intense,Travail physique très lourd (bâtiment) ou athlète avec entraînement quotidien intensif.
