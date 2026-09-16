@@ -4,7 +4,7 @@ import { buildIngredientPlan } from '@/domain/plan';
 import { computeNeeds } from '@/domain/needs';
 import { energyReference } from '@/data/reference/energy';
 import schema from '../../specs/001-nutrition-ingredient-planner/contracts/ingredient-plan.schema.json';
-import { foodsFixture, intakesFixture, nutrientsFixture, seasonalCodesByMonth } from '../unit/fixtures/reference';
+import { foodsFixture, intakesFixture, nutrientsFixture, seasonalCodesByMonth, seasonMonthsByFood } from '../unit/fixtures/reference';
 import type { Profile } from '@/domain/types';
 
 /**
@@ -57,6 +57,7 @@ describe('conformité au schéma IngredientPlan', () => {
     nutrients: nutrientsFixture,
     allFoods: foodsFixture,
     seasonalCodes: seasonalCodesByMonth.get(9)!,
+    seasonMonthsByFood,
     diet: { base: 'omnivore', exclusions: [] },
     period: 'day',
     generatedAt: new Date('2026-09-13T10:00:00Z'),
@@ -73,6 +74,7 @@ describe('conformité au schéma IngredientPlan', () => {
       food_code: i.foodCode, label: i.label, category: i.category,
       quantity_g: i.quantityG, display_quantity: i.displayQuantity,
       ...(i.isSeasonalProduce !== undefined ? { is_seasonal_produce: i.isSeasonalProduce } : {}),
+      ...(i.seasonMonths !== undefined ? { season_months: i.seasonMonths } : {}),
       ...(i.isFortified !== undefined ? { is_fortified: i.isFortified } : {}),
     })),
     coverage: plan.coverage.map((c) => ({
@@ -104,6 +106,37 @@ describe('conformité au schéma IngredientPlan', () => {
     }
     for (const gap of serialised.gaps) {
       expect(schema.properties.gaps.items.properties.reason.enum).toContain(gap.reason);
+    }
+  });
+
+  /**
+   * Ajout du schéma 1.1.0 (FR-107, FR-112 de la 002): le ruban de saison par
+   * ingrédient n'est affichable que si le plan transporte les mois. Le champ
+   * n'a de sens que pour les aliments soumis à saisonnalité — un ruban sur une
+   * lentille sèche serait un mensonge.
+   */
+  it('porte les mois de disponibilité des seuls fruits et légumes', () => {
+    const produce = serialised.items.filter(
+      (item: { is_seasonal_produce?: boolean }) => item.is_seasonal_produce !== undefined,
+    );
+    expect(produce.length).toBeGreaterThan(0);
+
+    for (const item of produce) {
+      expect(item, item.label).toHaveProperty('season_months');
+      expect(item.season_months.length).toBeGreaterThan(0);
+      for (const month of item.season_months) {
+        expect(Number.isInteger(month)).toBe(true);
+        expect(month).toBeGreaterThanOrEqual(1);
+        expect(month).toBeLessThanOrEqual(12);
+      }
+      // Le plan est généré en septembre: un fruit ou légume retenu y est de saison.
+      expect(item.season_months).toContain(9);
+    }
+
+    for (const item of serialised.items) {
+      if (item.is_seasonal_produce === undefined) {
+        expect(item, item.label).not.toHaveProperty('season_months');
+      }
     }
   });
 });

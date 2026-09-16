@@ -1,15 +1,21 @@
-import { Badge } from '@/components/ds/Badge';
-import { Card } from '@/components/ds/Card';
-import { DataTable, type Column } from '@/components/ds/DataTable';
+import { CoverageMeter } from '@/components/ds/CoverageMeter';
+import { Panel } from '@/components/ds/Panel';
+import { Pill } from '@/components/ds/Pill';
+import { Register, type Column } from '@/components/ds/Register';
 import type { CoverageEntry, PlanGap } from '@/domain/types';
 
 /**
  * Détail de couverture et écarts (FR-015, FR-017).
  *
- * Chaque nutriment affiche le pourcentage atteint et le seuil qui lui est
- * applicable. Les nutriments sous leur seuil sont nommés, avec la raison: c'est
- * l'exigence de FR-017, et la contrepartie honnête d'une liste qui ne peut pas
- * tout couvrir.
+ * Chaque nutriment affiche sa jauge, le pourcentage atteint et le seuil qui lui
+ * est applicable. Les seuils diffèrent d'une ligne à l'autre (100 % pour
+ * l'énergie, les protéines et les micronutriments prioritaires, 80 % sinon):
+ * le trait d'encre sur la jauge est donc indispensable pour que 88 % se lise
+ * comme un succès ou comme un écart.
+ *
+ * Les nutriments sous leur seuil sont nommés, avec la raison: c'est l'exigence
+ * de FR-017, et la contrepartie honnête d'une liste qui ne peut pas tout
+ * couvrir.
  */
 
 const REASON_LABELS: Record<PlanGap['reason'], string> = {
@@ -20,26 +26,34 @@ const REASON_LABELS: Record<PlanGap['reason'], string> = {
 
 export function CoveragePanel({ coverage, gaps }: { coverage: CoverageEntry[]; gaps: PlanGap[] }) {
   const columns: Column<CoverageEntry>[] = [
-    { key: 'label', header: 'Nutriment', render: (row) => row.label },
+    { key: 'label', header: 'Nutriment', render: (row) => <span className="font-semibold">{row.label}</span> },
     {
-      key: 'ratio',
+      key: 'meter',
       header: 'Couverture',
-      align: 'right',
-      render: (row) => Math.round(row.ratio * 100) + ' %',
+      render: (row) => (
+        <span className="grid min-w-[168px] grid-cols-[1fr_auto] items-center gap-[11px]">
+          <CoverageMeter
+            ratio={row.ratio}
+            threshold={row.threshold}
+            meetsThreshold={row.meetsThreshold}
+          />
+          <span className="type-data text-sm">{Math.round(row.ratio * 100)} %</span>
+        </span>
+      ),
     },
     {
       key: 'threshold',
       header: 'Seuil',
       align: 'right',
-      render: (row) => Math.round(row.threshold * 100) + ' %',
+      render: (row) => <span className="type-data">{Math.round(row.threshold * 100)} %</span>,
     },
     {
       key: 'status',
       header: 'État',
       render: (row) => (
-        <Badge tone={row.meetsThreshold ? 'success' : 'error'}>
-          {row.meetsThreshold ? 'Atteint' : 'Sous le seuil'}
-        </Badge>
+        <Pill tone={row.meetsThreshold ? 'saison' : 'under'}>
+          {row.meetsThreshold ? 'atteint' : 'sous le seuil'}
+        </Pill>
       ),
     },
   ];
@@ -47,16 +61,20 @@ export function CoveragePanel({ coverage, gaps }: { coverage: CoverageEntry[]; g
   return (
     <div className="flex w-full flex-col gap-4">
       {gaps.length > 0 ? (
-        <Card
-          title={gaps.length === 1 ? 'Un nutriment reste sous son seuil' : gaps.length + ' nutriments restent sous leur seuil'}
+        <Panel
+          title={
+            gaps.length === 1
+              ? 'Un nutriment reste sous son seuil'
+              : gaps.length + ' nutriments restent sous leur seuil'
+          }
           description="Cette liste ne les couvre pas entièrement. Voici lesquels et pourquoi."
         >
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-[9px]">
             {gaps.map((gap) => {
               const entry = coverage.find((c) => c.nutrient === gap.nutrient);
               return (
-                <li key={gap.nutrient} className="text-sm text-neutral-700">
-                  <span className="font-medium">{entry?.label ?? gap.nutrient}</span>
+                <li key={gap.nutrient} className="text-sm text-ink-soft">
+                  <span className="font-semibold text-ink">{entry?.label ?? gap.nutrient}</span>
                   {' — '}
                   {Math.round((entry?.ratio ?? gap.ratio) * 100)} % des besoins couverts,{' '}
                   {REASON_LABELS[gap.reason]}.
@@ -64,14 +82,14 @@ export function CoveragePanel({ coverage, gaps }: { coverage: CoverageEntry[]; g
               );
             })}
           </ul>
-        </Card>
+        </Panel>
       ) : null}
 
-      <DataTable
+      <Register
         columns={columns}
         rows={coverage}
         rowKey={(row) => row.nutrient}
-        caption="Couverture atteinte par la liste, nutriment par nutriment."
+        caption="Couverture atteinte par la liste, nutriment par nutriment. Le trait marque le seuil applicable."
       />
     </div>
   );

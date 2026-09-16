@@ -74,6 +74,12 @@ stockage existera.
 **Réponse 200**: un objet `IngredientPlan` conforme à
 [ingredient-plan.schema.json](./ingredient-plan.schema.json).
 
+**Amendement du 2026-09-17 (schéma 1.0.0 -> 1.1.0)**: chaque ingrédient soumis à saisonnalité porte
+désormais `season_months`, la liste de ses mois de disponibilité de 1 à 12. Sans ce champ, l'écran de
+la liste ne peut afficher que « de saison » ou « hors saison », jamais la période elle-même
+(FR-107 de la 002). L'ajout est **additif**: le champ est facultatif, les consommateurs du 1.0.0
+l'ignorent et continuent de fonctionner.
+
 ## POST /api/results
 
 Enregistre un résultat dans l'historique, et sert aussi de rattachement d'un résultat obtenu en

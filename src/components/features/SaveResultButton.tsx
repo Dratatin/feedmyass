@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Button } from '@/components/ds/Button';
+import { Button, buttonStyles } from '@/components/ds/Button';
 import type { Diet, Period } from '@/domain/types';
 import type { StoredProfile } from '@/lib/needs-session';
 
@@ -41,8 +41,8 @@ export function SaveResultButton({ profile, diet, period }: {
   if (state === 'saved') {
     return (
       <div className="flex flex-wrap items-center gap-3">
-        <p role="status" className="text-sm text-neutral-700">Résultat enregistré dans votre historique.</p>
-        <Link href="/historique"><Button hierarchy="secondary-gray">Voir mon historique</Button></Link>
+        <p role="status" className="text-sm text-ink">Résultat enregistré dans votre historique.</p>
+        <Link href="/historique" className={buttonStyles({ hierarchy: 'secondary' })}>Voir mon historique</Link>
       </div>
     );
   }
@@ -50,11 +50,11 @@ export function SaveResultButton({ profile, diet, period }: {
   if (state === 'unauthorized') {
     return (
       <div className="flex flex-wrap items-center gap-3">
-        <p className="text-sm text-neutral-700">
+        <p className="text-sm text-ink">
           Connectez-vous pour conserver ce résultat. Sans cela, il sera perdu à la fermeture du
           navigateur.
         </p>
-        <Link href="/connexion"><Button>Se connecter</Button></Link>
+        <Link href="/connexion" className={buttonStyles()}>Se connecter</Link>
       </div>
     );
   }
@@ -65,7 +65,7 @@ export function SaveResultButton({ profile, diet, period }: {
   // ramène ici.
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm text-neutral-600">
+      <p className="text-sm text-ink-soft">
         Ce résultat n&apos;est conservé que le temps de votre visite. Enregistrez-le pour le
         retrouver dans votre historique.
       </p>
@@ -74,7 +74,7 @@ export function SaveResultButton({ profile, diet, period }: {
           {state === 'pending' ? 'Enregistrement…' : 'Enregistrer dans mon historique'}
         </Button>
         {state === 'error' ? (
-          <p role="alert" className="text-sm text-red-500">L&apos;enregistrement a échoué.</p>
+          <p role="alert" className="text-sm text-framboise">L&apos;enregistrement a échoué.</p>
         ) : null}
       </div>
     </div>

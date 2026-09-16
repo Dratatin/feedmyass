@@ -87,13 +87,23 @@ Le principe est verrouillé à **quatre niveaux**, chacun vérifié :
 - [x] Le stockage serveur des résultats invités a été **abandonné** précisément parce qu'il aurait
       exposé des données de santé à l'énumération (R8 révisée).
 
-## VI. Design system d'abord, responsive et accessible
+## VI. Direction visuelle maison d'abord, responsive et accessible
 
-- [x] `Button`, `InputField` et `Badge` sont **relevés dans Figma**, nœuds sources cités dans chaque
-      fichier. Aucune valeur inventée : seules les variantes effectivement relevées sont exposées.
-- [x] Les quatre composants absents du design system (`SelectField`, `Card`, `Banner`, `DataTable`)
-      portent la **justification écrite** exigée par ce principe, et sont composés à partir des
-      tokens extraits.
+*Réévalué le 2026-09-17 (feature `002-refonte-visuelle`): le design system Figma « BDD de composants
+de base » est abandonné. Les deux premiers points portaient sur les relevés Figma; ils sont
+remplacés par ceux de la direction « Encre & Saison ».*
+
+- [x] Tous les composants de `src/components/ds` sont composés à partir des tokens de
+      `src/styles/tokens.css`, eux-mêmes dérivés de `docs/design-system.md`. Aucune couleur, taille
+      ni rayon codé en dur dans un composant — vérifié par recherche des motifs `#`, `rgb(` et des
+      classes de couleur non tokenisées.
+- [x] Chaque composant sans équivalent (`CheckboxField`, `MonthRibbon`, `CoverageMeter`,
+      `KeyFigures`, `Vignette`, `FamilyDot`, `PageShell`) porte la **justification écrite** exigée
+      par ce principe.
+- [x] Chaque couleur portant du texte a son **ratio de contraste mesuré et consigné** à côté de sa
+      définition; le plus serré est à 4,5:1.
+- [x] Aucun état n'est signalé par la seule couleur: sous le seuil, de saison et famille d'aliment
+      portent chacun un mot.
 - [x] Responsive de 320 px à 1920 px sans défilement horizontal de la page — vérifié sur tous les
       écrans, tableaux confinés à leur propre conteneur défilable.
 - [x] **Zéro violation WCAG 2.1 AA** sur les cinq écrans, mesuré par axe-core aux deux largeurs.

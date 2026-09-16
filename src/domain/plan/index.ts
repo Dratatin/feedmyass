@@ -20,6 +20,8 @@ export type PlanInput = {
   nutrients: Nutrient[];
   allFoods: Food[];
   seasonalCodes: Set<string>;
+  /** Mois de disponibilité par aliment, pour les rubans de saison (FR-112). */
+  seasonMonthsByFood?: Map<string, number[]>;
   diet: Diet;
   period: Period;
   generatedAt: Date;
@@ -48,10 +50,10 @@ export function buildIngredientPlan(input: PlanInput): IngredientPlan {
 
   const foodByCode = new Map(allFoods.map((f) => [f.code, f]));
   const coverage = computeCoverage(needs, nutrients, quantitiesByFood, foodByCode);
-  const items = toPlanItems(quantitiesByFood, foodByCode, seasonalCodes);
+  const items = toPlanItems(quantitiesByFood, foodByCode, seasonalCodes, input.seasonMonthsByFood);
 
   return {
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     period,
     generatedAt: generatedAt.toISOString(),
     diet,

@@ -2,22 +2,19 @@ import type { ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib/cn';
 
 /**
- * Bouton du design system "BDD de composants de base".
+ * Bouton de la direction « Encre & Saison » (docs/design-system.md).
  *
- * Source Figma : fichier rjkPVphG56oIJElZVnK82I, composant Buttons/Button
- * (noeud 1038:34411). Valeurs relevées sur les variantes :
- *   - tailles   : 1040:3 (sm), 1038:34410 (md), 1040:9 (lg), 1040:15 (xl)
- *   - états     : 1041:34506 (hover), 1041:34790 (disabled)
- *   - hiérarchie: 1041:35818 (secondary gray)
+ * Trois hiérarchies, parce que trois suffisent aux écrans:
+ *   - primary   : l'action qui fait avancer le parcours, une seule par écran;
+ *   - secondary : tout le reste;
+ *   - danger    : les actions irréversibles (suppression de compte).
  *
- * Le design system définit sept hiérarchies. Seules les deux dont les valeurs
- * ont été relevées sont implémentées ici. Les cinq autres (Secondary color,
- * Tertiary color, Tertiary gray, Link color, Link gray) doivent être ajoutées
- * en relevant leurs valeurs dans Figma, jamais en les inventant (principe VI).
+ * Forme en gélule et aucune ombre portée: c'est le marqueur de la direction,
+ * qui pose la hiérarchie par les fonds et les filets, jamais par l'élévation.
  */
 
-type Hierarchy = 'primary' | 'secondary-gray';
-type Size = 'sm' | 'md' | 'lg' | 'xl';
+type Hierarchy = 'primary' | 'secondary' | 'danger';
+type Size = 'sm' | 'md' | 'lg';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   hierarchy?: Hierarchy;
@@ -25,24 +22,52 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const sizeClasses: Record<Size, string> = {
-  sm: 'px-[14px] py-[8px] text-sm',
-  md: 'px-[16px] py-[10px] text-sm',
-  lg: 'px-[18px] py-[10px] text-md',
-  xl: 'px-[20px] py-[12px] text-md',
+  sm: 'px-[13px] py-[6px] text-sm',
+  md: 'px-[18px] py-[9px] text-sm',
+  lg: 'px-[24px] py-[11px] text-md',
 };
 
 const hierarchyClasses: Record<Hierarchy, string> = {
   primary: cn(
-    'bg-brand-600 border-brand-600 text-base-white',
-    'hover:bg-brand-700 hover:border-brand-700',
-    'disabled:bg-brand-200 disabled:border-brand-200',
+    'bg-brand border-brand text-surface',
+    'hover:bg-brand-deep hover:border-brand-deep',
+    'disabled:bg-line disabled:border-line disabled:text-ink-muted',
   ),
-  'secondary-gray': cn(
-    'bg-base-white border-neutral-300 text-neutral-700',
-    'hover:bg-neutral-50',
-    'disabled:bg-neutral-50 disabled:border-neutral-200 disabled:text-neutral-400',
+  secondary: cn(
+    'bg-surface border-line-strong text-brand',
+    'hover:bg-brand-wash hover:border-brand',
+    'disabled:bg-paper disabled:border-line disabled:text-ink-muted',
+  ),
+  danger: cn(
+    'bg-surface border-framboise text-framboise',
+    'hover:bg-framboise-wash',
+    'disabled:bg-paper disabled:border-line disabled:text-ink-muted',
   ),
 };
+
+/**
+ * Classes du bouton, exposées pour les LIENS qui doivent en avoir l'allure.
+ *
+ * Un lien enveloppant un bouton (`<a><button>`) produit deux éléments
+ * interactifs imbriqués: axe-core le signale (`nested-interactive`), et un
+ * lecteur d'écran annonce une cible ambiguë. Une navigation est un lien, une
+ * action est un bouton — et un lien qui ressemble à un bouton se fait avec ces
+ * classes, pas avec un bouton dedans.
+ */
+export function buttonStyles({ hierarchy = 'primary', size = 'md', className }: {
+  hierarchy?: Hierarchy;
+  size?: Size;
+  className?: string;
+} = {}): string {
+  return cn(
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full',
+    'border-[1.5px] border-solid font-semibold no-underline',
+    'disabled:cursor-not-allowed',
+    sizeClasses[size],
+    hierarchyClasses[hierarchy],
+    className,
+  );
+}
 
 export function Button({
   hierarchy = 'primary',
@@ -51,18 +76,5 @@ export function Button({
   type = 'button',
   ...props
 }: ButtonProps) {
-  return (
-    <button
-      type={type}
-      className={cn(
-        'inline-flex items-center justify-center whitespace-nowrap border border-solid font-semibold',
-        'rounded-[var(--radius-ds)] shadow-[var(--shadow-xs)]',
-        'disabled:cursor-not-allowed',
-        sizeClasses[size],
-        hierarchyClasses[hierarchy],
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <button type={type} className={buttonStyles({ hierarchy, size, className })} {...props} />;
 }

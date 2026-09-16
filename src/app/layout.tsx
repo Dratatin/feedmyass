@@ -1,7 +1,40 @@
 import type { Metadata } from 'next';
+import { Caveat, Fraunces, Recursive } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { SiteHeader } from '@/components/features/SiteHeader';
 import './globals.css';
+
+/**
+ * Les trois familles de la direction « Encre & Saison », chargées par
+ * next/font: les fichiers sont servis depuis notre propre domaine, sans appel
+ * à Google au chargement de la page, et sans décalage de mise en page
+ * (FR-105).
+ *
+ * Les axes variables sont demandés explicitement parce qu'ils FONT ces
+ * polices: sans SOFT ni WONK, Fraunces est une autre fonte; sans CASL,
+ * Recursive est une grotesque quelconque; sans MONO, elle n'a pas de chasse
+ * fixe pour les chiffres. Les valeurs de ces axes sont posées dans
+ * globals.css.
+ */
+const display = Fraunces({
+  subsets: ['latin'],
+  axes: ['SOFT', 'WONK', 'opsz'],
+  variable: '--font-display-family',
+  display: 'swap',
+});
+
+const sans = Recursive({
+  subsets: ['latin'],
+  axes: ['CASL', 'MONO'],
+  variable: '--font-sans-family',
+  display: 'swap',
+});
+
+const chalk = Caveat({
+  subsets: ['latin'],
+  variable: '--font-chalk-family',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'FeedMyAss — besoins nutritionnels et ingrédients de saison',
@@ -13,7 +46,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   // lang="fr": l'interface est en français (FR-034).
   return (
-    <html lang="fr">
+    <html lang="fr" className={display.variable + ' ' + sans.variable + ' ' + chalk.variable}>
       <body>
         {/* L'en-tête porte l'état de connexion, donc il est rendu pour toutes
             les pages, publiques comprises: le calcul reste accessible sans

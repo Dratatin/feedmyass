@@ -1,4 +1,4 @@
-import { Card } from '@/components/ds/Card';
+import { Panel } from '@/components/ds/Panel';
 import nutrients from '@/data/reference/nutrients.json';
 import intakes from '@/data/reference/reference-intakes.json';
 import foods from '@/data/reference/foods.json';
@@ -23,22 +23,25 @@ const SOURCES = [
 
 export function DataFreshness() {
   return (
-    <Card
+    <Panel
       title="D'où viennent ces chiffres"
       description="Les données de référence sont embarquées dans l'application: le calcul ne dépend d'aucun service extérieur."
     >
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col gap-[10px]">
         {SOURCES.map(({ label, meta }) => (
-          <li key={label} className="flex flex-col gap-1 border-b border-solid border-neutral-200 pb-2 last:border-b-0">
-            <span className="text-sm font-medium text-neutral-900">{label}</span>
-            <span className="text-sm text-neutral-600">{meta.source}</span>
-            <span className="text-xs text-neutral-500">
+          <li
+            key={label}
+            className="flex flex-col gap-[1px] border-b border-solid border-line-soft pb-[9px] last:border-b-0 last:pb-0"
+          >
+            <span className="text-sm font-semibold text-ink">{label}</span>
+            <span className="text-sm text-ink-soft">{meta.source}</span>
+            <span className="type-data text-xs text-ink-muted">
               Version {meta.version} — relevée le{' '}
               {new Date(meta.retrieved_at).toLocaleDateString('fr-FR', { dateStyle: 'long' })}
             </span>
           </li>
         ))}
       </ul>
-    </Card>
+    </Panel>
   );
 }

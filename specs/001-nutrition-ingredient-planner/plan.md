@@ -23,7 +23,7 @@ critique, ce qui satisfait l'exigence de résilience sans mécanisme de repli co
 **Language/Version**: TypeScript 6.0 sur Node.js >= 22 (v25.9 sur le poste de développement)
 
 **Primary Dependencies**: Next.js 16.3 (App Router, React 19.3);
-Tailwind CSS 4.3 alimenté par les tokens extraits du design system Figma (configuration CSS-first via `@theme`); `@supabase/supabase-js` et
+Tailwind CSS 4.3 alimenté par les tokens de la direction visuelle du projet (configuration CSS-first via `@theme`; depuis le 2026-09-17, `docs/design-system.md` remplace l'extraction Figma); `@supabase/supabase-js` et
 `@supabase/ssr`; solveur de programmation linéaire embarqué (`javascript-lp-solver` 1.0);
 Zod pour la validation des entrées
 
@@ -62,7 +62,7 @@ référence curés, ~8 écrans
 | III. Séparation besoins / régime | Le calcul des besoins ignore le régime | `computeNeeds(profile)` ne reçoit pas le régime: il est absent du type d'entrée, donc la violation est impossible à écrire; test d'invariant sur deux profils ne différant que par le régime | PASS |
 | IV. Information, jamais conseil médical | Pas de diagnostic, de posologie ni d'objectif de poids | Bandeau sur tout écran de résultat; aucun champ objectif de poids; FR-018 limité aux aliments enrichis; vocabulaire des écarts non prescriptif | PASS |
 | V. Identité déléguée et minimisation | Aucun mot de passe, aucune session maison, cloisonnement par utilisateur | Supabase Auth gère identité et session; RLS `user_id = auth.uid()` sur toutes les tables applicatives; export et suppression de compte prévus | PASS |
-| VI. Design system d'abord | Composants et tokens issus du Figma existant | `src/components/ds` généré depuis les 33 noeuds de l'Annexe A; aucun composant hors design system sans justification | PASS sous réserve: l'extraction Figma reste à faire (R7), c'est une tâche bloquante de la phase d'implémentation, pas une dérogation |
+| VI. Direction visuelle maison d'abord | Tokens uniques, contrastes mesurés, couleur jamais seule | `src/styles/tokens.css` et `src/components/ds` suivent `docs/design-system.md`; aucun composant nouveau sans justification écrite | PASS — *amendé le 2026-09-17 (feature 002)*: la porte portait sur l'extraction du Figma « BDD de composants de base », design system abandonné depuis |
 
 Portes supplémentaires issues de la section "Workflow de développement et portes qualité":
 tests obligatoires sur l'invariant besoins/régime, la conformité aux sources officielles, la
@@ -84,8 +84,9 @@ Reprise des portes une fois `research.md`, `data-model.md`, `contracts/` et `qui
   du contrat ne permet d'exprimer une posologie ou un objectif de poids.
 - **V** tenu: RLS sur `profiles` et `results`, absence volontaire de politique `update` sur
   `results` (FR-027), export et suppression de compte contractualisés.
-- **VI** inchangé: toujours en attente de l'extraction Figma (R7), sans autre effet que de bloquer
-  les tâches d'interface.
+- **VI** *amendé le 2026-09-17 (feature 002)*: le design system Figma est abandonné au profit de la
+  direction maison (`docs/design-system.md`), dont les tokens portent leurs ratios de contraste
+  mesurés. À la date de la Phase 1, la porte attendait encore l'extraction Figma (R7).
 
 Aucune violation nouvelle; la section Complexity Tracking reste vide.
 ## Project Structure
@@ -115,7 +116,7 @@ src/
 │   ├── (account)/           # espace personnel: profil, historique, données
 │   └── api/                 # route handlers: needs, plan, results, account
 ├── components/
-│   ├── ds/                  # composants dérivés du design system Figma (Annexe A)
+│   ├── ds/                  # composants de la direction visuelle (docs/design-system.md)
 │   └── features/            # formulaire profil, tableau des besoins, liste d'ingrédients
 ├── domain/
 │   ├── needs/               # calcul des besoins: Henry + NAP, apports de référence
@@ -149,5 +150,6 @@ entrée, ce qui inscrit le principe III dans les types plutôt que dans une conv
 
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
-Aucune violation: toutes les portes de la constitution sont passées. La seule réserve (extraction
-des composants Figma, R7) est une tâche à exécuter, pas une dérogation à justifier.
+Aucune violation: toutes les portes de la constitution sont passées. La réserve d'origine (extraction
+des composants Figma, R7) a été levée le 2026-09-13 par l'extraction, puis rendue caduque le
+2026-09-17 par l'abandon du design system Figma au profit de la direction maison (feature 002).

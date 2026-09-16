@@ -255,9 +255,13 @@ régime).
 
 - **FR-031**: L'interface DOIT être utilisable sans perte de fonctionnalité ni défilement
   horizontal de 320 px à 1920 px de large.
-- **FR-032**: Les écrans DOIVENT être composés à partir des composants et tokens du design system
-  existant "BDD de composants de base" (voir Annexe A); tout composant créé de zéro DOIT être
-  justifié par l'absence d'équivalent dans ce design system.
+- **FR-032**: Les écrans DOIVENT être composés à partir des tokens et des composants de la direction
+  visuelle du projet, "Encre & Saison" (`docs/design-system.md`); tout composant créé de zéro DOIT
+  être justifié par l'absence d'équivalent dans cette direction.
+  *Amendée le 2026-09-17 (feature 002-refonte-visuelle, FR-113)*: la rédaction initiale prescrivait
+  le design system Figma "BDD de composants de base" (Annexe A). Ce design system est abandonné,
+  ainsi qu'en a décidé l'amendement 2.0.0 de la constitution: il produisait une interface générique,
+  sans rapport avec un produit dont le sujet est la saison et la table de référence.
 - **FR-033**: L'interface DOIT respecter les contrastes WCAG 2.1 AA, être navigable au clavier et
   associer un libellé explicite à chaque champ de formulaire.
 - **FR-034**: L'interface DOIT être rédigée en français.
@@ -370,9 +374,9 @@ régime).
   temps de la session; seule la connexion permet de le rattacher durablement.
 - **Coûts**: les services externes retenus disposent d'une offre gratuite couvrant le volume attendu
   du projet.
-- **Design**: les composants listés en Annexe A sont accessibles via le MCP Figma au moment de la
-  phase de plan; cette phase de spécification n'a pas pu les analyser (serveur MCP Figma non
-  connecté dans la session de rédaction).
+- **Design**: l'habillage des écrans suit la direction visuelle du projet, décrite dans
+  `docs/design-system.md`. *Amendée le 2026-09-17*: l'hypothèse initiale portait sur la
+  disponibilité, en phase de plan, du design system Figma de l'Annexe A, abandonné depuis.
 
 ## Dependencies
 
@@ -386,8 +390,9 @@ régime).
   intégré comme donnée de référence versionnée.
 - **Table de saisonnalité France métropolitaine** issue de sources publiques reconnues
   (Agribalyse/ADEME, calendrier Greenpeace).
-- **Design system Figma "BDD de composants de base"** et accès au MCP Figma pour en extraire
-  structure, styles et tokens (Annexe A).
+- **Direction visuelle du projet** (`docs/design-system.md`), qui tient lieu de design system.
+  *Amendée le 2026-09-17*: cette dépendance était le design system Figma « BDD de composants de
+  base », abandonné avec la feature 002-refonte-visuelle.
 - **Service externe de génération de recettes**: hors périmètre de cette version, mais la sortie
   structurée de la liste d'ingrédients doit rester consommable par un tel service.
 
@@ -403,14 +408,21 @@ régime).
 - Internationalisation (langues supplémentaires, saisonnalité hors France métropolitaine).
 - Application native installable (le périmètre est une application web responsive).
 
-## Annexe A - Références du design system Figma
+## Annexe A - Références du design system Figma (ABANDONNÉE)
 
-Fichier source (design system existant, à ne pas recréer):
+> **Cette annexe n'a plus aucune valeur prescriptive.** Le design system Figma « BDD de composants
+> de base » a été abandonné le 2026-09-17 au profit de la direction visuelle « Encre & Saison »
+> (`docs/design-system.md`, feature `002-refonte-visuelle`). Elle est conservée telle quelle comme
+> trace de ce qui a servi entre le 2026-09-13 et le 2026-09-17: les tokens et les trois composants
+> relevés dans Figma ont bel et bien habillé la première version des écrans. Ne pas s'y référer pour
+> écrire du code neuf.
+
+Fichier source (design system abandonné):
 `https://www.figma.com/design/rjkPVphG56oIJElZVnK82I/BDD-de-composants-de-base`
 
-Chaque noeud ci-dessous DOIT être analysé via le MCP Figma pendant la phase de plan (structure,
-styles, tokens) puis réutilisé de façon cohérente dans l'implémentation. Ouvrir un noeud en
-ajoutant `?node-id=<id>` à l'URL du fichier.
+Chaque noeud ci-dessous devait être analysé via le MCP Figma pendant la phase de plan (structure,
+styles, tokens) puis réutilisé dans l'implémentation. Ouvrir un noeud en ajoutant `?node-id=<id>` à
+l'URL du fichier.
 
 | # | node-id | # | node-id | # | node-id |
 |---|---------|---|---------|---|---------|

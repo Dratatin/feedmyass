@@ -1,22 +1,24 @@
 import Link from 'next/link';
-import { Button } from '@/components/ds/Button';
+import { buttonStyles } from '@/components/ds/Button';
+import { Vignette, VignetteSprite } from '@/components/ds/Vignette';
 import { SignOutButton } from '@/components/features/SignOutButton';
 import { getCurrentUserId } from '@/lib/auth';
 
 /**
  * En-tête commun à toutes les pages: c'est lui qui rend la connexion
- * atteignable (FR-022) et la déconnexion possible (scénario US3 « se
- * déconnecter, se reconnecter depuis un autre appareil »).
+ * atteignable (FR-022) et la déconnexion possible.
  *
- * JUSTIFICATION (principe VI): le design system « BDD de composants de base »
- * ne contient aucun composant de navigation — c'est le constat écrit en T023,
- * qui avait alors laissé la navigation de côté faute de parcours à naviguer.
- * L'en-tête est donc composé des tokens et du Button relevés dans Figma, sans
- * inventer de valeur nouvelle.
+ * Il ne porte QUE la marque et l'état de connexion. La navigation du parcours
+ * vit dans le rail (`StepRail`), et ce partage n'est pas qu'esthétique: le test
+ * de navigation au clavier de la 001 accorde dix tabulations pour atteindre le
+ * premier champ du formulaire de profil. Deux sont consommées ici, trois par le
+ * rail; ajouter des liens ici les prendrait sur cette marge.
  *
  * L'état affiché vient du serveur: le rendu ne montre jamais « Connexion » à
  * quelqu'un qui l'est déjà, contrairement à une détection faite après
  * hydratation.
+ *
+ * C'est aussi ici qu'est rendu le jeu de vignettes, une fois par page.
  */
 export async function SiteHeader() {
   let userId: string | null = null;
@@ -29,25 +31,31 @@ export async function SiteHeader() {
   }
 
   return (
-    <header className="border-b border-solid border-neutral-200 bg-base-white">
-      <div className="mx-auto flex max-w-[880px] flex-wrap items-center justify-between gap-3 px-4 py-3">
-        <Link href="/" className="text-md font-semibold text-neutral-900">
+    <header className="bg-ink">
+      <VignetteSprite />
+      <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 px-4 py-3">
+        <Link
+          href="/"
+          className="type-display flex items-center gap-2 text-lg text-paper no-underline"
+        >
+          <Vignette name="pomme" size={22} />
           FeedMyAss
         </Link>
 
         <nav aria-label="Compte" className="flex flex-wrap items-center gap-2">
           {userId ? (
             <>
-              <Link href="/mon-profil">
-                <Button hierarchy="secondary-gray" size="sm">
-                  Mon espace
-                </Button>
+              <Link
+                href="/mon-profil"
+                className={buttonStyles({ hierarchy: 'secondary', size: 'sm' })}
+              >
+                Mon espace
               </Link>
               <SignOutButton />
             </>
           ) : (
-            <Link href="/connexion">
-              <Button size="sm">Connexion</Button>
+            <Link href="/connexion" className={buttonStyles({ size: 'sm' })}>
+              Connexion
             </Link>
           )}
         </nav>

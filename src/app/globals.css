@@ -4,8 +4,11 @@
 /* Réglages globaux. Toute valeur visuelle vient de src/styles/tokens.css. */
 html {
   font-family: var(--font-sans);
-  color: var(--color-neutral-900);
-  background-color: var(--color-base-white);
+  /* CASL est l'axe qui sépare un ton administratif d'un ton amical: c'est le
+     réglage de la direction, pas une préférence. */
+  font-variation-settings: 'CASL' 0.55, 'MONO' 0;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
 }
 
 /* Cible de toucher confortable et absence de débordement horizontal de 320 px
@@ -15,7 +18,39 @@ body {
   overflow-x: hidden;
 }
 
+/* Les titres portent la famille display et ses deux axes. Elle n'est employée
+   nulle part ailleurs, sauf sur les chiffres clés via .type-display. */
+h1,
+h2,
+h3,
+.type-display {
+  font-family: var(--font-display);
+  font-variation-settings:
+    'SOFT' 60,
+    'WONK' 1;
+  font-weight: 800;
+}
+
+/* Chiffres, unités, codes de référence, mois: même famille que l'interface,
+   axe MONO poussé à 1. Les chasses tabulaires sont indispensables dès que des
+   nombres se superposent en colonne. */
+@utility type-data {
+  font-family: var(--font-sans);
+  font-variation-settings:
+    'MONO' 1,
+    'CASL' 0.3;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Annotations manuscrites. Trois emplois au maximum dans toute l'application:
+   au-delà, le procédé s'use. */
+@utility type-chalk {
+  font-family: var(--font-chalk);
+  font-weight: 500;
+}
+
 :focus-visible {
-  outline: 2px solid var(--color-brand-600);
+  outline: 2.5px solid var(--color-brand);
   outline-offset: 2px;
+  border-radius: 3px;
 }

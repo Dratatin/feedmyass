@@ -53,7 +53,7 @@ describe('liste produite pour un régime omnivore', () => {
 
   it('propose une liste non vide', () => {
     expect(result.items.length).toBeGreaterThan(0);
-    expect(result.schemaVersion).toBe('1.0.0');
+    expect(result.schemaVersion).toBe('1.1.0');
   });
 
   it('atteint tous les seuils et ne signale aucun écart', () => {

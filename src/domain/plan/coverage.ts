@@ -64,12 +64,19 @@ export function toPlanItems(
   quantitiesByFood: Map<string, number>,
   foodByCode: Map<string, Food>,
   seasonalCodes: Set<string>,
+  /**
+   * Mois de disponibilité par aliment. Facultatif: un appelant qui ne les
+   * fournit pas obtient un plan valide, simplement sans les rubans par ligne
+   * (FR-112 de la 002).
+   */
+  seasonMonthsByFood?: Map<string, number[]>,
 ): IngredientPlanItem[] {
   const items: IngredientPlanItem[] = [];
 
   for (const [code, grams] of quantitiesByFood) {
     const food = foodByCode.get(code);
     if (!food) continue;
+    const months = food.isFruitVegetable ? seasonMonthsByFood?.get(food.code) : undefined;
     items.push({
       foodCode: food.code,
       label: food.label,
@@ -77,6 +84,7 @@ export function toPlanItems(
       quantityG: Math.round(grams),
       displayQuantity: toDisplayQuantity(food, grams),
       ...(food.isFruitVegetable ? { isSeasonalProduce: seasonalCodes.has(food.code) } : {}),
+      ...(months && months.length > 0 ? { seasonMonths: [...months].sort((a, b) => a - b) } : {}),
       ...(food.isFortified ? { isFortified: true } : {}),
     });
   }

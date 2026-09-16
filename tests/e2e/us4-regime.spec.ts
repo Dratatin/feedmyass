@@ -20,6 +20,12 @@ const computeNeeds = async (page: import('@playwright/test').Page) => {
 };
 
 const needsSnapshot = async (page: import('@playwright/test').Page) => {
+  // L'écran lit la session du navigateur après hydratation: sans cette attente,
+  // un relevé pris trop tôt capture un tableau encore vide et fait échouer la
+  // comparaison pour une raison qui n'a rien à voir avec le régime.
+  await expect(page.getByRole('heading', { name: 'Vos besoins nutritionnels' })).toBeVisible();
+  await expect(page.getByRole('table').locator('tbody tr').first()).toBeVisible();
+
   const rows = await page.getByRole('table').locator('tbody tr').allInnerTexts();
   return rows.map((row) => row.replace(/\s+/g, ' ').trim());
 };

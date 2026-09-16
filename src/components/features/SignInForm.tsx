@@ -3,9 +3,9 @@
 import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { useState, useSyncExternalStore } from 'react';
-import { Banner } from '@/components/ds/Banner';
+import { Notice } from '@/components/ds/Notice';
 import { Button } from '@/components/ds/Button';
-import { Card } from '@/components/ds/Card';
+import { Panel } from '@/components/ds/Panel';
 import { InputField } from '@/components/ds/InputField';
 import { createSupabaseBrowserClient } from '@/lib/supabase-browser';
 import { getNeedsServerSnapshot, getNeedsSnapshot, subscribeNeeds } from '@/lib/needs-session';
@@ -94,41 +94,41 @@ export function SignInForm({ next, linkFailed }: { next: string; linkFailed: boo
   }
 
   return (
-    <main className="mx-auto flex max-w-[440px] flex-col gap-6 px-4 py-10">
+    <main className="mx-auto flex max-w-[440px] flex-col gap-[18px] px-4 py-10">
       <header className="flex flex-col gap-2">
-        <h1 className="text-display-xs font-semibold text-neutral-900">
+        <h1 className="text-display-sm text-ink">
           {mode === 'signin' ? 'Connexion' : 'Créer un compte'}
         </h1>
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-ink-soft">
           Un compte permet de conserver votre profil et l&apos;historique de vos résultats. Le
           calcul reste accessible sans compte.
         </p>
       </header>
 
       {linkFailed ? (
-        <Banner tone="warning" title="Lien de confirmation inutilisable">
+        <Notice tone="caution" title="Lien de confirmation inutilisable">
           Ce lien a expiré ou a déjà servi. Connectez-vous ci-dessous, ou créez de nouveau votre
           compte pour recevoir un lien valide.
-        </Banner>
+        </Notice>
       ) : null}
 
       {next ? (
-        <Banner title="Connexion requise">
+        <Notice title="Connexion requise">
           Cette page fait partie de votre espace personnel. Une fois connecté, vous y serez ramené
           automatiquement.
-        </Banner>
+        </Notice>
       ) : null}
 
       {hasGuestResult ? (
-        <Banner title="Votre résultat en cours">
+        <Notice title="Votre résultat en cours">
           Vous avez un résultat calculé sans compte. Après connexion, vous pourrez
           l&apos;enregistrer dans votre historique.{' '}
           <strong>Sans cet enregistrement, il sera perdu</strong> à la fermeture de votre
           navigateur.
-        </Banner>
+        </Notice>
       ) : null}
 
-      <Card>
+      <Panel>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <InputField
             label="Adresse e-mail"
@@ -147,30 +147,36 @@ export function SignInForm({ next, linkFailed }: { next: string; linkFailed: boo
             hint="Huit caractères minimum. Il est vérifié par notre fournisseur d'identité, jamais par cette application."
           />
           {error ? (
-            <p role="alert" className="text-sm text-red-500">
+            <p role="alert" className="text-sm text-framboise">
               {error}
             </p>
           ) : null}
           {notice ? (
-            <p role="status" className="text-sm text-neutral-700">
+            <p role="status" className="text-sm text-ink">
               {notice}
             </p>
           ) : null}
-          <Button type="submit" size="lg" disabled={pending}>
+          <Button type="submit" size="lg" className="justify-center" disabled={pending}>
             {pending ? 'Un instant…' : mode === 'signin' ? 'Se connecter' : 'Créer mon compte'}
           </Button>
         </form>
-      </Card>
+      </Panel>
 
-      <Button
-        hierarchy="secondary-gray"
-        onClick={() => {
-          setMode(mode === 'signin' ? 'signup' : 'signin');
-          setError(null);
-        }}
-      >
-        {mode === 'signin' ? 'Créer un compte' : "J'ai déjà un compte"}
-      </Button>
+      {/* Bascule entre connexion et création: une phrase, pas un second bouton
+          primaire. L'action principale de cet écran est unique. */}
+      <p className="text-sm text-ink-soft">
+        {mode === 'signin' ? 'Pas encore de compte ?' : 'Vous avez déjà un compte ?'}{' '}
+        <button
+          type="button"
+          className="font-semibold text-brand underline"
+          onClick={() => {
+            setMode(mode === 'signin' ? 'signup' : 'signin');
+            setError(null);
+          }}
+        >
+          {mode === 'signin' ? 'Créer un compte' : 'Se connecter'}
+        </button>
+      </p>
     </main>
   );
 }

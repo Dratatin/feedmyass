@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
+import { cn } from '@/lib/cn';
 
 /**
- * Tableau de données.
+ * Registre: le tableau de la direction « Encre & Saison ».
  *
- * JUSTIFICATION (principe VI): le design system ne contient pas de composant
- * tableau. Les bordures, fonds et typographies proviennent des tokens relevés
- * dans Figma; aucune valeur n'est inventée.
+ * Pas de cartouche, pas de fond alterné. Un filet d'encre sous l'en-tête, des
+ * filets clairs entre les lignes, des en-têtes en capitales: c'est la mise en
+ * page d'une table de composition, qui est exactement ce que ces écrans
+ * affichent.
  *
  * Le conteneur gère son propre défilement horizontal: c'est la seule exception
  * tolérée à l'absence de défilement horizontal de la page (FR-031), et elle
@@ -22,31 +24,35 @@ export type Column<T> = {
   align?: 'left' | 'right';
 };
 
-export function DataTable<T>({ columns, rows, rowKey, caption }: {
+export function Register<T>({ columns, rows, rowKey, caption, highlightKey }: {
   columns: Column<T>[];
   rows: T[];
   rowKey: (row: T) => string;
   caption?: string;
+  /** Clé de la ligne mise en avant: l'énergie, dont tout le reste dépend. */
+  highlightKey?: string;
 }) {
   return (
     <div
       tabIndex={0}
       role="region"
       aria-label={caption ?? 'Tableau de données'}
-      className="w-full overflow-x-auto rounded-[var(--radius-ds)] border border-solid border-neutral-200"
+      className="w-full overflow-x-auto"
     >
       <table className="w-full border-collapse text-sm">
-        {caption ? <caption className="px-4 py-3 text-left text-sm text-neutral-600">{caption}</caption> : null}
+        {caption ? (
+          <caption className="pb-2 text-left text-sm text-ink-soft">{caption}</caption>
+        ) : null}
         <thead>
-          <tr className="border-b border-solid border-neutral-200 bg-neutral-50">
+          <tr className="border-b-2 border-solid border-ink">
             {columns.map((column) => (
               <th
                 key={column.key}
                 scope="col"
-                className={
-                  'px-4 py-3 font-medium text-neutral-600 ' +
-                  (column.align === 'right' ? 'text-right' : 'text-left')
-                }
+                className={cn(
+                  'type-data pr-3 pb-2 text-xs font-medium tracking-label uppercase text-ink-muted',
+                  column.align === 'right' ? 'text-right' : 'text-left',
+                )}
               >
                 {column.header}
               </th>
@@ -55,13 +61,20 @@ export function DataTable<T>({ columns, rows, rowKey, caption }: {
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={rowKey(row)} className="border-b border-solid border-neutral-200 last:border-b-0">
+            <tr
+              key={rowKey(row)}
+              className={cn(
+                'border-b border-solid border-line-soft last:border-b-2 last:border-line',
+                highlightKey !== undefined && rowKey(row) === highlightKey ? 'bg-brand-wash' : '',
+              )}
+            >
               {columns.map((column) => (
                 <td
                   key={column.key}
-                  className={
-                    'px-4 py-3 text-neutral-900 ' + (column.align === 'right' ? 'text-right' : 'text-left')
-                  }
+                  className={cn(
+                    'py-[10px] pr-3 align-middle text-ink',
+                    column.align === 'right' ? 'text-right' : 'text-left',
+                  )}
                 >
                   {column.render(row)}
                 </td>
