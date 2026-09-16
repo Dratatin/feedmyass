@@ -215,6 +215,20 @@ Trois retours sur la direction, et trois constats tirés du parcours refait à l
 - **FR-133**: L'en-tête NE DOIT porter aucune action primaire: celle-ci appartient à l'écran, une par
   écran.
 
+### Retours de revue du 2026-09-20
+
+- **FR-134**: Tout élément interactif DOIT signaler le survol par une transition, avec une durée et
+  une courbe uniques pour l'ensemble du site.
+- **FR-135**: Un élément NON interactif NE DOIT pas porter d'état de survol qui promettrait une
+  action inexistante. Seule exception: la ligne de tableau, dont le fond se teinte comme aide à la
+  lecture, sans changement de curseur.
+- **FR-136**: Tout mouvement DOIT être annulé sous `prefers-reduced-motion`, sans que les états
+  disparaissent: le survol change toujours de couleur, instantanément.
+- **FR-137**: Aucun élément porteur de texte NE DOIT subir de transformation géométrique
+  **permanente** — déplacement, agrandissement ou rotation, fût-elle d'un degré. Le texte en devient
+  flou pour toujours et les blocs voisins perdent leur lissage. Au survol, la transformation reste
+  admise: elle dure le temps d'une transition et se termine sur une valeur entière.
+
 ### Invariants préservés (non négociables)
 
 - **FR-115**: Cette feature NE DOIT modifier aucune valeur nutritionnelle, aucune formule, aucun libellé

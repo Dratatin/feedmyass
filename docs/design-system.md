@@ -127,6 +127,13 @@ poser.
   999 px sur les boutons et les étiquettes. Les boutons en gélule sont un marqueur de la direction.
 - **Filets**: 1,5 px. Un filet d'encre (2 px) sous l'en-tête d'un registre, un filet clair entre les
   lignes.
+- **Mouvement**: une seule durée (220 ms) et une seule courbe
+  (`cubic-bezier(0.2, 0, 0, 1)`, départ net et arrivée en douceur), déclarées en jetons et
+  appliquées d'office à tout ce qui réagit au pointeur. Les propriétés animées sont fermées à une
+  liste — couleur, fond, bordure, opacité, transformation: animer `all` ferait glisser des hauteurs
+  et des largeurs sans qu'on l'ait demandé. Le contour de focus en est exclu: il apparaît au moment
+  exact où le clavier arrive. Sous `prefers-reduced-motion`, les durées tombent à zéro et les états
+  restent.
 - **Aucune ombre portée dans l'interface.** La hiérarchie vient des fonds et des filets. Seule la
   maquette de présentation en emploie, pour détacher les écrans de la page qui les montre.
 - **Grille**: rail de 17rem + colonne principale, jusqu'à 760 px de large où le rail passe au-dessus.
@@ -171,6 +178,39 @@ poser.
 | `SelectField` | Sélecteur, mêmes métriques que `InputField` |
 | `CheckboxField` | Case à cocher avec libellé associé |
 | `PeriodToggle` | Bascule jour / semaine, en gélule |
+
+## Gestes au survol
+
+Chacun dit quelque chose; aucun n'est là pour faire joli.
+
+| Élément | Geste | Pourquoi |
+| --- | --- | --- |
+| Boutons et liens-boutons | Fond et filet éclaircis, élévation de 2 px, enfoncement de 1 px au clic | Suggérer le relief dans une direction qui s'interdit l'ombre portée |
+| Liens de navigation, étapes du rail | Fond qui se teinte, texte qui s'éclaircit | Distinguer la cible sous le pointeur des cibles voisines |
+| Cases du ruban des mois | La case prend la couleur pleine de sa saison et grandit de 12 % | Un aperçu de ce à quoi ressemblera le mois une fois choisi |
+| Champs de saisie | Bordure éclaircie | Dire qu'on peut écrire là, avant même le focus |
+| Lignes de registre | Fond teinté, curseur inchangé | Aide à la lecture sur quatre colonnes; la ligne n'est pas cliquable et ne doit pas le laisser croire |
+| Liens porteurs d'une flèche | La flèche avance de 5 px | « Ça continue par là », mieux que la couleur seule. Seul déplacement de toute l'interface, et il porte sur un glyphe isolé, pas sur un bloc de texte |
+
+**Aucune transformation géométrique PERMANENTE sur un élément porteur de texte.** Le navigateur
+rastérise les glyphes puis étire ou fait pivoter le résultat: une transformation qui ne se termine
+jamais laisse son texte flou pour toujours, et les blocs voisins promus avec elle perdent leur
+lissage sous-pixel. L'ardoise du marché était inclinée de 0,7° en permanence; c'était la source du
+flou signalé à la revue du 2026-09-20, et elle a été redressée.
+
+**Au survol, en revanche, la transformation est admise**: le geste dure 220 ms et se termine sur un
+nombre entier de pixels ou à l'échelle 1. C'est le seul endroit de la direction où la géométrie
+bouge, et cela reste mesuré — 2 px d'élévation, 12 % d'agrandissement, pas davantage.
+
+**Piège**, pour le jour où une transformation reviendrait: la liste des propriétés en transition
+doit alors contenir `translate`, `scale` et `rotate` en plus de `transform`. Tailwind v4 n'écrit
+plus les déplacements dans `transform` mais dans ces propriétés individuelles; les omettre laisse
+les couleurs fondre pendant que les mouvements sautent. Le défaut est invisible à qui compare l'état
+de départ et l'état d'arrivée — il faut échantillonner la valeur PENDANT le survol et vérifier
+qu'elle passe par des valeurs intermédiaires.
+
+**Ce qui ne bouge pas**: les cartes de produits du calendrier et de l'étal. Elles ne sont pas
+cliquables — leur donner un état de survol promettrait une action qui n'existe pas.
 
 ## Règles de composition
 

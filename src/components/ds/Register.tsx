@@ -65,6 +65,12 @@ export function Register<T>({ columns, rows, rowKey, caption, highlightKey }: {
               key={rowKey(row)}
               className={cn(
                 'border-b border-solid border-line-soft last:border-b-2 last:border-line',
+                // Aide à la lecture, pas promesse de clic: sur vingt-six lignes
+                // et quatre colonnes, l'œil perd sa ligne entre le nom et la
+                // quantité. Le fond se teinte à peine, et le curseur ne change
+                // pas — la ligne n'est pas cliquable et ne doit pas le laisser
+                // croire.
+                'transition-colors hover:bg-line-soft',
                 highlightKey !== undefined && rowKey(row) === highlightKey ? 'bg-brand-wash' : '',
               )}
             >

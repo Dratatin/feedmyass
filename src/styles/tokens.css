@@ -168,6 +168,21 @@
   --radius-bloc: 10px;
   --radius-champ: 6px;
 
+  /* --- Mouvement ---
+   * Un seul couple durée/courbe pour tout le site, appliqué aux états de survol
+   * et de focus (docs/design-system.md). Ce sont les clés de thème officielles
+   * de Tailwind: un `transition` nu les emploie sans rien préciser.
+   *
+   * 220 ms: à 150 ms, un déplacement de un ou deux pixels se lisait comme un
+   * saut et non comme un mouvement — le geste était là, l'œil n'y voyait qu'un
+   * raté (revue du 2026-09-20). La courbe démarre net et se pose en douceur,
+   * l'inverse d'un `ease-in-out` qui donne l'impression que l'interface hésite.
+   *
+   * Tout mouvement est annulé sous `prefers-reduced-motion` (globals.css).
+   */
+  --default-transition-duration: 220ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+
   /* --- Largeur de page ---
    * 1520 px de contenu utile. Les écrans de résultat affichent des registres de
    * quatre colonnes dont une porte un ruban de douze cases: en dessous de cette

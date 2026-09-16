@@ -51,3 +51,44 @@ h3,
   outline-offset: 2px;
   border-radius: 3px;
 }
+
+/* Tout ce qui réagit au pointeur le fait en douceur, déclaré une fois ici
+   plutôt que composant par composant: une transition oubliée sur un bouton se
+   remarque immédiatement à côté des autres.
+
+   La liste des propriétés est fermée à dessein. `all` ferait aussi transiter la
+   hauteur d'un bloc qui s'ouvre ou la largeur d'une jauge, ce qui produit des
+   glissements involontaires. Le contour de focus en est exclu: il doit
+   apparaître au moment exact où le clavier arrive, sans fondu.
+
+   `translate`, `scale` et `rotate` sont listées EN PLUS de `transform`, et ce
+   n'est pas une redondance: Tailwind v4 n'écrit plus les déplacements dans
+   `transform` mais dans ces propriétés individuelles. Les avoir oubliées
+   laissait les couleurs fondre pendant que les mouvements sautaient — un défaut
+   invisible à qui compare l'état de départ et l'état d'arrivée, mais que l'œil
+   attrape immédiatement (revue du 2026-09-20). */
+a,
+button,
+input,
+select,
+textarea,
+summary,
+[role='button'] {
+  transition-property:
+    color, background-color, border-color, opacity, transform, translate, scale, rotate;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+/* Réglage système « réduire les animations »: on ne supprime pas les états, on
+   supprime leur durée. Le survol change toujours de couleur, instantanément. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

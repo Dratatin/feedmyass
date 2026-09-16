@@ -33,6 +33,20 @@ const seasonWash: Record<Season, string> = {
   automne: 'bg-automne-wash text-ink',
 };
 
+/**
+ * Survol d'une case cliquable: elle prend la couleur pleine de sa saison.
+ *
+ * Le geste est un aperçu, pas une décoration — c'est exactement ce à quoi
+ * ressemblera le mois une fois choisi. L'agrandissement qui l'accompagne ne
+ * fait qu'appuyer ce que la couleur dit déjà.
+ */
+const seasonHover: Record<Season, string> = {
+  hiver: 'hover:bg-hiver hover:text-surface',
+  printemps: 'hover:bg-printemps hover:text-surface',
+  ete: 'hover:bg-ete hover:text-surface',
+  automne: 'hover:bg-automne hover:text-surface',
+};
+
 export function MonthRibbon({ currentMonth, seasonMonths, size = 'md', hrefOf }: {
   /** Mois en cours, de 1 à 12. Toujours mis en évidence. */
   currentMonth: number;
@@ -75,7 +89,15 @@ export function MonthRibbon({ currentMonth, seasonMonths, size = 'md', hrefOf }:
               key={month}
               href={hrefOf(month) as Route}
               aria-current={month === currentMonth ? 'page' : undefined}
-              className={cn(cellClass(month), 'no-underline hover:opacity-80')}
+              // L'agrandissement est modéré (12 %) et la case passe au-dessus
+              // de ses voisines: une transformation ne modifie pas la mise en
+              // page, là où un changement de taille ferait tressauter les douze
+              // mois.
+              className={cn(
+                cellClass(month),
+                'relative no-underline hover:z-10 hover:scale-[1.12]',
+                seasonHover[seasonOfMonth(month)],
+              )}
             >
               <span aria-hidden="true">{initial}</span>
               <span className="sr-only">{MONTH_NAMES[index]}</span>

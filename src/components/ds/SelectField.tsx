@@ -34,7 +34,9 @@ export function SelectField({ label, hint, error, className, children, ...props 
         className={cn(
           'w-full border-[1.5px] border-solid px-[13px] py-[10px] text-md text-ink',
           'rounded-[var(--radius-champ)]',
-          rejected ? 'border-framboise bg-framboise-wash' : 'border-line-strong bg-surface',
+          rejected
+            ? 'border-framboise bg-framboise-wash'
+            : 'border-line-strong bg-surface hover:border-ink-soft',
           'focus:border-brand focus:outline-none disabled:text-ink-muted',
           className,
         )}

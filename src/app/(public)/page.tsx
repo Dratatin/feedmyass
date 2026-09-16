@@ -125,11 +125,13 @@ export default function HomePage() {
           </ul>
         </div>
 
-        {/* L'ardoise du marché. Elle portait une écriture manuscrite (Caveat),
-            retirée à la revue du 2026-09-18: le procédé vieillissait la page.
-            Le caractère vient maintenant de la display et de la légère
-            inclinaison, la seule de toute l'interface. */}
-        <aside className="flex flex-col gap-4 self-center rounded-[var(--radius-bloc)] border-[1.5px] border-solid border-line bg-band px-6 pt-6 pb-7 md:-rotate-[0.7deg]">
+        {/* L'ardoise du marché. Elle a porté une écriture manuscrite (Caveat)
+            puis une légère inclinaison, retirées l'une après l'autre: la
+            première vieillissait la page, la seconde rendait son texte flou en
+            permanence — incliner un bloc de 0,7°, c'est rastériser ses glyphes
+            puis les faire pivoter. Son caractère tient maintenant au fond le
+            plus sombre du site et à sa typo de titre. */}
+        <aside className="flex flex-col gap-4 self-center rounded-[var(--radius-bloc)] border-[1.5px] border-solid border-line bg-band px-6 pt-6 pb-7">
           <p className="type-display text-display-xs text-ink">
             Nous sommes en {monthName(month)}
           </p>
@@ -157,8 +159,19 @@ export default function HomePage() {
               <h2 className="type-data text-xs font-medium tracking-label uppercase text-ink-muted">
                 De saison en {monthName(month)}
               </h2>
-              <Link href="/de-saison" className="text-sm font-semibold text-brand">
-                Les {seasonalCount} produits de saison ce mois-ci →
+              {/* La flèche avance d'un cheveu au survol: le geste dit « ça
+                  continue par là » mieux que la couleur seule. */}
+              <Link
+                href="/de-saison"
+                className="group text-sm font-semibold text-brand hover:text-brand-hover"
+              >
+                Les {seasonalCount} produits de saison ce mois-ci{' '}
+                <span
+                  aria-hidden="true"
+                  className="inline-block transition-transform group-hover:translate-x-[5px]"
+                >
+                  →
+                </span>
               </Link>
             </div>
             <ul className="grid grid-cols-2 gap-[10px] sm:grid-cols-4 lg:grid-cols-8">

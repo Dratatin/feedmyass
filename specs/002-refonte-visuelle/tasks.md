@@ -106,6 +106,17 @@ Retours du commanditaire sur la direction, et constats du parcours refait à la 
 - [X] T067 `shortFoodLabel`: couper les libellés CIQUAL à la première virgule ou parenthèse
 - [X] T068 Passer la maquette de référence en fond sombre, sans bascule de thème
 
+## Phase 10 — Vie au survol (2026-09-20)
+
+- [X] T069 Jetons de mouvement dans `tokens.css`: durée 150 ms et courbe `cubic-bezier(0.2, 0, 0, 1)`, clés de thème Tailwind (FR-134)
+- [X] T070 Règle de base dans `globals.css`: transition d'office sur les éléments interactifs, liste de propriétés fermée, contour de focus exclu (FR-134)
+- [X] T071 Annulation sous `prefers-reduced-motion` (FR-136)
+- [X] T072 Gestes: élévation d'un pixel sur les boutons et reprise au clic, agrandissement des cases du ruban, bordure des champs au survol, fond des lignes de registre, flèche qui avance (FR-134, FR-135)
+- [X] T073 Section « Gestes au survol » dans `docs/design-system.md`, avec ce qui ne bouge pas et pourquoi (FR-135)
+- [X] T074 Ajouter `translate`, `scale` et `rotate` à la liste des propriétés en transition: Tailwind v4 n'écrit plus les déplacements dans `transform`, les couleurs fondaient pendant que les mouvements sautaient
+- [X] T075 Redresser l'ardoise du marché, inclinée de 0,7° en permanence: c'était la source du flou signalé, une transformation qui ne se termine jamais laissant son texte flou pour toujours (FR-137)
+- [X] T076 Rétablir les gestes de survol une fois l'ardoise redressée — élévation des boutons, agrandissement des cases du ruban — et leur adjoindre l'aperçu de la couleur de saison
+
 ## Dépendances
 
 - T005 à T008 conditionnent toute la phase 2.

@@ -35,12 +35,12 @@ const hierarchyClasses: Record<Hierarchy, string> = {
   ),
   secondary: cn(
     'bg-surface border-line-strong text-brand',
-    'hover:bg-brand-wash hover:border-brand',
+    'hover:bg-brand-wash hover:border-brand hover:text-brand-hover',
     'disabled:bg-paper disabled:border-line disabled:text-ink-muted',
   ),
   danger: cn(
     'bg-surface border-framboise text-framboise',
-    'hover:bg-framboise-wash',
+    'hover:bg-framboise-wash hover:border-framboise',
     'disabled:bg-paper disabled:border-line disabled:text-ink-muted',
   ),
 };
@@ -62,7 +62,17 @@ export function buttonStyles({ hierarchy = 'primary', size = 'md', className }: 
   return cn(
     'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full',
     'border-[1.5px] border-solid font-semibold no-underline',
-    'disabled:cursor-not-allowed',
+    // Deux pixels de relief au survol, un pixel d'enfoncement au clic.
+    //
+    // Une transformation sur un bloc de texte le rastérise puis l'étire, ce qui
+    // le rend flou. C'est sans conséquence ici parce que le geste dure 220 ms et
+    // se termine sur un nombre entier de pixels: le texte n'est jamais rendu à
+    // une position fractionnaire durablement. Ce qui posait vraiment problème
+    // était l'inclinaison PERMANENTE de l'ardoise du marché, retirée le
+    // 2026-09-20 — une transformation qui ne se termine jamais laisse son texte
+    // flou en permanence.
+    'hover:-translate-y-0.5 active:translate-y-px',
+    'disabled:cursor-not-allowed disabled:translate-y-0',
     sizeClasses[size],
     hierarchyClasses[hierarchy],
     className,
