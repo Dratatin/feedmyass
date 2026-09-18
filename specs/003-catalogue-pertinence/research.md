@@ -363,8 +363,72 @@ par nutriment, le pire cas reste de l'ordre de quelques secondes.
   demande déjà traitée, qu'il resolvait en boucle en écrasant la zone d'échange.
 - Sous Next.js, `import.meta.url` ne désigne plus le voisinage du fichier source: le worker était
   introuvable et la page de liste restait vide, sans erreur visible. Le chemin est désormais cherché
-  aux deux endroits, et son absence lève une erreur nommée.
+  aux deux endroits — et son absence ne lève plus d'erreur, elle bascule sur une résolution en direct (R17).
 
 **Leçon de méthode**: le défaut ne s'est PAS manifesté comme un test rouge mais comme un *worker* de
 Vitest qui meurt, message obscur et sans nom de fichier. C'est en jouant les fichiers de test un par
 un qu'il s'est laissé localiser.
+
+## R17 — Le worker manquait à la sortie de build, et la couverture affichait 0 % (ajouté le 2026-09-18)
+
+**Constat**: premier déploiement de la feature. Quel que soit le régime, **tous** les nutriments
+ressortaient sous leur seuil, et à zéro. Pas un écart nommé: un écran entier de zéros, présenté avec
+le même aplomb qu'un résultat juste.
+
+**Cause**: le worker est chargé par CHEMIN, jamais par `import`. Le traçage de fichiers de Next ne
+peut donc pas le déduire, et `solver-worker.mjs` était absent de `.next`. Chaque résolution attendait
+alors une réponse qui ne viendrait jamais, expirait au bout de son échéance, et la relaxation faisait
+son travail: retirer un à un les nutriments hors d'atteinte — c'est-à-dire tous.
+
+Le mécanisme conçu pour NOMMER les écarts les a donc tous fabriqués. C'est la faute la plus grave de
+la feature au regard du principe II: le chiffre était faux, et rien ne le signalait.
+
+**Pourquoi les tests ne l'ont pas vu**: la suite e2e tourne contre `next dev`, où le chemin des sources
+existe; les tests unitaires et de contrat tournent sous Vitest, où `import.meta.url` désigne bien le
+voisin du module. Aucun de ces trois environnements ne ressemble à la production. La leçon vaut
+au-delà du worker: **ce qui n'est vérifié qu'en développement n'est pas vérifié.**
+
+### Trois corrections, et elles sont distinctes
+
+**1. Un repli en direct, qui rend la panne inoffensive.** Si le worker ne démarre pas — fichier
+absent, dépendance non résoluble, plateforme sans `SharedArrayBuffer` — le solveur tourne dans le fil
+principal. On y retrouve le risque de blocage de R16, rare; mais on rend un résultat **juste**. Entre
+un risque de lenteur et un chiffre faux, le principe II tranche. Un avertissement nomme la cause dans
+les journaux.
+
+Le démarrage du worker est vérifié par une **poignée de main** sur un modèle trivial: un worker qui
+meurt à l'ouverture émet son erreur sur la boucle d'événements, que l'appelant bloque aussitôt sur
+`Atomics.wait` — sans cette poignée de main, sa mort resterait invisible.
+
+**2. Embarquer le worker ET sa dépendance.** `outputFileTracingIncludes` (next.config.ts) ajoute
+`solver-worker.mjs` aux routes `/api/plan` et `/api/results`. Il faut y joindre
+`javascript-lp-solver`: Turbopack l'**inline** dans le chunk de la route, si bien qu'il disparaît de
+`node_modules` à la trace — le worker, lui, l'importe pour de vrai et mourrait sur un module
+introuvable. Vérifié dans `route.js.nft.json`: worker présent, 66 fichiers du paquet tracés.
+
+**3. Soustraire le `new Worker` à l'analyse statique de Turbopack.** Ajouter le worker au traçage a
+d'abord **cassé la compilation**: 47 erreurs « Unknown module type ». Turbopack analyse
+`new Worker(...)` pour empaqueter le worker; sur un chemin CALCULÉ il ne sait rien résoudre et se
+rabat sur « tous les fichiers du projet ». Il tirait ainsi `vitest.config.ts`, donc Vite, donc
+`lightningcss`, un binaire natif qui ne se place pas dans un chunk ESM.
+
+| Tentative | Résultat |
+|---|---|
+| `new Worker(/* turbopackIgnore: true */ chemin)` | **échoue** — la compilation reste rouge, alors que Next emploie cette échappatoire pour ses propres workers (`next/dist/build/swc/loaderWorkerPool.js`) |
+| `path.join(/* turbopackIgnore: true */ process.cwd(), ...)` | sans effet ici |
+| **`process.getBuiltinModule('node:worker_threads')`** | **retenu** — il ne reste aucun import analysable, seulement un type effacé à la compilation |
+
+La même échappatoire sert pour `node:fs`: le test d'existence des chemins candidats est rétabli, ce
+qui évite de payer une poignée de main expirée à chaque démarrage à froid.
+
+### Vérification
+
+Contre le serveur de **production** (`next build` puis `next start`), et non contre `next dev`:
+
+| Régime | Résultat |
+|---|---|
+| omnivore | 11 lignes, 0 écart, 0 nutriment sous le seuil, 0 à zéro |
+| végane sans gluten | 18 lignes, 1 écart nommé, énergie 110 %, protéines 318 % |
+
+Aucun avertissement de repli dans les journaux: le worker démarre. Et en retirant le fichier à la
+main, le repli rend les mêmes listes — ce qui devait être vérifié, puisque c'est le filet.

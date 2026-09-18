@@ -19,7 +19,8 @@
     "build:foods": "node scripts/build-foods-from-ciqual.mjs",
     "build:seasonality": "node scripts/build-seasonality.mjs",
     "measure:catalogue": "tsx scripts/measure-catalogue.ts",
-    "check:caps": "tsx scripts/check-caps.ts"
+    "check:caps": "tsx scripts/check-caps.ts",
+    "check:build": "tsx scripts/check-build-output.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
