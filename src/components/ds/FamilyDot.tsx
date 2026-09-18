@@ -16,6 +16,7 @@ const familyClasses: Record<FoodFamily, string> = {
   cereale: 'bg-famille-cereale',
   legumineuse: 'bg-famille-legumineuse',
   proteine: 'bg-famille-proteine',
+  vegetal: 'bg-famille-vegetal',
   coque: 'bg-famille-coque',
   grasse: 'bg-famille-grasse',
   autre: 'bg-ink-muted',

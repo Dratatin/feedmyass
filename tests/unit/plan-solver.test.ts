@@ -90,6 +90,21 @@ describe('liste produite pour un régime omnivore', () => {
   });
 });
 
+/**
+ * L'écart de B12 d'un régime végane, et pourquoi il avait failli disparaître.
+ *
+ * Construit sur la table Ciqual 2020, le catalogue refermait cet écart: les
+ * algues y portaient des teneurs élevées en B12 — 38,8 µg/100 g pour le nori,
+ * 9,8 pour la dulse — et le solveur s'en servait pour atteindre le besoin.
+ *
+ * La table 2025 a RETIRÉ ces valeurs, désormais « non déterminées ». C'est la
+ * question de la pseudo-B12: les corrinoïdes des algues sont des analogues que
+ * l'organisme humain n'assimile pas. Créditer un plan végane de cette B12-là
+ * était une erreur nutritionnelle, à laquelle le millésime 2025 met fin.
+ *
+ * L'écart est donc de nouveau réel, et c'est la bonne réponse: le catalogue ne
+ * peut pas couvrir la B12 d'un régime végane, et il doit le dire.
+ */
 describe('écarts quand aucune solution n\'existe', () => {
   const vegan = plan({ base: 'vegan', exclusions: [] });
 
@@ -97,7 +112,33 @@ describe('écarts quand aucune solution n\'existe', () => {
     const b12 = vegan.gaps.find((g) => g.nutrient === 'vitamin_b12');
     expect(b12).toBeDefined();
     expect(b12!.reason).toBe('diet_restriction');
-    expect(b12!.ratio).toBeGreaterThan(0);
+    // Le ratio d'un écart mesure le maximum atteignable par le régime, pas ce
+    // que la liste fournit: sous 1, le besoin reste hors de portée même en
+    // saturant toutes les bornes.
+    expect(b12!.ratio).toBeLessThan(1);
+  });
+
+  it('ne crédite aucune algue d\'une teneur en vitamine B12', () => {
+    // Verrou sur la donnée elle-même: si un millésime ultérieur réintroduisait
+    // des teneurs en B12 sur les algues, ce test le ferait voir plutôt que de
+    // laisser le solveur s'en servir en silence.
+    const algues = foodsFixture.filter((f) =>
+      /algue|dulse|nori|kombu|wakam|laitue de mer|ascophylle|spiruline/i.test(f.label));
+    expect(algues.length).toBeGreaterThan(0);
+    for (const a of algues) {
+      expect(a.composition.vitamin_b12 ?? 0, a.label).toBe(0);
+    }
+  });
+
+  it('rattache chaque écart à une cause du contrat', () => {
+    for (const gap of vegan.gaps) {
+      expect(['diet_restriction', 'seasonality_restriction', 'no_source_available'])
+        .toContain(gap.reason);
+    }
+  });
+
+  it('propose malgré tout une liste exploitable', () => {
+    expect(vegan.items.length).toBeGreaterThan(5);
   });
 
   it('ne signale que des nutriments réellement sous leur seuil', () => {
@@ -106,17 +147,8 @@ describe('écarts quand aucune solution n\'existe', () => {
       expect(coverage?.meetsThreshold, gap.nutrient).toBe(false);
     }
   });
-
-  it('propose malgré tout une liste exploitable', () => {
-    expect(vegan.items.length).toBeGreaterThan(5);
-  });
-
-  it('rattache chaque écart à une cause du contrat', () => {
-    for (const gap of vegan.gaps) {
-      expect(['diet_restriction', 'seasonality_restriction', 'no_source_available']).toContain(gap.reason);
-    }
-  });
 });
+
 
 describe('bornes théoriques', () => {
   it('mesure ce qu\'un jeu d\'aliments peut au mieux fournir', () => {

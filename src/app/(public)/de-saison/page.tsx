@@ -69,6 +69,25 @@ function produceOfMonth(month: number): { legumes: Produce[]; fruits: Produce[] 
   return { legumes: collect('legume'), fruits: collect('fruit') };
 }
 
+/**
+ * Fruits et légumes du catalogue qu'aucun mois ne rend disponibles en France.
+ *
+ * Banane, mangue, litchi: ils n'ont pas de saison ici, et la liste
+ * d'ingrédients ne les proposera jamais (FR-014). Les cacher reviendrait à
+ * laisser croire à un oubli du calendrier; les montrer à part dit ce qu'ils
+ * sont — connus, mais hors du périmètre métropolitain.
+ *
+ * La liste se déduit de la donnée: un fruit ou légume sans aucune ligne de
+ * saisonnalité. Rien à tenir à jour à la main.
+ */
+function produceWithoutSeason(): Produce[] {
+  const withSeason = new Set(seasonality.seasonality.map((row) => row.food_code));
+  return foods.foods
+    .filter((f) => f.is_fruit_vegetable && !withSeason.has(f.code))
+    .map((f) => ({ code: f.code, label: shortFoodLabel(f.label), months: [] }))
+    .sort((a, b) => a.label.localeCompare(b.label, 'fr'));
+}
+
 function ProduceGrid({ items, family, month }: {
   items: Produce[];
   family: 'legume' | 'fruit';
@@ -102,6 +121,7 @@ export default async function SeasonPage({ searchParams }: PageProps<'/de-saison
   const params = await searchParams;
   const month = resolveMonth(params.mois);
   const { legumes, fruits } = produceOfMonth(month);
+  const horsSaison = produceWithoutSeason();
   const total = legumes.length + fruits.length;
   const isCurrentMonth = month === new Date().getMonth() + 1;
 
@@ -159,6 +179,32 @@ export default async function SeasonPage({ searchParams }: PageProps<'/de-saison
               </span>
             </h2>
             <ProduceGrid items={fruits} family="fruit" month={month} />
+          </section>
+        ) : null}
+
+        {horsSaison.length > 0 ? (
+          <section className="flex flex-col gap-3 border-t-[1.5px] border-solid border-line pt-8">
+            <h2 className="flex items-center gap-[10px] text-display-xs text-ink">
+              Sans saison en France
+              <span className="type-data text-xs font-normal tracking-label text-ink-muted">
+                {horsSaison.length}
+              </span>
+            </h2>
+            <p className="max-w-[68ch] text-md text-ink-soft">
+              Ces fruits et légumes sont au catalogue mais n&apos;ont aucune saison en France
+              métropolitaine. Votre liste d&apos;ingrédients ne vous les proposera donc jamais&nbsp;:
+              leur absence est un choix, pas un oubli du calendrier.
+            </p>
+            <ul className="flex flex-wrap gap-2">
+              {horsSaison.map((item) => (
+                <li
+                  key={item.code}
+                  className="rounded-full border-[1.5px] border-solid border-line bg-surface px-4 py-[6px] text-sm text-ink-soft"
+                >
+                  {item.label}
+                </li>
+              ))}
+            </ul>
           </section>
         ) : null}
 

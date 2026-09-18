@@ -54,6 +54,21 @@ describe('filtrage par régime', () => {
     expect(vegan.some((f) => f.category === 'produit_laitier')).toBe(false);
   });
 
+  /**
+   * Les régimes sont déduits de la CLASSE de l'aliment, et une classe peut être
+   * ouverte à tous les régimes alors qu'un de ses aliments nomme un ingrédient
+   * d'origine animale. Trois cas réels ont été constatés sur le catalogue:
+   * des pâtes sèches aux œufs proposées à un végane, de la gélatine et de la
+   * gelée royale étiquetées véganes. Le libellé doit primer sur la classe.
+   */
+  it('n\'étiquette jamais végane un aliment dont le libellé nomme un ingrédient animal', () => {
+    const animal = /aux ?(oeufs|œufs)|à l'(oeuf|œuf)|gélatine|gelée royale|au miel/i;
+    const fautifs = foodsFixture
+      .filter((f) => f.dietTags.includes('vegan') && animal.test(f.label))
+      .map((f) => f.label);
+    expect(fautifs).toEqual([]);
+  });
+
   it('conserve le poisson pour un régime pescétarien mais pas la viande', () => {
     const pesce = filterByDiet(foodsFixture, { base: 'pescetarian', exclusions: [] });
     expect(pesce.some((f) => f.category === 'poisson')).toBe(true);

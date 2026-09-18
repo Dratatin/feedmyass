@@ -12,86 +12,22 @@
  * tort. Un aliment non apparié ne sera jamais proposé (FR-014).
  */
 import fs from 'node:fs';
+import {
+  ALIASES,
+  NEVER_IN_SEASON,
+  loadCalendar,
+  monthsBySpecies,
+  speciesOf,
+} from './lib/produce-calendar.mjs';
 
-const MONTHS = {
-  janvier: 1, fevrier: 2, mars: 3, avril: 4, mai: 5, juin: 6,
-  juillet: 7, aout: 8, septembre: 9, octobre: 10, novembre: 11, decembre: 12,
-};
-
-/**
- * Variétés et synonymes du catalogue CIQUAL rattachés à l'entrée générique du
- * calendrier. Table explicite et relisible: chaque ligne est une décision.
- */
-const ALIASES = {
-  'clementine ou mandarine': 'clementine',
-  'melon cantaloup': 'melon',
-  'melon miel ou melon honeydew': 'melon',
-  'pomme canada': 'pomme',
-  'prune reine claude': 'prune',
-  'raisin blanc': 'raisin',
-  'raisin noir': 'raisin',
-  'mure noire': 'mure',
-  'groseille a maquereau': 'groseille',
-  'bette ou blette': 'bette',
-  'betterave rouge': 'betterave',
-  'champignon de paris ou champignon de couche': 'champignon de paris',
-  champignon: 'champignons cultives',
-  'chou chinois ou pak choi ou pe tsai': 'chou',
-  'chou vert': 'chou',
-  'chou rave': 'chou',
-  'cresson de fontaine': 'cresson',
-  'laitue iceberg': 'laitue',
-  'laitue romaine': 'laitue',
-  'petits pois': 'petit pois',
-  'poivron jaune': 'poivron',
-  'poivron rouge': 'poivron',
-  'poivron vert': 'poivron',
-  'radis rouge': 'radis',
-  'salade ou chicoree frisee': 'chicoree',
-  'tomate cerise': 'tomate',
-  'mais doux': 'mais',
-};
-
-/**
- * Fruits sans saison en France métropolitaine: ils ne sont jamais proposés, et
- * c'est le comportement attendu d'une application qui ne suggère que de saison.
- * Listés ici pour que l'absence soit un choix visible, pas un oubli.
- */
-const NEVER_IN_SEASON = [
-  'banane', 'canneberge ou cranberry', 'citron vert ou lime', 'fruit de la passion ou maracudja',
-  'litchi', 'mangue', 'pissenlit', 'haricot mungo germe ou pousse de "soja"',
-];
-
-const calendar = JSON.parse(fs.readFileSync('docs/sources/calendrier_fruits_legumes_saison.json', 'utf8'));
+const calendar = loadCalendar();
 const foodsFile = JSON.parse(fs.readFileSync('src/data/reference/foods.json', 'utf8'));
 
-const normalize = (s) =>
-  s.normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/-/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-const speciesOf = (label) => {
-  const first = label.split(',')[0];
-  const open = first.indexOf('(');
-  return normalize(open >= 0 ? first.slice(0, open) : first);
-};
-
-// Nom de saison -> mois. Les deux listes du calendrier (legumes et fruits) sont
-// fusionnées: la catégorie de l'aliment vient déjà du catalogue.
-const monthsByName = new Map();
-for (const [monthName, groups] of Object.entries(calendar.calendrier)) {
-  const month = MONTHS[monthName];
-  for (const key of ['legumes', 'fruits']) {
-    for (const raw of groups[key] ?? []) {
-      const name = normalize(raw);
-      if (!monthsByName.has(name)) monthsByName.set(name, new Set());
-      monthsByName.get(name).add(month);
-    }
-  }
-}
+// Nom de saison -> mois. La table vient du module partagé avec le script de
+// construction du catalogue: celui-ci s'en sert de critère de pertinence, et
+// deux copies divergentes produiraient un aliment au catalogue sans aucun mois
+// de saison, c'est-à-dire un aliment jamais proposable.
+const monthsByName = monthsBySpecies(calendar);
 
 const produce = foodsFile.foods.filter((f) => f.is_fruit_vegetable);
 const rows = [];

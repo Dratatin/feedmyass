@@ -12,9 +12,16 @@
  * Usage: npm run seed:reference
  */
 import { readFile } from 'node:fs/promises';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { createClient } from '@supabase/supabase-js';
+
+// Le script s'exécute hors de Next.js, qui est seul à charger `.env.local`
+// automatiquement. Sans cette ligne, l'usage documenté ci-dessus échouait sur
+// une variable d'environnement manquante. `playwright.config.ts` fait de même,
+// et pour la même raison.
+if (fs.existsSync('.env.local')) process.loadEnvFile('.env.local');
 
 const referenceDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'src', 'data', 'reference');
 

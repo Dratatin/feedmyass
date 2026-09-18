@@ -53,11 +53,16 @@ export function computeCoverage(
  *
  * Les grammes restent la valeur de référence; l'unité d'achat est un confort de
  * lecture, arrondi au demi-portion près pour rester crédible en magasin.
+ *
+ * Sous un quart d'unité, l'unité d'achat cesse d'être un confort et devient un
+ * mensonge: le plancher d'une demi-portion affichait « 0,5 × cuillère à soupe de
+ * 10 g » — cinq grammes — en face d'une ligne d'un gramme. La quantité se dit
+ * alors en grammes, qui est de toute façon la valeur de référence.
  */
 export function toDisplayQuantity(food: Food, grams: number): { value: number; unit: string } {
   const units = grams / food.unitGrams;
-  const rounded = Math.max(0.5, Math.round(units * 2) / 2);
-  return { value: rounded, unit: food.unitLabel };
+  if (units < 0.25) return { value: Math.max(1, Math.round(grams)), unit: 'g' };
+  return { value: Math.max(0.5, Math.round(units * 2) / 2), unit: food.unitLabel };
 }
 
 export function toPlanItems(

@@ -91,13 +91,20 @@
   /* --- Familles d'aliments ---
    * Chaque pastille est TOUJOURS accompagnée du nom de la famille en toutes
    * lettres: la couleur ne porte jamais seule l'information (principe VI).
-   * Ratios sur surface: 8,4 / 6,8 / 8,0 / 6,6 / 7,0 / 6,6 / 8,3.
+   * Ratios sur surface: 8,4 / 6,8 / 8,0 / 6,6 / 7,0 / 8,3 / 6,6 / 8,3.
+   *
+   * La huitième teinte, celle des alternatives végétales, prend la seule plage
+   * que la palette laissait libre — le turquoise, autour de 170°. C'est aussi la
+   * plus éloignée des sept autres en vision déficiente: toutes se répartissent
+   * entre le rouge et le jaune-vert, là où deutéranopie et protanopie confondent
+   * le plus, alors que le turquoise bascule du côté bleu.
    */
   --color-famille-legume: #8cc97c;
   --color-famille-fruit: #f0899f;
   --color-famille-cereale: #dcae52;
   --color-famille-legumineuse: #d09a68;
   --color-famille-proteine: #c79ad6;
+  --color-famille-vegetal: #6cc9b8;
   --color-famille-coque: #d29777;
   --color-famille-grasse: #b3c063;
 

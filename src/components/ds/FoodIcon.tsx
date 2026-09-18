@@ -1,12 +1,13 @@
-import { Apple, Bean, Carrot, Droplets, Egg, Nut, Wheat } from 'lucide-react';
+import { Apple, Bean, Carrot, Droplets, Egg, Nut, Sprout, Wheat } from 'lucide-react';
 import { familyOfCategory, type FoodFamily } from '@/lib/months';
 
 /**
  * Pictogramme de famille d'aliment.
  *
  * Remplace les vignettes dessinées à la main de la première version: huit
- * dessins pour 281 aliments donnaient un catalogue illustré au hasard, où un
- * produit avait son image et son voisin non (revue du 2026-09-19). Le choix
+ * dessins pour plusieurs centaines d'aliments donnaient un catalogue illustré au
+ * hasard, où un produit avait son image et son voisin non (revue du
+ * 2026-09-19). Le choix
  * retenu est « une icône par famille », prise dans une banque officielle plutôt
  * que redessinée.
  *
@@ -25,6 +26,7 @@ const ICONS = {
   cereale: Wheat,
   legumineuse: Bean,
   proteine: Egg,
+  vegetal: Sprout,
   coque: Nut,
   grasse: Droplets,
   autre: Bean,
@@ -36,6 +38,7 @@ const COLORS: Record<FoodFamily, string> = {
   cereale: 'text-famille-cereale',
   legumineuse: 'text-famille-legumineuse',
   proteine: 'text-famille-proteine',
+  vegetal: 'text-famille-vegetal',
   coque: 'text-famille-coque',
   grasse: 'text-famille-grasse',
   autre: 'text-ink-muted',
