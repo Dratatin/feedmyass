@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feedmyass.local/contracts/003/foods.schema.json",
+  "title": "Catalogue d'aliments",
+  "description": "Forme du fichier src/data/reference/foods.json. La structure existe avant cette feature; la feature ajoute les champs de tracabilite _meta.dataset et foods[].selected_by, et rend obligatoires la version et la date qui etaient saisies a la main.",
+  "type": "object",
+  "required": ["_meta", "foods"],
+  "additionalProperties": false,
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": ["description", "source", "version", "retrieved_at", "generated_by", "dataset", "selection", "notes"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string" },
+        "source": { "type": "string", "description": "Source citable, licence comprise (principe II)." },
+        "version": { "type": "string", "description": "Version du jeu de donnees, telle que la source la publie. NE DOIT PAS etre saisie a la main (FR-209)." },
+        "retrieved_at": { "type": "string", "format": "date" },
+        "generated_by": { "type": "string" },
+        "dataset": {
+          "type": "object",
+          "description": "Identite du jeu de donnees recupere, issue de la reponse de l'API (FR-209, FR-210).",
+          "required": ["doi", "version", "published_at", "license"],
+          "additionalProperties": false,
+          "properties": {
+            "doi": { "type": "string" },
+            "version": { "type": "string" },
+            "published_at": { "type": "string", "format": "date-time" },
+            "license": { "type": "string" },
+            "files": {
+              "type": "array",
+              "description": "Fichiers effectivement consommes, avec leur identifiant et leur taille annoncee.",
+              "items": {
+                "type": "object",
+                "required": ["id", "filename", "bytes"],
+                "additionalProperties": false,
+                "properties": {
+                  "id": { "type": ["string", "integer"] },
+                  "filename": { "type": "string" },
+                  "bytes": { "type": "integer", "minimum": 1 }
+                }
+              }
+            }
+          }
+        },
+        "selection": {
+          "type": "object",
+          "description": "Parametres et regles de selection, pour que le catalogue explique sa propre composition (FR-205).",
+          "required": ["quota_classe_fine", "quota_classe_large", "classes_retenues", "classes_ecartees"],
+          "additionalProperties": false,
+          "properties": {
+            "quota_classe_fine": { "type": "integer", "minimum": 1, "description": "Quota d'une classe de quatrieme niveau, subdivision fine decidee par l'ANSES." },
+            "quota_classe_large": { "type": "integer", "minimum": 1, "description": "Quota d'une classe de repli au troisieme niveau, que l'ANSES n'a pas subdivisee et qui peut compter plus de cent aliments." },
+            "classes_retenues": { "type": "integer", "minimum": 1 },
+            "classes_ecartees": {
+              "type": "array",
+              "description": "Chaque classe ecartee porte son motif: une exclusion sans motif est un oubli.",
+              "items": {
+                "type": "object",
+                "required": ["classe", "motif"],
+                "additionalProperties": false,
+                "properties": {
+                  "classe": { "type": "string" },
+                  "libelle": { "type": "string" },
+                  "motif": { "type": "string", "minLength": 1 }
+                }
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Frontiere entre donnee CIQUAL et decisions du projet, et particularites de traitement (FR-213)."
+        }
+      }
+    },
+    "foods": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "code", "label", "category", "is_fruit_vegetable", "is_fortified",
+          "diet_tags", "excluded_by", "composition",
+          "min_qty_g", "max_qty_g", "unit_label", "unit_grams", "selected_by"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "code": { "type": "string", "pattern": "^ciqual-[0-9]+$" },
+          "label": { "type": "string", "minLength": 1 },
+          "category": { "type": "string" },
+          "is_fruit_vegetable": { "type": "boolean" },
+          "is_fortified": { "type": "boolean" },
+          "diet_tags": {
+            "type": "array",
+            "items": { "enum": ["omnivore", "pescetarian", "vegetarian", "vegan"] },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "excluded_by": {
+            "type": "array",
+            "items": { "enum": ["gluten", "lactose", "nuts"] },
+            "uniqueItems": true
+          },
+          "composition": {
+            "type": "object",
+            "description": "Teneurs pour 100 g, par code nutriment. energy et protein sont obligatoires: sans elles l'aliment est inexploitable par le solveur.",
+            "required": ["energy", "protein"],
+            "additionalProperties": { "type": "number", "minimum": 0 }
+          },
+          "min_qty_g": { "type": "number", "minimum": 0 },
+          "max_qty_g": { "type": "number", "exclusiveMinimum": 0 },
+          "unit_label": { "type": "string", "minLength": 1 },
+          "unit_grams": { "type": "number", "exclusiveMinimum": 0 },
+          "selected_by": {
+            "type": "object",
+            "description": "Regle qui justifie la presence de cet aliment (FR-205).",
+            "required": ["classe", "niveau"],
+            "additionalProperties": false,
+            "properties": {
+              "classe": { "type": "string", "description": "Code de classe CIQUAL, jamais un libelle (R13)." },
+              "niveau": { "enum": [3, 4], "description": "4 pour une classe de quatrieme niveau, 3 pour un repli (R9)." }
+            }
+          }
+        }
+      }
+    }
+  }
+}
