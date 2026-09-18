@@ -74,8 +74,14 @@ export function ribbonLabel(currentMonth: number, seasonMonths?: number[]): stri
  *
  * Les codes de catégorie viennent du catalogue (src/data/reference/foods.json).
  * Plusieurs catégories partagent une famille d'affichage: viandes, poissons,
- * œufs et produits laitiers forment une seule pastille, parce que sept teintes
- * distinctes sont déjà le maximum lisible dans un tableau.
+ * œufs et produits laitiers forment une seule pastille.
+ *
+ * Les alternatives végétales ont la leur, une huitième. Les rattacher à la
+ * pastille des protéines animales aurait donné un libellé énumérant cinq choses
+ * — une pastille qui ne nomme plus rien n'accélère plus aucune lecture — et
+ * aurait rangé le tofu d'un végane sous « viandes et poissons ». Le coût est une
+ * teinte de plus à distinguer sur un point de 9 px; elle a été prise dans la
+ * seule plage que la palette laissait libre (voir src/styles/tokens.css).
  */
 export type FoodFamily =
   | 'legume'
@@ -83,6 +89,7 @@ export type FoodFamily =
   | 'cereale'
   | 'legumineuse'
   | 'proteine'
+  | 'vegetal'
   | 'coque'
   | 'grasse'
   | 'autre';
@@ -96,6 +103,9 @@ const FAMILY_BY_CATEGORY: Record<string, FoodFamily> = {
   poisson: 'proteine',
   oeuf: 'proteine',
   produit_laitier: 'proteine',
+  proteine_vegetale: 'vegetal',
+  boisson_vegetale: 'vegetal',
+  specialite_vegetale: 'vegetal',
   fruit_a_coque: 'coque',
   matiere_grasse: 'grasse',
   autre: 'autre',
@@ -112,6 +122,7 @@ export const FAMILY_LABELS: Record<FoodFamily, string> = {
   cereale: 'Céréales',
   legumineuse: 'Légumineuses',
   proteine: 'Œufs, laitiers, viandes et poissons',
+  vegetal: 'Alternatives végétales',
   coque: 'Fruits à coque',
   grasse: 'Matières grasses',
   autre: 'Autres',
@@ -127,6 +138,9 @@ export const CATEGORY_LABELS: Record<string, string> = {
   poisson: 'Poisson',
   oeuf: 'Œuf',
   produit_laitier: 'Produit laitier',
+  proteine_vegetale: 'Protéine végétale',
+  boisson_vegetale: 'Boisson végétale',
+  specialite_vegetale: 'Spécialité végétale',
   matiere_grasse: 'Matière grasse',
   fruit_a_coque: 'Fruit à coque',
   autre: 'Autre',
@@ -149,6 +163,9 @@ export const CATEGORY_GROUP_LABELS: Record<string, string> = {
   poisson: 'Poissons',
   oeuf: 'Œufs',
   produit_laitier: 'Produits laitiers',
+  proteine_vegetale: 'Protéines végétales',
+  boisson_vegetale: 'Boissons végétales',
+  specialite_vegetale: 'Spécialités végétales',
   matiere_grasse: 'Matières grasses',
   fruit_a_coque: 'Fruits à coque',
   autre: 'Autres',

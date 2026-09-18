@@ -15,7 +15,11 @@
     "test:unit": "vitest run tests/unit",
     "test:contract": "vitest run tests/contract",
     "test:e2e": "playwright test",
-    "seed:reference": "tsx scripts/seed-reference.ts"
+    "seed:reference": "tsx scripts/seed-reference.ts",
+    "build:foods": "node scripts/build-foods-from-ciqual.mjs",
+    "build:seasonality": "node scripts/build-seasonality.mjs",
+    "measure:catalogue": "tsx scripts/measure-catalogue.ts",
+    "check:caps": "tsx scripts/check-caps.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

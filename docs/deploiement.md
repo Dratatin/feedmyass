@@ -45,6 +45,34 @@ supabase db push        # schéma et politiques RLS
 npm run seed:reference  # nutrients, reference_intakes, foods, seasonality
 ```
 
+**L'ordre n'est pas négociable**, et pas seulement à la première mise en place : à chaque
+reconstruction du catalogue. Le seed échoue si le schéma est en retard — une catégorie d'achat
+nouvelle viole la contrainte `check` de `public.foods.category`, une colonne nouvelle n'existe pas.
+C'est voulu : il refuse de charger une base partielle plutôt que d'accepter des données que le
+schéma ne décrit pas.
+
+### 3 bis. Reconstruire le catalogue n'est pas le publier
+
+Piège constaté à la feature 003, qui coûte une revue entière si on ne le sait pas. **Deux chemins de
+données coexistent** dans l'application :
+
+| Écran | Source des aliments |
+|---|---|
+| Accueil, De saison | `src/data/reference/foods.json`, importé à la compilation |
+| Liste d'ingrédients (API `/api/plan`, `/api/results`) | **la base**, via `fetchFoods()` |
+
+Reconstruire le catalogue ne met donc à jour que la moitié visible. Tant que le seed n'a pas été
+rejoué, la liste d'ingrédients continue d'être calculée sur l'ancien catalogue — et **les tests e2e
+passent au vert sans rien démontrer**, puisqu'ils interrogent la base. La chaîne complète est:
+
+```bash
+npm run build:foods        # catalogue depuis l'API CIQUAL
+npm run build:seasonality  # les codes d'aliments ont changé
+supabase db push           # si le schéma bouge
+npm run seed:reference     # publier vers la base
+npx playwright test        # là seulement, les e2e valident
+```
+
 ### 4. URLs de retour Supabase
 
 Sans déclaration, le fournisseur refuse de rediriger: le lien de confirmation d'e-mail

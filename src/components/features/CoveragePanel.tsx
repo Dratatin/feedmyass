@@ -24,7 +24,27 @@ const REASON_LABELS: Record<PlanGap['reason'], string> = {
   no_source_available: 'aucun aliment du catalogue ne permet de le couvrir',
 };
 
+/**
+ * Deux natures d'écart, et elles n'appellent pas du tout la même phrase.
+ *
+ * Un écart de SAISON se referme tout seul: le même régime couvrira le nutriment
+ * dans trois mois. Il n'y a rien à faire, sinon revenir.
+ *
+ * Un écart de RÉGIME ou d'absence de source, lui, ne se referme pas: aucune
+ * assiette compatible ne peut atteindre le besoin, quelle que soit la
+ * combinaison. Le taire serait malhonnête — la personne croirait qu'il suffit de
+ * mieux manger. Le dire l'est, à condition de rester dans le registre de
+ * l'information: on constate que l'alimentation seule n'y suffira probablement
+ * pas, et on renvoie vers un professionnel de santé. Pas de posologie, pas de
+ * produit nommé, aucune prescription (principe IV).
+ */
+const STRUCTURAL_REASONS: PlanGap['reason'][] = ['diet_restriction', 'no_source_available'];
+
 export function CoveragePanel({ coverage, gaps }: { coverage: CoverageEntry[]; gaps: PlanGap[] }) {
+  const structurels = gaps
+    .filter((gap) => STRUCTURAL_REASONS.includes(gap.reason))
+    .map((gap) => coverage.find((c) => c.nutrient === gap.nutrient)?.label ?? gap.nutrient);
+
   const columns: Column<CoverageEntry>[] = [
     { key: 'label', header: 'Nutriment', render: (row) => <span className="font-semibold">{row.label}</span> },
     {
@@ -82,6 +102,16 @@ export function CoveragePanel({ coverage, gaps }: { coverage: CoverageEntry[]; g
               );
             })}
           </ul>
+
+          {structurels.length > 0 ? (
+            <p className="mt-4 border-t-[1.5px] border-solid border-line pt-4 text-sm text-ink-soft">
+              Pour <span className="font-semibold text-ink">{structurels.join(', ')}</span>, aucune
+              combinaison d&apos;aliments compatibles avec ce régime n&apos;atteint le besoin :
+              ce n&apos;est pas une question de mieux composer ses repas. Un complément alimentaire
+              sera probablement nécessaire, et c&apos;est un point à voir avec un professionnel de
+              santé, qui pourra en juger au vu de votre situation.
+            </p>
+          ) : null}
         </Panel>
       ) : null}
 

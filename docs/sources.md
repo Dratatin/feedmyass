@@ -69,14 +69,69 @@ consulté un jour, c'est `src/data/reference/reference-intakes.json` qu'il faut 
 
 ## Composition des aliments
 
-**Table Ciqual 2020 de l'ANSES** (`XML_2020_07_07`), <https://ciqual.anses.fr>, publiée en open data
-sous **Licence Ouverte / Open Licence (Etalab)** — licence confirmée sur data.gouv.fr.
+**Table Ciqual de l'ANSES**, récupérée par l'**API de Recherche Data Gouv** (entrepôt Dataverse
+gouvernemental) sous le DOI `10.57745/RDMHWY`, publiée sous **Licence Ouverte / Open Licence
+(Etalab 2.0)**.
 
-Catalogue de 281 aliments extrait par `scripts/build-foods-from-ciqual.mjs`, reproductible.
+`npm run build:foods` construit le catalogue en une commande, sans téléchargement ni décompression
+manuels. **La version, la date de publication et la licence viennent de la réponse de l'API**, pas
+d'une constante du script : une valeur saisie à la main est invérifiable, et le principe II exige
+qu'elle le soit. Elles sont reportées dans `_meta.dataset` du fichier produit. Le script échoue —
+sans écrire ni écraser le catalogue — si la source est injoignable, si la licence change, si la
+version manque, ou si un fichier téléchargé ne fait pas la taille annoncée.
 
-**Ce qui vient de CIQUAL** : libellés, classification en sous-groupes, teneurs.
+`--from <répertoire>` rejoue une construction hors ligne depuis des fichiers déjà décompressés ; la
+version est alors lue dans le nom des fichiers, et son absence fait échouer la commande. Le mode
+hors ligne n'exonère pas de la traçabilité.
+
+**Ce qui vient de CIQUAL** : libellés, classification à quatre niveaux, teneurs.
 **Ce qui n'en vient pas** et relève de décisions du projet, à relire comme telles : compatibilités
-de régime, exclusions, bornes de quantité, unités d'achat.
+de régime, exclusions, bornes de quantité, unités d'achat, et les règles de sélection ci-dessous.
+
+### La sélection se fait par classe, pas par quota de sous-groupe
+
+Jusqu'à la feature 003, le catalogue retenait, pour chacun des 18 sous-groupes CIQUAL, les N aliments
+**les mieux documentés** — N étant un nombre écrit à la main, sans justification nulle part. Ces
+nombres produisaient des résultats faux : le plafond de 5 sur les substituts de produits carnés
+coupait le seul aliment convenant aux véganes, à égalité de score avec deux aliments gardés, tout en
+retenant son jumeau explicitement non végane. Et le critère lui-même mesurait la qualité de la
+donnée, pas la pertinence alimentaire.
+
+La sélection s'appuie désormais sur la **classification de quatrième niveau** (`alim_ssssgrp_code`),
+que l'ANSES publie avec la table et maintient. Là où le script ne voyait que « viandes crues », elle
+distingue bœuf et veau, porc, poulet, dinde, agneau, gibier et abats ; là où il ne voyait que
+« fromages », elle distingue pâte molle, pâte pressée, pâte persillée, fondus et alternatives
+végétales.
+
+| Mécanisme | Ce qu'il décide |
+|---|---|
+| Règle par classe | Retenir ou écarter, avec **motif obligatoire** si écarté |
+| Repli au 3ᵉ niveau | 22 % des aliments n'ont pas de 4ᵉ niveau — dont toutes les pommes de terre et tout le tofu |
+| Quota par classe | 4 pour une classe fine, 12 pour une classe de repli (« poissons crus » en compte 105 à elle seule) |
+| Calendrier ADEME | **La pertinence des fruits et légumes**, que la classification ne subdivise pas |
+| Dédoublonnage par espèce | Fusionne les états de cuisson d'un même aliment |
+
+Deux nombres subsistent donc là où il y en avait dix-huit, et ils se distinguent par une propriété de
+la donnée — la finesse de la classification — et non par un avis. Ils ne décident plus *quels*
+aliments méritent d'être proposés : ils bornent seulement combien de représentants d'une même classe
+le catalogue peut porter, pour qu'il reste relisible à la main.
+
+**Les fruits et légumes échappent aux deux.** Leur pertinence est décidée par le calendrier de saison
+de l'ADEME : une espèce absente du calendrier n'a aucun mois de disponibilité, donc ne sera jamais
+proposée (FR-014) — l'inscrire au catalogue reviendrait à y ajouter un aliment mort. Le catalogue
+précédent en comptait huit. La table d'alias est partagée entre le script de construction et celui de
+saisonnalité (`scripts/lib/produce-calendar.mjs`) : deux copies divergentes produiraient exactement
+l'aliment mort qu'on cherche à éviter.
+
+**Toute classe présente dans le périmètre doit porter une règle**, sans quoi la construction échoue.
+C'est ce qui rend un changement de millésime relisible : une classe nouvelle se décide, elle ne se
+glisse pas au catalogue. Les règles sont écrites sur des **codes de classe et jamais sur des
+libellés** — neuf libellés ont changé entre les millésimes 2020 et 2025 sans qu'aucun code ne bouge.
+
+Les sous-groupes des charcuteries et des boissons ne sont ouverts que pour leurs classes
+d'alternatives végétales, chaque classe de charcuterie, de soda et de jus étant écartée nommément.
+C'est ce que la sélection par classe rend possible et que les plafonds interdisaient : on ne pouvait
+pas prendre la saucisse végétale sans prendre toute la charcuterie.
 
 Particularités de la donnée, traitées par le script :
 
@@ -89,7 +144,35 @@ Particularités de la donnée, traitées par le script :
 - la vitamine A est recomposée en équivalents rétinol (rétinol + β-carotène / 6) ;
 - la vitamine K ne retient que la K1, forme sur laquelle porte la référence ANSES ;
 - le gluten est détecté **sur le libellé**, ce qui est une heuristique et non une donnée : à revoir
-  aliment par aliment avant mise en production.
+  aliment par aliment avant mise en production ;
+- la vitamine E se lit sur le code `53100`, avec repli sur `71010` (alpha-tocophérol) : le millésime
+  2025 a basculé vers le second, et sans ce repli la vitamine E manquerait sur 219 aliments ;
+- **la vitamine B9 est un écart connu et assumé** : la référence ANSES retenue est de 330 µg en
+  *équivalents folates alimentaires*, alors que le catalogue lit le code des *folates totaux*
+  (`56700`). Le code des EFA (`56702`) existe mais couvre moins d'aliments, et mélanger les deux dans
+  une même colonne serait pire qu'une valeur absente. Question ouverte, antérieure à la feature 003.
+
+### Ce que le millésime 2025 a changé, et qui compte
+
+**Les teneurs en vitamine B12 des algues ont été retirées.** La table 2020 créditait le nori de
+38,8 µg/100 g et la dulse de 9,81 ; en 2025 ces valeurs sont « non déterminées ». C'est la question
+de la **pseudo-B12** : les corrinoïdes des algues sont des analogues que l'organisme humain
+n'assimile pas.
+
+La conséquence est directe. Construit sur la table 2020, le catalogue déclarait **couverte** la
+vitamine B12 d'un régime végane, en atteignant le besoin avec de la dulse séchée. C'était faux. Sur
+la table 2025, l'écart réapparaît et est signalé à l'utilisateur, ce qui est la bonne réponse. Un
+test verrouille la donnée : si un millésime ultérieur réintroduisait ces teneurs, la suite le ferait
+voir plutôt que de laisser le solveur s'en servir.
+
+C'est aussi ce qui justifie d'avoir abaissé le seuil de complétude moyenne de 25 à 23 nutriments sur
+26 plutôt que de rester sur la 2020 : entre un catalogue plus complet qui se trompe et un catalogue
+moins complet qui dit vrai, le principe II ne laisse pas le choix.
+
+**Tofu, tempeh et seitan ont changé de classe** — du sous-groupe des substituts de produits carnés
+vers « ingrédients divers », sans quatrième niveau. Ils retombaient donc en « autre », plafonnés à
+150 g comme un condiment. Une règle de libellé courte les rattache aux protéines végétales ; elle est
+à reconfronter à chaque changement de millésime.
 
 ## Saisonnalité
 

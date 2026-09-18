@@ -1,0 +1,2794 @@
+{
+  "mesure_le": "2026-09-17",
+  "catalogue": {
+    "fichier": "src/data/reference/foods.json",
+    "empreinte_sha256": "206d752f7216b2c108cd1438b175795f7f34c55b16bc9d5206ce46dd8a0e99ab",
+    "aliments": 281,
+    "completude_moyenne": 25.56,
+    "par_categorie": {
+      "autre": 28,
+      "cereale": 21,
+      "fruit": 41,
+      "fruit_a_coque": 17,
+      "legume": 52,
+      "legumineuse": 14,
+      "matiere_grasse": 8,
+      "oeuf": 8,
+      "poisson": 26,
+      "produit_laitier": 32,
+      "viande": 34
+    }
+  },
+  "profil": {
+    "profile": {
+      "weightKg": 75,
+      "heightCm": 178,
+      "age": 35,
+      "referenceSex": "male",
+      "activityLevel": "active"
+    },
+    "mois": 9
+  },
+  "regimes": {
+    "omnivore": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.672,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.0704,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.2494,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1.2608,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 1.513,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.326,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 1.1673,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 1.9261,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2896,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1.0631,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 1.7767,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.5729,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.9202,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.5581,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.9891,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.4429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.9645,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 3.4829,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.5544,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.529,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 14
+    },
+    "omnivore/gluten": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.367,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.1537,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.097,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 0.9512,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b1": {
+          "ratio": 3.5291,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.8588,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 0.9827,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b6": {
+          "ratio": 2.337,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2442,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.1264,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 4.6946,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.7378,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.4822,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.9199,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.4477,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.7341,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 1.9435,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.5345,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.4059,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 16
+    },
+    "omnivore/lactose": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.7017,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.0455,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "fiber": {
+          "ratio": 1.5223,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1.2825,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 1.5686,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.4248,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 1.417,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 1.9867,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.6221,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1.008,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.1955,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 6.269,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 2.0484,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.8235,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 1.1625,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 1.4378,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 69.1609,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 3.8481,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.8087,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.6214,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 13
+    },
+    "omnivore/nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.672,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.0704,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.2494,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1.2608,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 1.513,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.326,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 1.1673,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 1.9261,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2896,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1.0631,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 1.7767,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.5729,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.9202,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.5581,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.9891,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.4429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.9645,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 3.4829,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.5544,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.529,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 14
+    },
+    "omnivore/gluten+nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.3312,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.1609,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.0952,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b1": {
+          "ratio": 3.5067,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.8778,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 0.9822,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b6": {
+          "ratio": 2.329,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2356,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.2918,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.0902,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.6943,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.3747,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.8909,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.3593,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.7425,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 1.9818,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.3377,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.2683,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 16
+    },
+    "pescetarian": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.672,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.0704,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.2494,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1.2608,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 1.513,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.326,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 1.1673,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 1.9261,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2896,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1.0631,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 1.7767,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.5729,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.9202,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.5581,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.9891,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.4429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.9645,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 3.4829,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.5544,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.529,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 14
+    },
+    "pescetarian/gluten": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.367,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.1537,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.097,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 0.9512,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b1": {
+          "ratio": 3.5291,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.8588,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 0.9827,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b6": {
+          "ratio": 2.337,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2442,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.1264,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 4.6946,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.7378,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.4822,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.9199,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.4477,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.7341,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 1.9435,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.5345,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.4059,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 16
+    },
+    "pescetarian/lactose": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.7017,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.0455,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "fiber": {
+          "ratio": 1.5223,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1.2825,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 1.5686,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.4248,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 1.417,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 1.9867,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.6221,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1.008,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.1955,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 6.269,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 2.0484,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.8235,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 1.1625,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 1.4378,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 69.1609,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 3.8481,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.8087,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.6214,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 13
+    },
+    "pescetarian/nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.672,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.0704,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.2494,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1.2608,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 1.513,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.326,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 1.1673,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 1.9261,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2896,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1.0631,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 1.7767,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.5729,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.9202,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.5581,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.9891,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.4429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.9645,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 3.4829,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.5544,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.529,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 14
+    },
+    "pescetarian/gluten+nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.3312,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.1609,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.0952,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b1": {
+          "ratio": 3.5067,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.8778,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 0.9822,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b6": {
+          "ratio": 2.329,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.2356,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.2918,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.0902,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.6943,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.3747,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.8909,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.3593,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.7425,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 1.9818,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.3377,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.2683,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 16
+    },
+    "vegetarian": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 2.2532,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 0.9488,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "fiber": {
+          "ratio": 1.5642,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 2.4149,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 2.906,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 1.8805,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b5": {
+          "ratio": 2.7352,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 2.1456,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 2.418,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 5.2518,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.0231,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 3.0528,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1.0145,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 3.2139,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.7096,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 1.3263,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 1.6243,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 103.6216,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 4.1045,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.395,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 4.6269,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 15
+    },
+    "vegetarian/gluten": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 2.9477,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "fiber": {
+          "ratio": 1.8508,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 2.6615,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 3.3349,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 2.4569,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b5": {
+          "ratio": 3.328,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 2.5789,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 3.0775,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 5.6602,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.0238,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 3.3363,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1.1333,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iron": {
+          "ratio": 4.5173,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.6582,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 1.647,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 1.9628,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 103.5769,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 4.4299,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.9813,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 5.3277,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 17
+    },
+    "vegetarian/lactose": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 2.2532,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 0.9488,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "fiber": {
+          "ratio": 1.5642,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 2.4149,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 2.906,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 1.8805,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b5": {
+          "ratio": 2.7352,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 2.1456,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 2.418,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 5.2518,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.0231,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 3.0528,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1.0145,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 3.2139,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.7096,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 1.3263,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 1.6243,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 103.6216,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 4.1045,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.395,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 4.6269,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 15
+    },
+    "vegetarian/nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 2.2043,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 0.9532,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "fiber": {
+          "ratio": 1.6809,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 2.4166,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 2.9586,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 1.9126,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b5": {
+          "ratio": 2.7444,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 2.195,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 2.4131,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 5.2563,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.1461,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 3.1259,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1.013,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 3.3688,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.7963,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 1.3383,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 1.6555,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 103.6252,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 4.1465,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.3862,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 4.7796,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 15
+    },
+    "vegetarian/gluten+nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 2.9477,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "fiber": {
+          "ratio": 1.8508,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 2.6615,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 3.3349,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 2.4569,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 0.8,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b5": {
+          "ratio": 3.328,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 2.5789,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 3.0775,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 5.6602,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 2.0238,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 3.3363,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 1.1333,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iron": {
+          "ratio": 4.5173,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.6582,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 1.647,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 1.9628,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 103.5769,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 4.4299,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.9813,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 5.3277,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [],
+      "ingredients": 17
+    },
+    "vegan": {
+      "couverture": {
+        "energy": {
+          "ratio": 3.922,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "protein": {
+          "ratio": 8.4701,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 2.357,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 5.405,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 9.9055,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 0.9718,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b1": {
+          "ratio": 6.2639,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 1.119,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 2.5045,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 4.1359,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 3.4299,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 6.6186,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 0.9744,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 5.6517,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.1886,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 2.8303,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iron": {
+          "ratio": 9.8061,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 6.727,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 4.6583,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 5.7599,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 106.8225,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 15.9247,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 7.5361,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 14.1116,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [
+        {
+          "nutriment": "vitamin_b12",
+          "cause": "diet_restriction",
+          "ratio": 0.9834
+        }
+      ],
+      "ingredients": 28
+    },
+    "vegan/gluten": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.1327,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.1968,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.2128,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 0.7928,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 3.5923,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.7998,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.4842,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 0.9482,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b6": {
+          "ratio": 2.1531,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.3598,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 0.0919,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 0.9999,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 0.0237,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_e": {
+          "ratio": 1.9573,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.3376,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 0.9997,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.8782,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.6627,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.8674,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.5851,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.4184,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 1.1183,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.9953,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 3.1817,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [
+        {
+          "nutriment": "vitamin_b12",
+          "cause": "diet_restriction",
+          "ratio": 0.4879
+        },
+        {
+          "nutriment": "vitamin_d",
+          "cause": "diet_restriction",
+          "ratio": 0.5349
+        }
+      ],
+      "ingredients": 14
+    },
+    "vegan/lactose": {
+      "couverture": {
+        "energy": {
+          "ratio": 3.922,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "protein": {
+          "ratio": 8.4701,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 2.357,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 5.405,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 9.9055,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 0.9718,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b1": {
+          "ratio": 6.2639,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 1.119,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 2.5045,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 4.1359,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 3.4299,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 6.6186,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 0.9744,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 5.6517,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.1886,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 2.8303,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iron": {
+          "ratio": 9.8061,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 6.727,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 4.6583,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 5.7599,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 106.8225,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 15.9247,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 7.5361,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 14.1116,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [
+        {
+          "nutriment": "vitamin_b12",
+          "cause": "diet_restriction",
+          "ratio": 0.9834
+        }
+      ],
+      "ingredients": 28
+    },
+    "vegan/nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 3.7613,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "protein": {
+          "ratio": 8.1152,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 2.051,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 5.3668,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 9.4935,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 0.9664,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b1": {
+          "ratio": 6.021,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 1.293,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b3": {
+          "ratio": 2.7023,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 4.2331,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b6": {
+          "ratio": 3.3396,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 6.2076,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 0.9624,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_e": {
+          "ratio": 4.1979,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 6.1262,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 2.5859,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iron": {
+          "ratio": 9.4955,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 5.9809,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 4.4546,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "zinc": {
+          "ratio": 5.4436,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 106.6951,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 15.6841,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 6.6702,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 13.141,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [
+        {
+          "nutriment": "vitamin_b12",
+          "cause": "diet_restriction",
+          "ratio": 0.9714
+        }
+      ],
+      "ingredients": 28
+    },
+    "vegan/gluten+nuts": {
+      "couverture": {
+        "energy": {
+          "ratio": 1,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "protein": {
+          "ratio": 1.0818,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "lipids": {
+          "ratio": 1.1429,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "carbohydrates": {
+          "ratio": 1.2053,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "fiber": {
+          "ratio": 1.2447,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_a": {
+          "ratio": 0.7946,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_b1": {
+          "ratio": 3.7497,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b2": {
+          "ratio": 0.7999,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b3": {
+          "ratio": 1.5527,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b5": {
+          "ratio": 0.955,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_b6": {
+          "ratio": 2.212,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b9": {
+          "ratio": 1.4201,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_b12": {
+          "ratio": 0.0919,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_c": {
+          "ratio": 0.9999,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "vitamin_d": {
+          "ratio": 0.0247,
+          "meetsThreshold": false,
+          "surLeFil": false
+        },
+        "vitamin_e": {
+          "ratio": 2.9855,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "vitamin_k": {
+          "ratio": 5.1964,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "calcium": {
+          "ratio": 0.9998,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "iron": {
+          "ratio": 1.8227,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "magnesium": {
+          "ratio": 1.5244,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "potassium": {
+          "ratio": 0.8122,
+          "meetsThreshold": true,
+          "surLeFil": true
+        },
+        "zinc": {
+          "ratio": 1.4013,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "iodine": {
+          "ratio": 68.4152,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "selenium": {
+          "ratio": 1.185,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "copper": {
+          "ratio": 1.5616,
+          "meetsThreshold": true,
+          "surLeFil": false
+        },
+        "phosphorus": {
+          "ratio": 2.947,
+          "meetsThreshold": true,
+          "surLeFil": false
+        }
+      },
+      "ecarts": [
+        {
+          "nutriment": "vitamin_b12",
+          "cause": "diet_restriction",
+          "ratio": 0.4759
+        },
+        {
+          "nutriment": "vitamin_d",
+          "cause": "diet_restriction",
+          "ratio": 0.5049
+        }
+      ],
+      "ingredients": 15
+    }
+  }
+}
