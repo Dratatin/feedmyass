@@ -98,7 +98,9 @@ describe('qualité du catalogue produit (SC-003)', () => {
     // se servait pour déclarer couverte la B12 d'un régime végane. Un catalogue
     // moins complet qui dit vrai vaut mieux qu'un catalogue complet qui ment.
     const total = foods.reduce(
-      (sum, f) => sum + Object.keys((f as unknown as { composition: object }).composition).length,
+      // Le rétinol (feature 004) sert la limite de sécurité, il n'est pas l'un des 26 nutriments suivis.
+      (sum, f) => sum + Object.keys((f as unknown as { composition: object }).composition)
+        .filter((k) => k !== 'retinol').length,
       0
     );
     expect(total / foods.length).toBeGreaterThanOrEqual(23);
@@ -130,5 +132,64 @@ describe('données propres au projet (exclusions, unités)', () => {
     // 33 g de cassis.
     const fruits = foods.filter((f) => f.category === 'fruit') as unknown as { label: string; unit_label: string }[];
     for (const fruit of fruits) expect(fruit.unit_label, fruit.label).not.toMatch(/^fruit de/);
+  });
+});
+
+describe('rattachement au modèle de consommation de l\'ANSES (feature 004, FR-308 à FR-310, FR-321)', () => {
+  type Rattache = {
+    label: string;
+    anses_subgroup: string | null;
+    family: string;
+    attached_by: { classe: string; regle: string; substitut: boolean };
+  };
+  const rattaches = foods as unknown as Rattache[];
+  const table = (foodsJson._meta as unknown as {
+    rattachement: { regle: string; affinages: { regle: string }[] }[];
+  }).rattachement;
+  const regles = new Set(table.flatMap((r) => [r.regle, ...r.affinages.map((a) => a.regle)]));
+  const sousGroupe = (debut: string) =>
+    rattaches.filter((f) => f.label.startsWith(debut)).map((f) => f.anses_subgroup);
+
+  it('rattache chaque aliment par une règle consultable dans le catalogue', () => {
+    for (const f of rattaches) expect(regles.has(f.attached_by.regle), f.label).toBe(true);
+  });
+
+  it('ne laisse sans sous-groupe que les algues et l\'eau de coco', () => {
+    const sans = rattaches.filter((f) => f.anses_subgroup === null);
+    expect(sans.length).toBeGreaterThan(0);
+    for (const f of sans) expect(f.label, f.label).toMatch(/algue|ulva|ascophyll|dulse|kombu|nori|chondrus|himanthalia|spirulin|criste marine|^eau de coco/i);
+  });
+
+  it('range en poissons gras exactement le hareng, le maquereau et le saumon', () => {
+    const gras = rattaches.filter((f) => f.anses_subgroup === 'poissons_gras').map((f) => f.label.split(',')[0]);
+    expect(gras.sort()).toEqual(['Hareng', 'Maquereau', 'Saumon']);
+  });
+
+  it('range la pomme de terre dans les féculents, comme l\'ANSES', () => {
+    expect(sousGroupe('Pomme de terre')).toEqual(['autres_feculents_raffines']);
+  });
+
+  it('rattache les protéines végétales aux légumineuses, par usage', () => {
+    for (const f of rattaches.filter((x) => /^(Tofu|Tempeh|Seitan|Protéine de soja)/.test(x.label))) {
+      expect(f.anses_subgroup, f.label).toBe('legumineuses');
+      expect(f.attached_by.substitut, f.label).toBe(true);
+    }
+  });
+
+  it('donne à chaque aliment une famille, qui ne mêle jamais deux sous-groupes', () => {
+    const sousGroupesParFamille = new Map<string, Set<string | null>>();
+    for (const f of rattaches) {
+      expect(f.family, f.label).not.toBe('');
+      if (!sousGroupesParFamille.has(f.family)) sousGroupesParFamille.set(f.family, new Set());
+      sousGroupesParFamille.get(f.family)!.add(f.anses_subgroup);
+    }
+    for (const [famille, groupes] of sousGroupesParFamille) expect(groupes.size, famille).toBe(1);
+  });
+
+  it('réunit dans une même famille les laits, les tofus et les œufs', () => {
+    const familles = (debut: RegExp) => new Set(rattaches.filter((f) => debut.test(f.label)).map((f) => f.family));
+    expect(familles(/^Lait (à|de|demi|entier)/).size).toBe(1);
+    expect(familles(/^Tofu/).size).toBe(1);
+    expect(familles(/^Oeuf/).size).toBe(1);
   });
 });

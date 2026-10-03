@@ -11,6 +11,15 @@
  * le plafond énergétique. Elle sert de vérification aux critères de succès.
  *
  * Usage: npm run simulate:plans -- [fichier-de-sortie.json]
+ *
+ * Le fichier de sortie porte, dans cet ordre:
+ * - `runs`: nombre de listes générées;
+ * - `summary`: pour chaque type de contrôle, `count` (occurrences) et
+ *   `examples` (au plus six). C'est la clé de comparaison avant / après;
+ * - `catStats`: grammes par jour par catégorie d'affichage (p50, p95, max);
+ * - `topItems`: les quarante aliments les plus fréquents;
+ * - `timing`: temps de génération en millisecondes (p50, p95, max);
+ * - `results`: chaque liste, ses lignes et ses écarts.
  */
 import fs from 'node:fs';
 import { buildIngredientPlan } from '@/domain/plan';

@@ -576,6 +576,10 @@ function buildComposition(raw) {
   if (retinol !== undefined || carotene !== undefined) {
     out.vitamin_a = Number(((retinol ?? 0) + (carotene ?? 0) / 6).toFixed(2));
   }
+  // Le rétinol seul, en plus des équivalents rétinol: la limite de sécurité de la
+  // vitamine A ne porte que sur la forme préformée (EFSA 2024), et l'appliquer au
+  // total plafonnerait à tort les carottes. Non affiché.
+  if (retinol !== undefined) out.retinol = retinol;
   return out;
 }
 
@@ -830,6 +834,135 @@ selected.push(...distincts);
 
 selected.sort((a, b) => a.category.localeCompare(b.category) || a.label.localeCompare(b.label));
 
+// --- Rattachement au modèle de consommation de l'ANSES (feature 004, R4) ---
+
+/**
+ * Sous-groupe de l'ANSES de chaque classe retenue.
+ *
+ * La liste d'ingrédients reprend le modèle de l'avis Anses 2012-SA-0103: rester
+ * au plus près de la consommation moyenne française, PAR SOUS-GROUPE. Il faut
+ * donc savoir dans quel sous-groupe tombe chaque aliment. La classe CIQUAL le dit
+ * presque toujours; quand elle mélange deux sous-groupes, le libellé tranche, par
+ * une règle nommée ici et nulle part ailleurs.
+ *
+ * Les sous-groupes et leurs exemples sont ceux de l'avis, page 38. Trois
+ * rattachements méritent d'être lus deux fois:
+ * - la pomme de terre est un féculent pour l'ANSES, pas un légume;
+ * - les substituts végétaux sont rattachés au sous-groupe dont ils remplacent
+ *   l'USAGE (FR-310): ce n'est pas l'ANSES, c'est une décision du projet, et le
+ *   champ `substitut` la rend visible;
+ * - une algue n'appartient à aucun sous-groupe consommé en France: elle n'est
+ *   pas proposable (FR-309). Elle reste au catalogue, l'écran de saison et la
+ *   page des données peuvent la montrer.
+ *
+ * `affinages` s'applique dans l'ordre; le premier motif qui correspond au
+ * libellé l'emporte. `null` comme sous-groupe signifie « non proposable ».
+ */
+const RATTACHEMENT = {
+  legumes: { classes: ['020101', '020102', '020103'], sousGroupe: 'legumes',
+    motif: 'Légumes (avis Anses, page 38: courgettes, carottes, tomates, haricots verts, maïs doux, petits pois).' },
+  'pommes-de-terre': { classes: ['ss:0202'], sousGroupe: 'autres_feculents_raffines',
+    motif: "Pommes de terre et autres tubercules: l'ANSES range la pomme de terre dans les « autres féculents raffinés », pas dans les légumes (page 38)." },
+  legumineuses: { classes: ['020301', '020302', '020303'], sousGroupe: 'legumineuses',
+    motif: 'Légumineuses (page 38: lentilles, pois chiches, fèves).' },
+  'fruits-frais': { classes: ['020401'], sousGroupe: 'fruits_frais', motif: 'Fruits frais (page 38).' },
+  'fruits-secs': { classes: ['020404'], sousGroupe: 'fruits_secs', motif: 'Fruits secs (page 38: abricots secs, pruneaux).' },
+  oleagineux: { classes: ['ss:0205'], sousGroupe: 'oleagineux',
+    motif: 'Fruits à coque et graines oléagineuses (page 38: noix, amandes).' },
+  'feculents-cereales': { classes: ['030101', '030102'], sousGroupe: 'autres_feculents_raffines',
+    motif: 'Pâtes, riz, semoules: « autres féculents », complets si le libellé le dit (page 38: riz, pâtes; riz complet, blé complet).',
+    affinages: [{ motif: /complet|intégral/, sousGroupe: 'autres_feculents_complets', regle: 'feculents-complets' }] },
+  'pains-biscottes': { classes: ['030201', '030202'], sousGroupe: 'pain_raffine',
+    motif: 'Pains et biscottes (page 38): complets si le libellé le dit; briochés rangés avec les produits à base d\'amidon sucrés/gras.',
+    affinages: [
+      { motif: /brioch/, sousGroupe: 'amidon_sucre_gras', regle: 'pains-brioches' },
+      { motif: /complet|intégral/, sousGroupe: 'pain_complet', regle: 'pains-complets' },
+    ] },
+  'viande-hors-volaille': { classes: ['040201', '040202', '040205', '040207'], sousGroupe: 'viande_hors_volaille',
+    motif: 'Bœuf, porc, agneau, mouton, cheval (page 38: « bœuf, veau, porc, mouton, agneau, cheval, abats, gibier »). Le lapin, que l\'ANSES ne cite pas, y est rangé par prudence: ce sous-groupe est le seul plafonné.',
+    affinages: [{ motif: /canard/, sousGroupe: 'volaille', regle: 'canard-volaille' }] },
+  volaille: { classes: ['040203', '040204'], sousGroupe: 'volaille', motif: 'Volaille (page 38: poulet, canard).' },
+  oeufs: { classes: ['041001', '041002'], sousGroupe: 'oeufs', motif: 'Œufs (page 38).' },
+  poissons: { classes: ['ss:0406', 'ss:0408'], sousGroupe: 'autres_poissons',
+    motif: 'Poissons, mollusques et crustacés; gras pour les espèces que cite l\'ANSES (page 38: saumon, maquereau, sardine, hareng), auxquelles s\'ajoute l\'anchois.',
+    affinages: [{ motif: /^(saumon|maquereau|sardine|hareng|anchois)/, sousGroupe: 'poissons_gras', regle: 'poissons-gras' }] },
+  lait: { classes: ['050101', '050102'], sousGroupe: 'lait', motif: 'Laits (page 38: lait demi-écrémé, lait entier).' },
+  'laitiers-frais': { classes: ['050201', '050202'], sousGroupe: 'frais_nature',
+    motif: 'Yaourts, laits fermentés, fromages blancs: nature, ou sucrés si le libellé le dit (page 38).',
+    affinages: [{ motif: /sucr|aux fruits|aromatis/, sousGroupe: 'frais_sucres', regle: 'laitiers-frais-sucres' }] },
+  fromages: { classes: ['050301', '050302', '050303', '050305', 'ss:0503'], sousGroupe: 'fromages', motif: 'Fromages (page 38).' },
+  huiles: { classes: ['ss:0902'], sousGroupe: 'huiles_pauvres_ala',
+    motif: 'Huiles: riches en acide alpha-linolénique pour celles que cite l\'ANSES (page 38: colza, noix), auxquelles s\'ajoutent le lin et la cameline; pauvres sinon (tournesol, olive).',
+    affinages: [{ motif: /colza|huile de noix|lin\b|cameline/, sousGroupe: 'huiles_riches_ala', regle: 'huiles-riches-ala' }] },
+  'substituts-proteines': { classes: ['ss:1009', '040309', 'ss:0411'], sousGroupe: 'legumineuses', substitut: true,
+    motif: 'Décision du projet (FR-310): tofu, tempeh, seitan, protéine de soja et préparations à base de ces aliments sont rattachés aux légumineuses par usage, source végétale de protéines. Le seitan, protéine de blé, n\'est pas une légumineuse.' },
+  'substituts-fromages': { classes: ['050306'], sousGroupe: 'fromages', substitut: true,
+    motif: 'Décision du projet (FR-310): spécialités végétales type fromage, rattachées aux fromages par usage.' },
+  'substituts-laitiers-frais': { classes: ['050205'], sousGroupe: 'frais_nature', substitut: true,
+    motif: 'Décision du projet (FR-310): desserts végétaux, rattachés aux produits laitiers frais par usage.',
+    affinages: [{ motif: /sucr|aux fruits|aromatis/, sousGroupe: 'frais_sucres', regle: 'substituts-laitiers-frais-sucres' }] },
+  'substituts-lait': { classes: ['060205'], sousGroupe: 'lait', substitut: true,
+    motif: 'Décision du projet (FR-310): boissons végétales, rattachées au lait par usage. L\'eau de coco, sans usage de substitution, n\'est rattachée à rien.',
+    affinages: [{ motif: /^eau de coco/, sousGroupe: null, regle: 'eau-de-coco' }] },
+  algues: { classes: ['ss:1007'], sousGroupe: null,
+    motif: "Algues: aucun sous-groupe d'aliments consommés en France selon l'ANSES (FR-309). Non proposables; leur teneur en iode dépasse en outre la limite de sécurité dès quelques grammes." },
+};
+
+const sousGroupesConnus = new Set(
+  JSON.parse(fs.readFileSync('src/data/reference/consumption-model.json', 'utf8')).subgroups.map((g) => g.code));
+const regleParClasse = new Map();
+for (const [regle, r] of Object.entries(RATTACHEMENT)) {
+  for (const c of r.classes) regleParClasse.set(c, regle);
+  for (const sg of [r.sousGroupe, ...(r.affinages ?? []).map((a) => a.sousGroupe)]) {
+    if (sg !== null && !sousGroupesConnus.has(sg)) {
+      console.error(`Règle de rattachement « ${regle} »: sous-groupe inconnu du modèle de consommation: ${sg}`);
+      process.exit(1);
+    }
+  }
+}
+const classesSansRattachement = Object.entries(CLASS_RULES)
+  .filter(([key, rule]) => !rule.skip && !regleParClasse.has(key)).map(([key]) => key);
+if (classesSansRattachement.length) {
+  console.error('Classes retenues sans règle de rattachement à un sous-groupe de l\'ANSES: ' + classesSansRattachement.join(', '));
+  process.exit(1);
+}
+
+/**
+ * Famille d'un aliment (FR-321): les aliments interchangeables à l'achat, dont
+ * une liste ne retient qu'une variante.
+ *
+ * Variantes d'un même ingrédient: la clé d'espèce (premier segment du libellé),
+ * qui réunit déjà « Lait demi-écrémé » et « Lait entier », « Riz blanc » et « Riz
+ * blanc étuvé ». Trois ajustements:
+ * - huiles et boissons végétales: une famille par sous-groupe, toutes celles
+ *   d'un même usage étant interchangeables;
+ * - « Haricot blanc », « Haricot rouge »: même espèce, premier MOT;
+ * - « Oeuf de cane », « Oeuf poché »: même ingrédient, premier mot aussi.
+ * La famille est préfixée de son sous-groupe: deux aliments de sous-groupes
+ * différents ne sont jamais de la même famille.
+ */
+const FAMILLE_PAR_SOUS_GROUPE = new Set(['huiles_riches_ala', 'huiles_pauvres_ala']);
+const FAMILLE_PREMIER_MOT = ['haricot', 'oeuf', 'œuf', 'tofu', 'lait'];
+function familleDe(f, sousGroupe, regle) {
+  if (sousGroupe === null) return 'non-proposable|' + speciesKey(f.label);
+  if (FAMILLE_PAR_SOUS_GROUPE.has(sousGroupe) || regle === 'substituts-lait') return sousGroupe + '|' + regle;
+  const espece = speciesKey(f.label);
+  const premierMot = espece.split(/\s+/)[0];
+  return sousGroupe + '|' + (FAMILLE_PREMIER_MOT.includes(premierMot) ? premierMot.replace('œ', 'oe') : espece);
+}
+
+for (const f of selected) {
+  const regleDeClasse = regleParClasse.get(f.selected_by.classe);
+  const r = RATTACHEMENT[regleDeClasse];
+  const nom = norm(f.label);
+  const affinage = (r.affinages ?? []).find((a) => a.motif.test(nom));
+  const sousGroupe = affinage ? affinage.sousGroupe : r.sousGroupe;
+  const regle = affinage ? affinage.regle : regleDeClasse;
+  f.anses_subgroup = sousGroupe;
+  f.family = familleDe(f, sousGroupe, regle);
+  f.attached_by = { classe: f.selected_by.classe, regle, substitut: r.substitut === true };
+}
+
 const out = {
   _meta: {
     description: "Catalogue d'aliments courants extrait de la table CIQUAL de l'ANSES.",
@@ -850,10 +983,17 @@ const out = {
         .filter((c) => c.decision === 'écartée')
         .map((c) => ({ classe: c.key, libelle: CLASS_NAMES[c.key] ?? '?', motif: c.motif })),
     },
+    // La table de rattachement voyage avec le catalogue: chaque `attached_by.regle`
+    // d'un aliment y renvoie, avec son motif (FR-308).
+    rattachement: Object.entries(RATTACHEMENT).map(([regle, r]) => ({
+      regle, classes: r.classes, sous_groupe: r.sousGroupe, substitut: r.substitut === true, motif: r.motif,
+      affinages: (r.affinages ?? []).map((a) => ({ regle: a.regle, libelle: String(a.motif), sous_groupe: a.sousGroupe })),
+    })),
     notes: [
       "Viennent de CIQUAL: le libellé, la classification en sous-groupe et toutes les teneurs.",
       "NE VIENNENT PAS de CIQUAL, ce sont des décisions du projet à relire comme telles: les régimes compatibles (diet_tags), les exclusions (excluded_by), les bornes de quantité (min_qty_g, max_qty_g) et les unités d'achat (unit_label, unit_grams).",
-      "vitamin_a est recomposée en équivalents rétinol: rétinol + bêta-carotène / 6.",
+      "vitamin_a est recomposée en équivalents rétinol: rétinol + bêta-carotène / 6. retinol porte le rétinol seul, pour la limite de sécurité de la vitamine A préformée; il n'est pas affiché.",
+      "anses_subgroup, family et attached_by rattachent chaque aliment au modèle de consommation de l'ANSES (src/data/reference/consumption-model.json) par la table _meta.rattachement. Les rattachements marqués substitut sont des décisions du projet (FR-310), pas de l'ANSES.",
       "vitamin_k ne retient que la K1, forme sur laquelle porte la référence ANSES.",
       "Le gluten est détecté sur le libellé (blé, seigle, orge, épeautre, semoule, pain, pâtes, seitan...), ce qui est une heuristique et non une donnée: à revoir aliment par aliment avant mise en production.",
       "Les aliments qui se consomment en condiment (algues, levures, sons, germes, graines) sont plafonnés à " + CONDIMENT_MAX_G + " g par jour: sans ce plafond le solveur les retient massivement pour leur densité en micronutriments et produit des listes irréalistes.",
@@ -883,7 +1023,9 @@ if (DRY_RUN) {
   fs.writeFileSync(CATALOGUE_PATH, JSON.stringify(out, null, 2) + '\n');
 }
 
-const completude = selected.reduce((s, f) => s + Object.keys(f.composition).length, 0) / selected.length;
+// Le rétinol n'est pas l'un des 26 nutriments suivis: il ne compte pas dans la complétude.
+const completude = selected.reduce(
+  (s, f) => s + Object.keys(f.composition).filter((k) => k !== 'retinol').length, 0) / selected.length;
 console.log('');
 console.log('Catalogue : ' + selected.length + ' aliments, complétude moyenne ' +
   completude.toFixed(2) + ' nutriments sur 26');
