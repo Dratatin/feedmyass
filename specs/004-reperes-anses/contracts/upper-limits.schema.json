@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feedmyass.local/contracts/004/upper-limits.schema.json",
+  "title": "Limites superieures de securite",
+  "description": "Forme du fichier src/data/reference/upper-limits.json. Limites applicables a l'ensemble des apports alimentaires de l'adulte (FR-316). Distinctes des apports de reference: elles bornent la liste, elles ne sont pas des besoins (principe III).",
+  "type": "object",
+  "required": ["_meta", "upper_limits"],
+  "additionalProperties": false,
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": ["description", "source", "version", "retrieved_at", "notes"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string" },
+        "source": { "type": "string" },
+        "version": { "type": "string" },
+        "retrieved_at": { "type": "string", "format": "date" },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Nutriments ecartes et pourquoi (limite ne visant que les supplements: magnesium, vitamines B3 et B9)."
+        }
+      }
+    },
+    "upper_limits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["nutrient_code", "value", "unit", "source", "scope_note"],
+        "additionalProperties": false,
+        "properties": {
+          "nutrient_code": { "type": "string", "description": "Code de composition des aliments, 'retinol' compris." },
+          "value": { "type": "number", "exclusiveMinimum": 0, "description": "Par jour." },
+          "unit": { "enum": ["mg", "µg"] },
+          "source": { "type": "string", "description": "Source PRIMAIRE: organisme, annee, reference de l'avis." },
+          "scope_note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -430,7 +430,7 @@ représentées par plus d'une variante et les lignes sous la demi-portion.
   que l'ANSES a effectivement employées dans son modèle : elles sont reprises telles quelles.
   Référence : Anses, *Actualisation des repères du PNNS : révision des repères de consommations
   alimentaires*, avis et rapport, saisine 2012-SA-0103, décembre 2016 — tableau 5 (relations
-  épidémiologiques), tableau 9 (bornes par sous-groupe, pages 74-75), annexe 6 (moyennes et
+  épidémiologiques), tableau 9 (bornes par sous-groupe, pages 73-74), annexe 6 (moyennes et
   écarts-types, pages 80-81).
 - **Les contraintes de contaminants du modèle de l'ANSES sont hors périmètre.** Elles reposent sur
   des données d'exposition (EAT 2) que l'application n'a pas ; leur absence est documentée.
