@@ -3,7 +3,7 @@
     "description": "Catalogue d'aliments courants extrait de la table CIQUAL de l'ANSES.",
     "source": "ANSES — Table Ciqual, doi:10.57745/RDMHWY, Recherche Data Gouv, Licence Ouverte / Open Licence (etalab 2.0)",
     "version": "1.0",
-    "retrieved_at": "2026-09-18",
+    "retrieved_at": "2026-10-03",
     "generated_by": "scripts/build-foods-from-ciqual.mjs",
     "dataset": {
       "doi": "doi:10.57745/RDMHWY",
@@ -1872,8 +1872,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -1921,8 +1921,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -1970,8 +1970,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2019,8 +2019,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2067,8 +2067,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2115,8 +2115,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2164,8 +2164,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2213,8 +2213,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2262,8 +2262,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2309,8 +2309,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2358,8 +2358,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020404",
         "niveau": 4
@@ -2405,8 +2405,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2454,8 +2454,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2503,8 +2503,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2552,8 +2552,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2601,8 +2601,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2650,8 +2650,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2699,8 +2699,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2747,8 +2747,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2796,8 +2796,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2845,8 +2845,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2894,8 +2894,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2943,8 +2943,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -2992,8 +2992,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3041,8 +3041,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3090,8 +3090,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3139,8 +3139,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3187,8 +3187,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3236,8 +3236,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3285,8 +3285,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3334,8 +3334,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3383,8 +3383,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3432,8 +3432,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3481,8 +3481,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3529,8 +3529,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3578,8 +3578,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3627,8 +3627,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3676,8 +3676,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3725,8 +3725,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3773,8 +3773,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -3822,8 +3822,8 @@
       },
       "min_qty_g": 0,
       "max_qty_g": 400,
-      "unit_label": "fruit de 120 g",
-      "unit_grams": 120,
+      "unit_label": "portion de 100 g",
+      "unit_grams": 100,
       "selected_by": {
         "classe": "020401",
         "niveau": 4
@@ -7625,7 +7625,9 @@
         "vegetarian",
         "vegan"
       ],
-      "excluded_by": [],
+      "excluded_by": [
+        "nuts"
+      ],
       "composition": {
         "energy": 899,
         "protein": 0.25,
@@ -7870,7 +7872,9 @@
         "vegetarian",
         "vegan"
       ],
-      "excluded_by": [],
+      "excluded_by": [
+        "nuts"
+      ],
       "composition": {
         "energy": 900,
         "protein": 0,
@@ -7918,7 +7922,9 @@
         "vegetarian",
         "vegan"
       ],
-      "excluded_by": [],
+      "excluded_by": [
+        "nuts"
+      ],
       "composition": {
         "energy": 900,
         "protein": 0,

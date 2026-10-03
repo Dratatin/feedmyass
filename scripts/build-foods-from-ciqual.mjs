@@ -347,7 +347,10 @@ const TRUE_NUTS = ['amande', 'noisette', 'noix', 'cajou', 'pistache', 'pécan', 
  */
 const CATEGORY_RULES = {
   legume: { min: 0, max: 400, unitLabel: 'portion de 100 g', unitGrams: 100 },
-  fruit: { min: 0, max: 400, unitLabel: 'fruit de 120 g', unitGrams: 120 },
+  // Pas d'unité « à la pièce »: d'un cassis à un melon, le poids d'un fruit varie
+  // de trois ordres de grandeur. « Fruit de 120 g » affichait « 0,5 fruit » pour
+  // 33 g de cassis. Un poids par espèce exigerait une source par espèce.
+  fruit: { min: 0, max: 400, unitLabel: 'portion de 100 g', unitGrams: 100 },
   legumineuse: { min: 0, max: 200, unitLabel: 'portion de 100 g', unitGrams: 100 },
   cereale: { min: 0, max: 350, unitLabel: 'portion de 100 g', unitGrams: 100 },
   viande: { min: 0, max: 200, unitLabel: 'portion de 100 g', unitGrams: 100 },
@@ -736,7 +739,12 @@ for (const [key, rule] of Object.entries(CLASS_RULES)) {
     // Les alternatives végétales sont souvent construites sur un fruit à coque —
     // fromage de cajou, boisson d'amande — et leur classe, elle, ne le dit pas.
     // L'exclusion se lit alors sur le libellé, comme le gluten.
-    if (category.endsWith('_vegetale') && isTrueNut(f.nom) && !excluded.includes('nuts')) {
+    // Même lecture pour les huiles: une huile de noix, de noisette ou d'arachide
+    // vient d'une classe d'huiles qui ne porte aucune exclusion. Restreint aux
+    // matières grasses à dessein: « gîte à la noix » ou « noix de Saint-Jacques »
+    // nomment une découpe, pas un fruit à coque.
+    if ((category.endsWith('_vegetale') || category === 'matiere_grasse')
+      && isTrueNut(f.nom) && !excluded.includes('nuts')) {
       excluded.push('nuts');
     }
     const cat = CATEGORY_RULES[category];

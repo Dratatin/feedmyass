@@ -113,3 +113,22 @@ describe('qualité du catalogue produit (SC-003)', () => {
     expect(classesViande.size).toBeGreaterThanOrEqual(5);
   });
 });
+
+describe('données propres au projet (exclusions, unités)', () => {
+  it('exclut des régimes sans fruits à coque les huiles qui en sont tirées', () => {
+    // Constaté par simulation: les huiles de noix, de noisette et d'arachide
+    // passaient le filtre « sans fruits à coque », leur classe d'huiles ne
+    // portant aucune exclusion.
+    const huiles = foods.filter((f) =>
+      /^huile d'arachide|^huile de (noix|noisette|cajou|pistache|macadamia|amande)/i.test(f.label));
+    expect(huiles.length).toBeGreaterThan(0);
+    for (const huile of huiles) expect(huile.excluded_by, huile.label).toContain('nuts');
+  });
+
+  it('n\'exprime aucun fruit en pièces d\'un poids unique', () => {
+    // « Fruit de 120 g » valait pour une pomme et affichait « 0,5 fruit » pour
+    // 33 g de cassis.
+    const fruits = foods.filter((f) => f.category === 'fruit') as unknown as { label: string; unit_label: string }[];
+    for (const fruit of fruits) expect(fruit.unit_label, fruit.label).not.toMatch(/^fruit de/);
+  });
+});
