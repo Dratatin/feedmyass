@@ -76,6 +76,43 @@ export type Food = {
   maxQtyG: number;
   unitLabel: string;
   unitGrams: number;
+  /** Sous-groupe du modèle de consommation de l'ANSES; null = non proposable (FR-309). */
+  ansesSubgroup: string | null;
+  /** Famille d'aliments interchangeables à l'achat: une liste n'en garde qu'une variante (FR-321). */
+  family: string;
+  /** Rattaché au sous-groupe par usage, et non par nature (substitut végétal, FR-310). */
+  isSubstitute: boolean;
+};
+
+/** Paramètres de consommation d'un sous-groupe pour un sexe, en g/j (avis Anses 2012-SA-0103). */
+export type ConsumptionParameters = {
+  lower: number;
+  mean: number;
+  /** Écart-type; requis pour un sous-groupe rapproché de sa moyenne. */
+  sd?: number;
+  /** null: pas de limite supérieure. */
+  upper: number | null;
+};
+
+/** Sous-groupe du modèle de consommation de l'ANSES (data-model § 1). */
+export type ConsumptionSubgroup = {
+  code: string;
+  label: string;
+  direction: 'mean' | 'maximize' | 'minimize';
+  bySex: Record<ReferenceSex, ConsumptionParameters>;
+  coupledWith: string | null;
+  coupledUpper: Record<ReferenceSex, number> | null;
+  /** Décision du projet (FR-310a): sous-groupes dont l'exclusion lève la borne haute de celui-ci. */
+  substitutesFor: string[];
+  /** Besoin énergétique sur lequel l'ANSES a calibré ses bornes (avis, page 13). */
+  referenceEnergyKcal: Record<ReferenceSex, number>;
+};
+
+/** Limite supérieure de sécurité, adulte, par jour (data-model § 2). Ce n'est pas un besoin. */
+export type UpperLimit = {
+  nutrientCode: NutrientCode;
+  value: number;
+  unit: string;
 };
 
 export type CoverageEntry = {

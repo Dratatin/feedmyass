@@ -1,33 +1,67 @@
 import { solveBounded } from './bounded-solve';
-import type { Food, NeedValue, Nutrient } from '@/domain/types';
+import type { ConsumptionModel } from './consumption-model';
+import type { Food, NeedValue, Nutrient, UpperLimit } from '@/domain/types';
 
 /**
- * Sélection des quantités par programmation linéaire (décision R6).
+ * Sélection des quantités par programmation linéaire (feature 004).
  *
- * Le problème est une couverture sous contraintes: trouver des quantités qui
- * atteignent les seuils de FR-016 sans dépasser des quantités réalistes. Une
- * heuristique gloutonne saurait produire une liste, mais pas prouver qu'aucune
- * solution n'existe — or c'est exactement ce dont FR-017 et FR-018 ont besoin
- * pour nommer les écarts.
+ * Le critère est celui de l'ANSES pour l'actualisation des repères du PNNS
+ * (avis 2012-SA-0103, décembre 2016): parmi les listes qui couvrent les besoins,
+ * retenir celle qui reste LA PLUS PROCHE de la consommation moyenne française,
+ * sous-groupe d'aliments par sous-groupe, en favorisant fruits, légumes et
+ * féculents complets et en défavorisant viande rouge et charcuterie.
  *
- * La VARIÉTÉ ne vient pas de la fonction objectif mais des bornes par aliment:
- * plafonner chaque aliment à une quantité réaliste force mécaniquement la
- * solution à se répartir. C'est aussi ce qui écarte la solution mathématiquement
- * optimale mais absurde, du type trois kilos de foie pour la vitamine A.
+ * Il remplace la masse minimale, qui récompensait les aliments les plus denses
+ * par gramme: quatre ou cinq algues séchées ouvraient toutes les listes,
+ * omnivore comprise, et l'iode montait à 128 fois sa limite de sécurité. Les
+ * plafonds par catégorie et le plancher de fruits et légumes qui tentaient d'en
+ * limiter les effets, sans source, disparaissent avec lui.
+ *
+ * Trois sortes de contraintes, et la distinction est le cœur du modèle:
+ * - DURES, jamais levées: plafond énergétique, bornes hautes des références en
+ *   intervalle (lipides, glucides), limites de sécurité, bornes des
+ *   sous-groupes, plafond par aliment;
+ * - les SEUILS BAS des nutriments, toujours flexibles: un manque est un coût,
+ *   jamais une impossibilité — le modèle est donc toujours réalisable;
+ * - le CRITÈRE, qui départage les listes qui couvrent les besoins.
+ *
+ * Le coût d'un manque suit l'ANSES (avis, pages 41 et 42). L'ANSES tient les
+ * seuils nutritionnels pour DURS, et n'a rendu FLEXIBLE que la vitamine D, dont
+ * la référence « a été construite en ne considérant pas la synthèse endogène » et
+ * « est très difficile à atteindre compte tenu de l'offre et des habitudes de
+ * consommation ». Son manque, rapporté à la référence, pèse comme un terme
+ * d'habitude: l'ANSES accepte ainsi 5,4 µg/j sur 15, plutôt que de déformer tout
+ * le régime pour grappiller les derniers pourcents.
+ *
+ * Ici, un seuil « dur » est un manque au coût SHORTFALL_COST, si élevé qu'aucune
+ * habitude ne l'emporte tant que le nutriment peut être couvert: un seuil dur qui
+ * ne rend jamais le modèle infaisable. Un nutriment vraiment hors d'atteinte — la
+ * B12 d'un végane — ressort comme écart au taux que la liste atteint.
+ *
+ * Une version intermédiaire étendait la flexibilité de l'ANSES à tout nutriment
+ * repéré hors d'atteinte. Mesuré: un nutriment à peine hors d'atteinte, couvrable
+ * à 79 %, recevait le poids d'une habitude et chutait à 25 % — les folates d'un
+ * omnivore sans gluten, la B12 d'un pescétarien. La lettre de l'avis est la bonne
+ * règle: la vitamine D, et elle seule.
  */
 
 export type SolverInput = {
   needs: NeedValue[];
   nutrients: Nutrient[];
   candidates: Food[];
-  /** 1 pour la journée, 7 pour la semaine: les bornes par aliment suivent la période. */
+  model: ConsumptionModel;
+  upperLimits: UpperLimit[];
+  /** 1 pour la journée, 7 pour la semaine: bornes et limites suivent la période. */
   periodFactor: number;
-  /** Nutriments dont la contrainte est relâchée (écarts déjà constatés). */
-  relaxed?: Set<string>;
+  /**
+   * Quantité minimale imposée à certains aliments, en grammes sur la période:
+   * la demi-unité d'achat d'un aliment que la consolidation a choisi de relever
+   * plutôt que de retirer (FR-323).
+   */
+  minimums?: Map<string, number>;
 };
 
 export type SolverOutput = {
-  feasible: boolean;
   quantitiesByFood: Map<string, number>;
 };
 
@@ -43,208 +77,221 @@ export function thresholdFor(nutrient: Nutrient): 1 | 0.8 {
 /**
  * Tolérance haute sur l'énergie. FR-016 ne fixe qu'un plancher, mais une liste
  * qui fournirait le double des calories nécessaires serait inexploitable: le
- * plafond est une décision du projet, pas une référence officielle.
+ * plafond est une décision du projet, pas une référence officielle. C'est une
+ * contrainte DURE: la relaxation de la version précédente la levait avec le
+ * seuil bas, et laissait passer des listes à 132 % du besoin.
  */
 export const ENERGY_UPPER_TOLERANCE = 1.1;
 
 /**
- * Plancher de fruits et légumes, en grammes par jour.
+ * Coût d'un manque de 100 % sur un nutriment, et son multiplicateur pour
+ * l'énergie, les protéines et les micronutriments prioritaires.
  *
- * Sans lui, minimiser la masse totale écarte presque tous les fruits et légumes:
- * ils sont peu denses en nutriments par gramme, donc « coûteux » pour le
- * solveur. Une liste qui n'en contiendrait qu'un seul trahirait la promesse du
- * produit.
- *
- * La valeur reprend le repère officiel français « au moins cinq fruits et
- * légumes par jour » du PNNS, soit environ 400 g. C'est une recommandation de
- * santé publique, pas une valeur inventée.
+ * Décision du projet (research R3). L'ANSES minimise la violation des
+ * contraintes flexibles sans en publier la pondération. Le poids doit seulement
+ * être grand devant le critère de consommation, dont les termes valent quelques
+ * unités — un écart-type de plus sur un sous-groupe coûte 1: avec 1 000, un
+ * manque d'un pour cent sur un nutriment pèse autant que dix écarts-types, et
+ * aucune habitude alimentaire ne l'emporte sur un besoin tant qu'une liste peut
+ * le couvrir. Vérifié sur la simulation complète (SC-005).
  */
-const PRODUCE_FLOOR_G_PER_DAY = 400;
-const PRODUCE_KEY = 'produce_mass';
-
-const CAP_PREFIX = 'cap_';
-const GROUP_PREFIX = 'groupe_';
+export const SHORTFALL_COST = 1000;
+export const PRIORITY_SHORTFALL_FACTOR = 10;
 
 /**
- * Plafond COLLECTIF par catégorie d'achat, en grammes par jour.
- *
- * Le plafond par aliment ne suffit pas, et le constat était accablant: une liste
- * végétarienne proposait « œuf brouillé, œuf cru, œuf de caille, œuf poché et
- * jaune d'œuf cuit », 120 g chacun — six cents grammes d'œufs, parce que le
- * modèle voyait cinq aliments distincts là où il n'y a qu'un ingrédient. Même
- * mécanique pour cinq algues séchées à 15 g, soit 75 g d'algues par jour.
- *
- * Le plafond porte donc sur la CATÉGORIE: deux œufs par jour quelle que soit
- * leur préparation, deux cents grammes de viande quelles que soient les
- * découpes. Le plafond par aliment demeure, comme sous-limite.
- *
- * Les fruits et légumes en sont exemptés volontairement: c'est la seule famille
- * dont on veuille la variété ET le volume, et le plancher des 400 g les pousse
- * déjà vers le haut. Les borner collectivement reviendrait à se battre contre
- * son propre repère de santé publique.
- *
- * Ces valeurs sont des décisions du projet, pas des références officielles —
- * comme les bornes par aliment du catalogue. C'est ici qu'on ajuste si une liste
- * paraît déséquilibrée.
+ * Coût d'un manque de 100 % sur un nutriment flexible: celui de l'ANSES, qui rapporte la « variable de goal » à la référence et la
+ * somme sans pondération aux autres termes du critère (rapport, description de
+ * la fonction objectif).
  */
-const CATEGORY_DAILY_CAP_G: Record<string, number> = {
-  oeuf: 120,   // deux œufs, quelle que soit la préparation
-  autre: 60,   // condiments: algues, graines, levures, sons réunis
-};
+export const ANSES_FLEXIBILITY_COST = 1;
 
-/*
- * Pourquoi ces deux-là seulement, et ce que la mesure a établi.
- *
- * Ils sont VÉRIFIÉS par `npm run check:caps`: ils corrigent une absurdité
- * constatée — sept œufs en cinq préparations, cinq algues séchées dans la même
- * journée — sans qu'aucune combinaison ne perde l'énergie ni les protéines.
- *
- * D'autres empilements subsistent, et ils sont tout aussi absurdes: 2 litres de
- * boissons végétales, 1 162 g de produits laitiers, 938 g de protéines végétales
- * en cinq formes. Les plafonner a été essayé et MESURÉ, et le résultat est
- * instructif: plafonner les seules boissons végétales à 500 g fait perdre
- * l'énergie ET les protéines à cinq combinaisons, toutes végétaliennes ou
- * végétariennes sans lactose.
- *
- * Autrement dit, le solveur ne s'appuie pas sur ces deux litres par gourmandise:
- * c'est le seul moyen qu'on lui laisse d'atteindre l'apport énergétique d'un
- * régime restreint. On ne peut pas plafonner ce dont le modèle dépend.
- *
- * La suite n'est donc PAS de resserrer les plafonds, mais de donner d'abord à
- * ces régimes des sources plus denses: le quota par classe limite les céréales,
- * les légumineuses et les oléagineux à quatre représentants chacun, ce qui est
- * confortable pour un omnivore et étroit pour un végane. Enrichir d'abord,
- * plafonner ensuite — et revérifier avec `npm run check:caps` à chaque pas.
- */
+/** Nutriments que l'ANSES a rendus flexibles: la vitamine D seule (avis, pages 41 et 42). */
+export const ANSES_FLEXIBLE_NUTRIENTS: ReadonlySet<string> = new Set(['vitamin_d']);
 
 /**
- * Seuils de restitution d'une quantité.
- *
- * `NUMERICAL_NOISE_G` écarte le bruit du solveur linéaire, qui rend des valeurs
- * de l'ordre de 1e-12 sur des variables qu'il n'a en réalité pas retenues.
- * `MIN_DISPLAY_G` est la plus petite quantité qu'une liste de courses puisse
- * porter: une pincée.
+ * Seuil de bruit numérique: le simplexe rend des valeurs de l'ordre de 1e-12 sur
+ * des variables qu'il n'a en réalité pas retenues.
  */
 const NUMERICAL_NOISE_G = 0.01;
-const MIN_DISPLAY_G = 1;
 
 /**
- * Précision du solveur, en grammes.
+ * Précisions successives du solveur, en grammes.
  *
- * Le défaut de la bibliothèque est de l'ordre de 1e-9, et à cette finesse son
- * simplexe peut CYCLER sans jamais rendre la main. Constaté pour de bon: le
- * calcul d'une liste végane au mois de septembre ne terminait pas, là où le même
- * modèle privé de ses matières grasses se résolvait en 12 ms. Ni la borne de
- * temps de la bibliothèque — qui ne s'applique qu'aux problèmes en nombres
- * entiers — ni sa détection de cycle, pourtant active par défaut, n'y changeaient
- * quoi que ce soit. Desserrer la précision, si.
- *
- * Un milligramme est très en deçà de ce qu'une liste de courses peut exprimer:
- * les quantités sont arrondies au gramme, et le solveur écarte déjà tout ce qui
- * est sous NUMERICAL_NOISE_G, dix fois plus grossier. La précision perdue est
- * donc nulle en pratique.
- *
- * Ce réglage ne suffit PAS à lui seul: il déplace l'instance qui cycle sans
- * garantir la terminaison, et trop desserré il sacrifie la justesse
- * nutritionnelle. Mesuré: à 0,1 g, sept nutriments passent sous leur seuil pour
- * un omnivore. La terminaison est assurée par la borne d'exécution
- * (bounded-solve.ts), pas par ce nombre.
+ * Au défaut de la bibliothèque (1e-9), son simplexe peut CYCLER sans rendre la
+ * main (research R16 de la 003). Un milligramme est très en deçà de ce qu'une
+ * liste de courses exprime. Si la résolution est interrompue par l'échéance,
+ * elle est rejouée une fois à une précision voisine, qui déplace l'instance
+ * dégénérée (research R8 de la 004). Trop desserrée, la précision coûte en
+ * justesse: à 0,1 g, sept nutriments passaient sous leur seuil.
  */
-const SOLVER_PRECISION = 1e-3;
+const SOLVER_PRECISIONS = [1e-3, 1e-4];
 
 /**
- * Échéance d'une résolution, en millisecondes.
+ * Perturbation des coûts au second essai.
  *
- * Large au regard du cas nominal — une résolution légitime tient en quelques
- * dizaines de
- * millisecondes — parce qu'elle ne sert qu'à couper un cyclage, jamais un calcul
- * légitime. Au-delà, le modèle est déclaré infaisable et la relaxation prend le
- * relais: elle nomme les nutriments hors d'atteinte plutôt que de laisser la
- * page attendre indéfiniment.
- *
- * La relaxation rejoue le solveur jusqu'à une fois par nutriment. L'échéance
- * valant par appel, le pire cas théorique se compte en dizaines de secondes —
- * mais chaque interruption retire un nutriment du modèle, donc la suite converge
- * vite.
+ * Changer de précision ne suffit pas toujours à sortir d'un cyclage. La parade
+ * classique d'un simplexe dégénéré est de rendre les coûts deux à deux distincts:
+ * un coût infime et propre à chaque aliment — un millionième par gramme, très
+ * en deçà du moindre terme du critère — départage les sommets équivalents sans
+ * changer la liste retenue.
+ */
+const PERTURBATION_PER_GRAM = 1e-6;
+
+/**
+ * Échéance d'une résolution, en millisecondes. Une résolution légitime tient en
+ * quelques dizaines de millisecondes: l'échéance ne coupe qu'un cyclage.
  */
 const SOLVER_DEADLINE_MS = 400;
 
+/**
+ * Le calcul de la liste n'a pas abouti.
+ *
+ * Levée quand la résolution a été interrompue à chaque essai, ou quand les
+ * contraintes dures se contredisent. Elle n'est JAMAIS convertie en écart
+ * nutritionnel (FR-319): la version précédente faisait d'une interruption un
+ * « nutriment inatteignable », et fabriquait des écarts présentés avec le même
+ * aplomb qu'un résultat juste.
+ */
+export class PlanComputationError extends Error {
+  readonly reason: 'interrupted' | 'infeasible';
+
+  constructor(reason: 'interrupted' | 'infeasible') {
+    super(reason === 'interrupted'
+      ? 'La résolution de la liste a été interrompue à chaque essai.'
+      : 'Les contraintes de la liste se contredisent.');
+    this.name = 'PlanComputationError';
+    this.reason = reason;
+  }
+}
+
+type Constraint = { min?: number; max?: number; equal?: number };
+
+function hasNegativeQuantity(values: Record<string, number>): boolean {
+  return Object.values(values).some((q) => q < -NUMERICAL_NOISE_G);
+}
+
+const FOOD_PREFIX = 'f_';
+const CAP_PREFIX = 'cap_';
+const GROUP_PREFIX = 'grp_';
+const BALANCE_PREFIX = 'bal_';
+const COUPLING_PREFIX = 'cpl_';
+const FLOOR_PREFIX = 'min_';
+const CEILING_PREFIX = 'max_';
+const SAFETY_PREFIX = 'lss_';
+
 export function solvePlan(input: SolverInput): SolverOutput {
-  const { needs, nutrients, candidates, periodFactor, relaxed } = input;
+  const { needs, nutrients, candidates, model, upperLimits, periodFactor } = input;
   const nutrientByCode = new Map(nutrients.map((n) => [n.code, n]));
 
-  const constraints: Record<string, { min?: number; max?: number }> = {};
-  for (const need of needs) {
-    if (relaxed?.has(need.nutrient)) continue;
-    const nutrient = nutrientByCode.get(need.nutrient);
-    if (!nutrient) continue;
-
-    const constraint: { min?: number; max?: number } = {
-      min: need.value * thresholdFor(nutrient),
-    };
-    if (need.nutrient === 'energy') {
-      constraint.max = need.value * ENERGY_UPPER_TOLERANCE;
-    } else if (need.valueMax !== undefined) {
-      // Référence exprimée en intervalle (lipides, glucides): la borne haute
-      // fait partie de la référence, la dépasser serait s'en écarter.
-      constraint.max = need.valueMax;
-    }
-    constraints[need.nutrient] = constraint;
-  }
-
-  // Le plancher n'a de sens que si le jeu de candidats peut l'atteindre: en
-  // hiver, ou sous un régime très restrictif, il pourrait rendre le modèle
-  // infaisable pour une raison qui n'a rien de nutritionnel.
-  const produceCapacity = candidates
-    .filter((f) => f.isFruitVegetable)
-    .reduce((total, f) => total + f.maxQtyG * periodFactor, 0);
-  const produceFloor = Math.min(PRODUCE_FLOOR_G_PER_DAY * periodFactor, produceCapacity);
-  if (produceFloor > 0) constraints[PRODUCE_KEY] = { min: produceFloor };
-
+  const constraints: Record<string, Constraint> = {};
   const variables: Record<string, Record<string, number>> = {};
-  for (const food of candidates) {
-    const variable: Record<string, number> = { mass: 1, [CAP_PREFIX + food.code]: 1 };
-    if (food.isFruitVegetable) variable[PRODUCE_KEY] = 1;
 
-    // Plafond collectif: toutes les formes d'un même ingrédient partagent une
-    // enveloppe, au lieu d'en avoir chacune une. Sans cela, le solveur multiplie
-    // les variantes pour contourner la borne individuelle.
-    const cap = CATEGORY_DAILY_CAP_G[food.category];
-    if (cap !== undefined) {
-      const key = GROUP_PREFIX + food.category;
-      variable[key] = 1;
-      constraints[key] = { max: cap * periodFactor };
-    }
+  // --- Sous-groupes: bornes et critère ------------------------------------
+  const groupOf = new Map<string, string>();
+  for (const g of model.subgroups) {
+    for (const code of g.foods) groupOf.set(code, g.code);
+    const bounds: Constraint = { min: g.lower };
+    if (g.upper !== null) bounds.max = g.upper;
+    constraints[GROUP_PREFIX + g.code] = bounds;
 
-    for (const [code, per100g] of Object.entries(food.composition)) {
-      if (constraints[code]) variable[code] = per100g / 100;
+    if (g.direction === 'mean' && g.sd) {
+      // |Σ quantités − moyenne| linéarisé par deux écarts positifs, chacun
+      // rapporté à l'écart-type du sous-groupe (rapport de l'ANSES).
+      constraints[BALANCE_PREFIX + g.code] = { equal: g.mean };
+      variables['ecart_plus_' + g.code] = { cost: 1 / g.sd, [BALANCE_PREFIX + g.code]: -1 };
+      variables['ecart_moins_' + g.code] = { cost: 1 / g.sd, [BALANCE_PREFIX + g.code]: 1 };
     }
-    variables[food.code] = variable;
-    constraints[CAP_PREFIX + food.code] = { max: food.maxQtyG * periodFactor };
+  }
+  const costByGroup = new Map(model.subgroups.map((g) => [g.code, g.costPerGram]));
+  const couplingsOf = new Map<string, string[]>();
+  model.couplings.forEach((c, i) => {
+    constraints[COUPLING_PREFIX + i] = { max: c.upper };
+    for (const code of c.codes) couplingsOf.set(code, [...(couplingsOf.get(code) ?? []), COUPLING_PREFIX + i]);
+  });
+
+  // --- Nutriments: seuils bas flexibles, plafonds durs ----------------------
+  for (const need of needs) {
+    const nutrient = nutrientByCode.get(need.nutrient);
+    if (!nutrient || need.value <= 0) continue;
+    const target = need.value * thresholdFor(nutrient);
+    constraints[FLOOR_PREFIX + need.nutrient] = { min: target };
+    const weight = thresholdFor(nutrient) === 1 ? PRIORITY_SHORTFALL_FACTOR : 1;
+    const cost = ANSES_FLEXIBLE_NUTRIENTS.has(need.nutrient) ? ANSES_FLEXIBILITY_COST : SHORTFALL_COST * weight;
+    variables['manque_' + need.nutrient] = { cost: cost / target, [FLOOR_PREFIX + need.nutrient]: 1 };
+    if (need.nutrient === 'energy') {
+      constraints[CEILING_PREFIX + need.nutrient] = { max: need.value * ENERGY_UPPER_TOLERANCE };
+    } else if (need.valueMax !== undefined) {
+      // Référence exprimée en intervalle (lipides, glucides): la borne haute fait
+      // partie de la référence, la dépasser serait s'en écarter.
+      constraints[CEILING_PREFIX + need.nutrient] = { max: need.valueMax };
+    }
+  }
+  for (const limit of upperLimits) {
+    constraints[SAFETY_PREFIX + limit.nutrientCode] = { max: limit.value * periodFactor };
   }
 
-  const solution = solveBounded(
-    { optimize: 'mass', opType: 'min', constraints, variables },
-    candidates.map((f) => f.code),
-    SOLVER_PRECISION,
-    SOLVER_DEADLINE_MS,
-  );
+  // --- Aliments ------------------------------------------------------------
+  for (const food of candidates) {
+    const group = groupOf.get(food.code);
+    // Un aliment sans sous-groupe actif n'est pas proposable (FR-309).
+    if (!group) continue;
+    const variable: Record<string, number> = {
+      cost: costByGroup.get(group) ?? 0,
+      [CAP_PREFIX + food.code]: 1,
+      [GROUP_PREFIX + group]: 1,
+    };
+    if (constraints[BALANCE_PREFIX + group]) variable[BALANCE_PREFIX + group] = 1;
+    for (const key of couplingsOf.get(group) ?? []) variable[key] = 1;
+    for (const [code, per100g] of Object.entries(food.composition)) {
+      const perGram = per100g / 100;
+      if (constraints[FLOOR_PREFIX + code]) variable[FLOOR_PREFIX + code] = perGram;
+      if (constraints[CEILING_PREFIX + code]) variable[CEILING_PREFIX + code] = perGram;
+      if (constraints[SAFETY_PREFIX + code]) variable[SAFETY_PREFIX + code] = perGram;
+    }
+    variables[FOOD_PREFIX + food.code] = variable;
+    // La borne basse à zéro est EXPLICITE. La bibliothèque suppose ses variables
+    // positives, mais ne le garantit pas sur une instance dégénérée: constaté,
+    // −589 g d'un légume dans une solution déclarée réalisable. Ce légume
+    // « retranché » compensait les autres — 866 g de légumes pour une borne de
+    // 277, 123 % de l'énergie, des limites de sécurité dépassées —, et la liste
+    // l'écartait ensuite comme du bruit, en affichant la violation.
+    const cap: Constraint = { min: 0, max: food.maxQtyG * periodFactor };
+    const minimum = input.minimums?.get(food.code);
+    if (minimum !== undefined) cap.min = Math.min(minimum, cap.max!);
+    constraints[CAP_PREFIX + food.code] = cap;
+  }
+
+  const foodVariables = Object.keys(variables).filter((k) => k.startsWith(FOOD_PREFIX));
+  const lpModel = { optimize: 'cost', opType: 'min', constraints, variables };
+
+  let solution = null;
+  for (const [attempt, precision] of SOLVER_PRECISIONS.entries()) {
+    if (attempt > 0) {
+      foodVariables.forEach((key, i) => {
+        variables[key]!.cost! += (PERTURBATION_PER_GRAM * (i + 1)) / foodVariables.length;
+      });
+    }
+    solution = solveBounded(lpModel, foodVariables, precision, SOLVER_DEADLINE_MS);
+    // Un modèle déclaré infaisable a droit au même second essai qu'un modèle
+    // interrompu: sur une instance dégénérée, le simplexe peut conclure à tort à
+    // l'infaisabilité — constaté sur une liste végane, après le seul retrait
+    // d'aliments, ce qui ne peut pas rendre infaisable un modèle aux seuils
+    // flexibles.
+    if (!solution.interrompu && solution.feasible && !hasNegativeQuantity(solution.valeurs)) break;
+  }
+  if (!solution || solution.interrompu) throw new PlanComputationError('interrupted');
+  // Les seuils bas étant flexibles, seules les contraintes dures — et les
+  // minimums de la consolidation — peuvent se contredire. L'appelant décide.
+  if (!solution.feasible) throw new PlanComputationError('infeasible');
+  // Une quantité négative qui survit au second essai est un échec du solveur:
+  // la liste qu'elle produirait violerait ses propres contraintes.
+  if (hasNegativeQuantity(solution.valeurs)) throw new PlanComputationError('interrupted');
 
   const quantitiesByFood = new Map<string, number>();
-  if (solution.feasible) {
-    for (const food of candidates) {
-      const quantity = solution.valeurs[food.code];
-      if (typeof quantity !== 'number' || quantity <= NUMERICAL_NOISE_G) continue;
-      // Une quantité infime ne se pèse ni ne s'achète, mais la RETIRER faisait
-      // mentir la couverture affichée: le solveur garantissait les seuils sur
-      // une solution qui n'était plus celle présentée, et aucun écart n'était
-      // signalé puisque le modèle, lui, restait faisable. Le défaut ne se voyait
-      // que sur les aliments très denses employés à dose homéopathique — une
-      // algue séchée à 0,4 g pouvait porter l'essentiel de la vitamine A.
-      // On relève donc au gramme au lieu de jeter.
-      quantitiesByFood.set(food.code, Math.max(quantity, MIN_DISPLAY_G));
-    }
+  for (const key of foodVariables) {
+    const quantity = solution.valeurs[key];
+    if (typeof quantity !== 'number' || quantity <= NUMERICAL_NOISE_G) continue;
+    quantitiesByFood.set(key.slice(FOOD_PREFIX.length), quantity);
   }
-
-  return { feasible: Boolean(solution.feasible), quantitiesByFood };
+  return { quantitiesByFood };
 }

@@ -1,5 +1,5 @@
 import { createSupabaseReferenceClient } from '@/lib/supabase-browser';
-import type { Food, Nutrient, IntakeKind, ReferenceSex } from '@/domain/types';
+import type { ConsumptionSubgroup, Food, Nutrient, IntakeKind, ReferenceSex, UpperLimit } from '@/domain/types';
 
 /**
  * Accès en lecture aux données de référence.
@@ -72,7 +72,7 @@ export async function fetchFoods(seasonalMonth?: number): Promise<Food[]> {
   const client = createSupabaseReferenceClient();
   const { data, error } = await client
     .from('foods')
-    .select('code, label, category, is_fruit_vegetable, is_fortified, diet_tags, excluded_by, composition, min_qty_g, max_qty_g, unit_label, unit_grams');
+    .select('code, label, category, is_fruit_vegetable, is_fortified, diet_tags, excluded_by, composition, min_qty_g, max_qty_g, unit_label, unit_grams, anses_subgroup, family, attached_by');
   if (error) throw new Error('Lecture des aliments impossible: ' + error.message);
 
   const foods: Food[] = (data ?? []).map((row) => ({
@@ -88,6 +88,9 @@ export async function fetchFoods(seasonalMonth?: number): Promise<Food[]> {
     maxQtyG: Number(row.max_qty_g),
     unitLabel: row.unit_label,
     unitGrams: Number(row.unit_grams),
+    ansesSubgroup: row.anses_subgroup ?? null,
+    family: row.family || row.code,
+    isSubstitute: row.attached_by?.substitut === true,
   }));
 
   if (seasonalMonth === undefined) return foods;
@@ -141,4 +144,56 @@ export async function fetchReferenceVersions(): Promise<Record<string, string>> 
     foods: foods.data?.[0]?.version ?? 'inconnue',
     seasonality: seasons.data?.[0]?.version ?? 'inconnue',
   };
+}
+
+/**
+ * Paramètres du modèle de consommation de l'ANSES (feature 004).
+ *
+ * La provenance de chaque valeur reste en base, dans `by_sex`; le calcul n'en a
+ * pas l'usage et ne la remonte pas.
+ */
+export async function fetchConsumptionModel(): Promise<ConsumptionSubgroup[]> {
+  const client = createSupabaseReferenceClient();
+  const { data, error } = await client
+    .from('consumption_subgroups')
+    .select('code, label, direction, by_sex, coupled_with, coupled_upper, substitutes_for, reference_energy_kcal');
+  if (error) throw new Error('Lecture du modèle de consommation impossible: ' + error.message);
+  return (data ?? []).map(toConsumptionSubgroup);
+}
+
+/** Forme commune au fichier de référence et à la base (colonnes en snake_case). */
+export type ConsumptionSubgroupRow = {
+  code: string;
+  label: string;
+  direction: string;
+  by_sex: Record<ReferenceSex, { lower: number; mean: number; sd?: number; upper: number | null }>;
+  coupled_with: string | null;
+  coupled_upper: { male: number; female: number } | null;
+  substitutes_for: string[];
+  reference_energy_kcal: { male: number; female: number };
+};
+
+export function toConsumptionSubgroup(row: ConsumptionSubgroupRow): ConsumptionSubgroup {
+  const params = (sex: ReferenceSex) => {
+    const p = row.by_sex[sex];
+    return { lower: Number(p.lower), mean: Number(p.mean), sd: p.sd === undefined ? undefined : Number(p.sd), upper: p.upper === null ? null : Number(p.upper) };
+  };
+  return {
+    code: row.code,
+    label: row.label,
+    direction: row.direction as ConsumptionSubgroup['direction'],
+    bySex: { male: params('male'), female: params('female') },
+    coupledWith: row.coupled_with,
+    coupledUpper: row.coupled_upper ? { male: Number(row.coupled_upper.male), female: Number(row.coupled_upper.female) } : null,
+    substitutesFor: row.substitutes_for ?? [],
+    referenceEnergyKcal: { male: Number(row.reference_energy_kcal.male), female: Number(row.reference_energy_kcal.female) },
+  };
+}
+
+/** Limites supérieures de sécurité (feature 004, FR-316). */
+export async function fetchUpperLimits(): Promise<UpperLimit[]> {
+  const client = createSupabaseReferenceClient();
+  const { data, error } = await client.from('upper_limits').select('nutrient_code, value, unit');
+  if (error) throw new Error('Lecture des limites de sécurité impossible: ' + error.message);
+  return (data ?? []).map((row) => ({ nutrientCode: row.nutrient_code, value: Number(row.value), unit: row.unit }));
 }

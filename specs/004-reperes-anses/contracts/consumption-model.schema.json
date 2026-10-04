@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feedmyass.local/contracts/004/consumption-model.schema.json",
+  "title": "Modele de consommation de l'ANSES",
+  "description": "Forme du fichier src/data/reference/consumption-model.json. Parametres du modele d'optimisation de l'avis Anses 2012-SA-0103 (decembre 2016): bornes, moyennes et ecarts-types de consommation par sous-groupe d'aliments et par sexe, adultes. Chaque valeur porte sa provenance (principe II).",
+  "type": "object",
+  "required": ["_meta", "subgroups"],
+  "additionalProperties": false,
+  "$defs": {
+    "provenance": {
+      "type": "object",
+      "required": ["table", "page"],
+      "additionalProperties": false,
+      "properties": {
+        "table": { "type": "string", "description": "Ex.: 'Tableau 9', 'Annexe 6'." },
+        "page": { "type": "integer", "minimum": 1, "description": "Page de l'avis (en-tete 'Page n/82')." }
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "required": ["lower", "mean", "upper", "provenance"],
+      "additionalProperties": false,
+      "properties": {
+        "lower": { "type": "number", "minimum": 0, "description": "Borne basse en g/j (P5)." },
+        "mean": { "type": "number", "minimum": 0, "description": "Consommation moyenne en g/j." },
+        "sd": { "type": "number", "exclusiveMinimum": 0, "description": "Ecart-type en g/j (annexe 6). Requis si direction = mean." },
+        "upper": { "type": ["number", "null"], "minimum": 0, "description": "Borne haute en g/j (P95 ou plafond epidemiologique). null = pas de limite superieure." },
+        "provenance": {
+          "type": "object",
+          "required": ["lower", "mean", "upper"],
+          "additionalProperties": false,
+          "properties": {
+            "lower": { "$ref": "#/$defs/provenance" },
+            "mean": { "$ref": "#/$defs/provenance" },
+            "sd": { "$ref": "#/$defs/provenance" },
+            "upper": { "$ref": "#/$defs/provenance" }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": ["description", "source", "version", "retrieved_at", "notes"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string" },
+        "source": { "type": "string", "description": "Reference complete de l'avis, URL comprise." },
+        "version": { "type": "string", "description": "Date de l'avis, '2016-12'." },
+        "retrieved_at": { "type": "string", "format": "date" },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Chaque ecart assume au modele de l'ANSES (substitutions vegetales, extension d'age a 70 ans, contraintes de contaminants hors perimetre) y est nomme."
+        }
+      }
+    },
+    "subgroups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["code", "label", "direction", "by_sex", "reference_energy_kcal"],
+        "additionalProperties": false,
+        "properties": {
+          "code": { "type": "string", "pattern": "^[a-z_]+$" },
+          "label": { "type": "string", "description": "Libelle ANSES exact." },
+          "direction": { "enum": ["mean", "maximize", "minimize"] },
+          "by_sex": {
+            "type": "object",
+            "required": ["male", "female"],
+            "additionalProperties": false,
+            "properties": {
+              "male": { "$ref": "#/$defs/parameters" },
+              "female": { "$ref": "#/$defs/parameters" }
+            }
+          },
+          "coupled_with": { "type": ["string", "null"] },
+          "coupled_upper": {
+            "type": ["object", "null"],
+            "required": ["male", "female", "provenance"],
+            "additionalProperties": false,
+            "properties": {
+              "male": { "type": "number", "minimum": 0 },
+              "female": { "type": "number", "minimum": 0 },
+              "provenance": { "$ref": "#/$defs/provenance" }
+            }
+          },
+          "reference_energy_kcal": {
+            "type": "object",
+            "required": ["male", "female", "provenance"],
+            "additionalProperties": false,
+            "description": "Besoin énergétique sur lequel l'ANSES a calibré son modèle (avis, page 13). Décision du projet: les bornes sont proportionnées au besoin du profil, sauf les plafonds épidémiologiques.",
+            "properties": {
+              "male": { "type": "number", "exclusiveMinimum": 0 },
+              "female": { "type": "number", "exclusiveMinimum": 0 },
+              "provenance": { "$ref": "#/$defs/provenance" }
+            }
+          },
+          "substitutes_for": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Decision du projet (FR-310a): codes des sous-groupes dont l'exclusion par le regime leve la borne haute de celui-ci."
+          }
+        }
+      }
+    }
+  }
+}

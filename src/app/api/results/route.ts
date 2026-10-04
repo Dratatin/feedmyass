@@ -1,15 +1,17 @@
 import { NextResponse } from 'next/server';
 import { saveResultSchema } from '@/lib/validation';
-import { ApiError, validationError } from '@/lib/errors';
+import { ApiError, planComputationInterrupted, validationError } from '@/lib/errors';
 import { requireUserId } from '@/lib/auth';
 import { computeNeeds } from '@/domain/needs';
-import { buildIngredientPlan } from '@/domain/plan';
+import { buildIngredientPlan, PlanComputationError } from '@/domain/plan';
 import { energyReference } from '@/data/reference/energy';
 import {
+  fetchConsumptionModel,
   fetchFoods,
   fetchNutrients,
   fetchReferenceIntakes,
   fetchSeasonalFoodCodes,
+  fetchUpperLimits,
 } from '@/data/repositories/reference';
 import { insertResult, listResults } from '@/data/repositories/results';
 import { saveProfile } from '@/data/repositories/profiles';
@@ -62,9 +64,11 @@ export async function POST(request: Request) {
 
     let plan = null;
     if (parsed.data.diet) {
-      const [allFoods, seasonalCodes] = await Promise.all([
+      const [allFoods, seasonalCodes, subgroups, upperLimits] = await Promise.all([
         fetchFoods(),
         fetchSeasonalFoodCodes(generatedAt.getMonth() + 1),
+        fetchConsumptionModel(),
+        fetchUpperLimits(),
       ]);
       plan = buildIngredientPlan({
         needs: period === 'week' ? needs.weekly : needs.daily,
@@ -73,6 +77,9 @@ export async function POST(request: Request) {
         seasonalCodes,
         diet: parsed.data.diet,
         period,
+        referenceSex: profile.referenceSex,
+        subgroups,
+        upperLimits,
         generatedAt,
         referenceVersions: needs.referenceVersions,
       });
@@ -103,6 +110,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ id }, { status: 201 });
   } catch (error) {
+    if (error instanceof PlanComputationError) {
+      const apiError = planComputationInterrupted();
+      return NextResponse.json(apiError.toBody(), { status: apiError.status });
+    }
     if (error instanceof ApiError) return NextResponse.json(error.toBody(), { status: error.status });
     throw error;
   }

@@ -8,7 +8,7 @@ import foodsJson from '@/data/reference/foods.json';
 import seasonalityJson from '@/data/reference/seasonality.json';
 import energyJson from '@/data/reference/energy-equations.json';
 import type { Profile } from '@/domain/types';
-import { foodsFixture, intakesFixture, nutrientsFixture, seasonalCodesByMonth } from './fixtures/reference';
+import { consumptionModelFixture, foodsFixture, intakesFixture, nutrientsFixture, seasonalCodesByMonth, upperLimitsFixture } from './fixtures/reference';
 
 /**
  * Traçabilité (FR-038, principe II).
@@ -65,6 +65,9 @@ describe('versions figées dans les résultats', () => {
       seasonalCodes: seasonalCodesByMonth.get(9)!,
       diet: { base: 'omnivore', exclusions: [] },
       period: 'day',
+      referenceSex: profile.referenceSex,
+      subgroups: consumptionModelFixture,
+      upperLimits: upperLimitsFixture,
       generatedAt: new Date('2026-09-13T10:00:00Z'),
       referenceVersions: needs.referenceVersions,
     });

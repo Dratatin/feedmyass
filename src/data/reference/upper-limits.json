@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "description": "Limites supérieures de sécurité (UL) applicables à l'ensemble des apports alimentaires de l'adulte. Elles bornent la liste d'ingrédients; ce ne sont pas des besoins.",
+    "source": "EFSA, Overview on Tolerable Upper Intake Levels as derived by the Scientific Committee on Food (SCF) and the EFSA Panel on Dietetic Products, Nutrition and Allergies (NDA), version 11 (août 2025) — https://www.efsa.europa.eu/sites/default/files/2024-05/ul-summary-report.pdf. Chaque ligne cite l'avis primaire dont la valeur est issue.",
+    "version": "11 (2025-08)",
+    "retrieved_at": "2026-10-04",
+    "notes": [
+      "Valeurs de la colonne « Adults » des tableaux 1 (minéraux) et 3 (vitamines).",
+      "Écartés parce que la limite ne vise pas l'alimentation courante: magnésium (UL de 250 mg/j limitée aux sels dissociables des compléments, de l'eau et des aliments enrichis, note g du tableau 1), vitamine B9 (UL limitée aux formes ajoutées, note d du tableau 3), vitamine B3 (UL limitée à l'acide nicotinique et au nicotinamide).",
+      "Écartés faute d'UL: fer et manganèse (simples « niveaux d'apport sûrs », tableau 2, qui « ne peuvent servir à caractériser un risque »), phosphore, potassium, vitamines B1, B2, B5, B12, C, K.",
+      "Vitamine A: l'UL porte sur la vitamine A préformée, rétinol et esters de rétinyle (note e du tableau 3), et non sur les équivalents rétinol totaux qui incluent le bêta-carotène. Elle s'applique donc au code de composition « retinol », pas à « vitamin_a ».",
+      "Cuivre: l'EFSA a établi en 2023 une dose journalière admissible de 0,07 mg/kg de poids corporel (note d du tableau 1), soit 5,25 mg/j pour 75 kg; l'UL de 5 mg/j est retenue, plus prudente sur ce poids et indépendante du profil.",
+      "Vitamine E: révision de l'UL en cours à l'EFSA (note f du tableau 3)."
+    ]
+  },
+  "upper_limits": [
+    { "nutrient_code": "iodine", "value": 600, "unit": "µg", "source": "SCF (2003b), Opinion on the Tolerable Upper Intake Level of Iodine", "scope_note": "Apport total, toutes sources alimentaires." },
+    { "nutrient_code": "selenium", "value": 255, "unit": "µg", "source": "EFSA NDA Panel (2023c), Scientific opinion on the tolerable upper intake level for selenium, EFSA Journal 21(1), doi:10.2903/j.efsa.2023.7704", "scope_note": "Apport total, toutes sources alimentaires." },
+    { "nutrient_code": "zinc", "value": 25, "unit": "mg", "source": "SCF (2002c), Opinion on the Tolerable Upper Intake Level of Zinc", "scope_note": "Apport total, toutes sources alimentaires." },
+    { "nutrient_code": "copper", "value": 5, "unit": "mg", "source": "SCF (2003a), Opinion on the Tolerable Upper Intake Level of Copper", "scope_note": "Apport total, toutes sources alimentaires." },
+    { "nutrient_code": "calcium", "value": 2500, "unit": "mg", "source": "EFSA NDA Panel (2012b), Scientific Opinion on the Tolerable Upper Intake Level of calcium, EFSA Journal 10(7), doi:10.2903/j.efsa.2012.2814", "scope_note": "Apport total, toutes sources alimentaires." },
+    { "nutrient_code": "vitamin_d", "value": 100, "unit": "µg", "source": "EFSA NDA Panel (2023e), Scientific opinion on the tolerable upper intake level for vitamin D, EFSA Journal 21(8), doi:10.2903/j.efsa.2023.8145", "scope_note": "Apport total, toutes sources alimentaires." },
+    { "nutrient_code": "vitamin_b6", "value": 12, "unit": "mg", "source": "EFSA NDA Panel (2023d), Scientific opinion on the tolerable upper intake level for vitamin B6, EFSA Journal 21(5), doi:10.2903/j.efsa.2023.8006", "scope_note": "Apport total, toutes sources alimentaires." },
+    { "nutrient_code": "vitamin_e", "value": 300, "unit": "mg", "source": "SCF (2003d), Opinion on the Tolerable Upper Intake Level of Vitamin E", "scope_note": "Apport total, toutes sources alimentaires; révision en cours à l'EFSA." },
+    { "nutrient_code": "retinol", "value": 3000, "unit": "µg", "source": "EFSA NDA Panel (2024c), Scientific opinion on the tolerable upper intake level for preformed vitamin A and β-carotene, EFSA Journal 22(6), doi:10.2903/j.efsa.2024.8814", "scope_note": "Vitamine A préformée seulement (rétinol et esters de rétinyle); le bêta-carotène n'est pas concerné." }
+  ]
+}

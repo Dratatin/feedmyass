@@ -1,15 +1,17 @@
 import { NextResponse } from 'next/server';
 import { planRequestSchema } from '@/lib/validation';
-import { ApiError, validationError } from '@/lib/errors';
+import { ApiError, planComputationInterrupted, validationError } from '@/lib/errors';
 import { computeNeeds } from '@/domain/needs';
-import { buildIngredientPlan } from '@/domain/plan';
+import { buildIngredientPlan, PlanComputationError } from '@/domain/plan';
 import { energyReference } from '@/data/reference/energy';
 import {
+  fetchConsumptionModel,
   fetchFoods,
   fetchNutrients,
   fetchReferenceIntakes,
   fetchSeasonalFoodCodes,
   fetchSeasonalMonthsByFood,
+  fetchUpperLimits,
 } from '@/data/repositories/reference';
 import type { Profile } from '@/domain/types';
 import { DISCLAIMER } from '@/app/api/needs/route';
@@ -46,15 +48,17 @@ export async function POST(request: Request) {
     const generatedAt = parsed.data.generated_at ? new Date(parsed.data.generated_at) : new Date();
     const month = generatedAt.getMonth() + 1;
 
-    const [nutrients, intakes, allFoods, seasonalCodes, seasonMonthsByFood] = await Promise.all([
+    const [nutrients, intakes, allFoods, seasonalCodes, seasonMonthsByFood, subgroups, upperLimits] = await Promise.all([
       fetchNutrients(),
       fetchReferenceIntakes(profile.referenceSex, profile.age),
       fetchFoods(),
       fetchSeasonalFoodCodes(month),
       fetchSeasonalMonthsByFood(),
+      fetchConsumptionModel(),
+      fetchUpperLimits(),
     ]);
 
-    if (nutrients.length === 0 || intakes.length === 0 || allFoods.length === 0) {
+    if (nutrients.length === 0 || intakes.length === 0 || allFoods.length === 0 || subgroups.length === 0) {
       throw new ApiError(
         'reference_data_unavailable',
         'Les données de référence ne sont pas disponibles. Réessayez dans quelques instants.',
@@ -72,6 +76,9 @@ export async function POST(request: Request) {
       seasonMonthsByFood,
       diet: parsed.data.diet,
       period,
+      referenceSex: profile.referenceSex,
+      subgroups,
+      upperLimits,
       generatedAt,
       referenceVersions: needs.referenceVersions,
       disclaimer: DISCLAIMER,
@@ -79,6 +86,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json(plan);
   } catch (error) {
+    if (error instanceof PlanComputationError) {
+      const apiError = planComputationInterrupted();
+      return NextResponse.json(apiError.toBody(), { status: apiError.status });
+    }
     if (error instanceof ApiError) {
       return NextResponse.json(error.toBody(), { status: error.status });
     }

@@ -2,15 +2,16 @@
 import { computeNeeds } from '../src/domain/needs';
 import { energyReference } from '../src/data/reference/energy';
 import { buildIngredientPlan } from '../src/domain/plan';
-import { fetchFoods, fetchNutrients, fetchReferenceIntakes, fetchSeasonalFoodCodes } from '../src/data/repositories/reference';
+import { fetchConsumptionModel, fetchFoods, fetchNutrients, fetchReferenceIntakes, fetchSeasonalFoodCodes, fetchUpperLimits } from '../src/data/repositories/reference';
 import type { Diet, Profile } from '../src/domain/types';
 
 const profile: Profile = { weightKg: 75, heightCm: 178, age: 35, referenceSex: 'male', activityLevel: 'active' };
 const generatedAt = new Date('2026-09-13T10:00:00Z');
 
 const main = async () => {
-  const [nutrients, intakes, allFoods, seasonalCodes] = await Promise.all([
+  const [nutrients, intakes, allFoods, seasonalCodes, subgroups, upperLimits] = await Promise.all([
     fetchNutrients(), fetchReferenceIntakes('male', 35), fetchFoods(), fetchSeasonalFoodCodes(9),
+    fetchConsumptionModel(), fetchUpperLimits(),
   ]);
   const needs = computeNeeds(profile, { nutrients, intakes, energy: energyReference });
 
@@ -23,6 +24,7 @@ const main = async () => {
     const started = Date.now();
     const plan = buildIngredientPlan({
       needs: needs.daily, nutrients, allFoods, seasonalCodes, diet, period: 'day',
+      referenceSex: profile.referenceSex, subgroups, upperLimits,
       generatedAt, referenceVersions: needs.referenceVersions,
     });
     const label = diet.base + (diet.exclusions.length ? '/' + diet.exclusions.join('+') : '');

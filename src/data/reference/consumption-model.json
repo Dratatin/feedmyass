@@ -1,0 +1,2068 @@
+{
+  "_meta": {
+    "description": "Paramètres du modèle d'optimisation de l'ANSES: consommation par sous-groupe d'aliments et par sexe, adultes.",
+    "source": "Anses, Actualisation des repères du PNNS: révision des repères de consommations alimentaires, avis et rapport, saisine 2012-SA-0103, décembre 2016 — https://www.anses.fr/fr/system/files/NUT2012SA0103Ra-1.pdf",
+    "version": "2016-12",
+    "retrieved_at": "2026-10-04",
+    "notes": [
+      "Bornes (P5, P95), moyennes et limites couplantes: tableau 9 de l'avis, pages 73-74. Écarts-types: annexe 6, pages 80-81, colonnes du sous-groupe (et non du groupe). Sens d'optimisation: tableau 5 (page 31) et § 3.2.2.1 (page 32). Les numéros de page sont ceux du pied de page « Page n/82 ». Valeurs relues sur la mise en page du PDF (extraction positionnée des cellules), le 2026-10-04.",
+      "Viande hors volaille (71 g/j) et charcuterie (25 g/j): la borne haute est le plafond épidémiologique, qui remplace le P95; la moyenne de la charcuterie (39 g/j chez l'homme) le dépasse, c'est attendu.",
+      "Les limites couplantes portent sur la somme de deux sous-groupes: pains raffinés et complets, autres féculents raffinés et complets, les deux sous-groupes d'huiles, boissons sucrées et jus de fruits.",
+      "Eaux de boisson et sel ne sont pas repris: l'annexe 6 ne leur donne pas d'écart-type, et le catalogue ne propose aucun aliment de ces sous-groupes.",
+      "Population de l'ANSES: hommes de 18 à 64 ans, femmes de 18 à 54 ans. Décision du projet: les paramètres s'appliquent à tous les adultes acceptés par l'application, jusqu'à 70 ans.",
+      "Décision du projet (FR-310a, 2026-10-04): le champ substitutes_for n'est pas de l'ANSES, dont le modèle est établi sur une population omnivore. Il lève la borne haute des légumineuses quand le régime exclut viande, volaille, poissons ou œufs, et celle du lait, des produits laitiers frais nature et des fromages quand seuls leurs substituts végétaux restent.",
+      "Énergie de référence: l'ANSES a calibré son modèle sur un besoin énergétique de 2 600 kcal/j pour les hommes et 2 100 kcal/j pour les femmes (avis, page 13). Décision du projet: les bornes, moyennes, écarts-types et limites couplantes sont proportionnés au besoin énergétique du profil — un adulte de 110 kg très actif a besoin de 4 400 kcal, que les bornes d'un besoin de 2 600 kcal ne permettent pas d'atteindre. Les plafonds épidémiologiques (viande hors volaille, charcuterie, boissons sucrées) ne le sont pas: ce sont des seuils de risque, pas des habitudes.",
+      "Les contraintes de contaminants du modèle de l'ANSES sont hors périmètre: elles reposent sur des données d'exposition (EAT 2) que l'application n'a pas."
+    ]
+  },
+  "subgroups": [
+    {
+      "code": "legumes",
+      "label": "Légumes",
+      "direction": "maximize",
+      "by_sex": {
+        "male": {
+          "lower": 16,
+          "mean": 123,
+          "sd": 92.6,
+          "upper": 285,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 21,
+          "mean": 124,
+          "sd": 76,
+          "upper": 282,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "fruits_frais",
+      "label": "Fruits frais",
+      "direction": "maximize",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 115,
+          "sd": 146.2,
+          "upper": 376,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 111,
+          "sd": 107.3,
+          "upper": 332,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "fruits_secs",
+      "label": "Fruits secs",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 1,
+          "sd": 4.9,
+          "upper": 3,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 1,
+          "sd": 2.6,
+          "upper": 4,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "fruits_transformes",
+      "label": "Fruits transformés : compotes et fruits cuits",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 8,
+          "sd": 22.5,
+          "upper": 53,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 12,
+          "sd": 22.6,
+          "upper": 57,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "oleagineux",
+      "label": "Oléagineux",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 2,
+          "sd": 4.5,
+          "upper": 9,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 1,
+          "sd": 2.6,
+          "upper": 5,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "pain_raffine",
+      "label": "Pain et produits de panification raffinés",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 102,
+          "sd": 89.7,
+          "upper": 260,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 60,
+          "sd": 47.9,
+          "upper": 161,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": "pain_complet",
+      "coupled_upper": {
+        "male": 284,
+        "female": 177,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 73
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "pain_complet",
+      "label": "Pain et produits de panification complets",
+      "direction": "maximize",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 16,
+          "sd": 44.4,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 12,
+          "sd": 25.2,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": "pain_raffine",
+      "coupled_upper": {
+        "male": 284,
+        "female": 177,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 73
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "autres_feculents_raffines",
+      "label": "Autres féculents raffinés",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 14,
+          "mean": 113,
+          "sd": 82.5,
+          "upper": 255,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 14,
+          "mean": 83,
+          "sd": 53.5,
+          "upper": 193,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": "autres_feculents_complets",
+      "coupled_upper": {
+        "male": 257,
+        "female": 193,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 73
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "autres_feculents_complets",
+      "label": "Autres féculents complets",
+      "direction": "maximize",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 3,
+          "sd": 10.9,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 2,
+          "sd": 10.2,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": "autres_feculents_raffines",
+      "coupled_upper": {
+        "male": 257,
+        "female": 193,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 73
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "amidon_sucre_gras",
+      "label": "Produits à base d'amidon, transformés sucrés/gras",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 14,
+          "sd": 29.6,
+          "upper": 71,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 15,
+          "sd": 21.7,
+          "upper": 61,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "amidon_sale_gras",
+      "label": "Produits à base d'amidon, transformés salés/gras",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 27,
+          "sd": 28.5,
+          "upper": 79,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 20,
+          "sd": 19.1,
+          "upper": 57,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "legumineuses",
+      "label": "Légumineuses",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 14,
+          "sd": 25.8,
+          "upper": 64,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 11,
+          "sd": 17.1,
+          "upper": 50,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 80
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [
+        "viande_hors_volaille",
+        "volaille",
+        "poissons_gras",
+        "autres_poissons",
+        "oeufs"
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "volaille",
+      "label": "Volailles",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 38,
+          "sd": 45.1,
+          "upper": 122,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 25,
+          "sd": 24.9,
+          "upper": 75,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "viande_hors_volaille",
+      "label": "Viande hors volaille",
+      "direction": "minimize",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 64,
+          "sd": 46.6,
+          "upper": 71,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 41,
+          "sd": 27.7,
+          "upper": 71,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "charcuterie",
+      "label": "Charcuterie",
+      "direction": "minimize",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 39,
+          "sd": 34.7,
+          "upper": 25,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 26,
+          "sd": 20.3,
+          "upper": 25,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 73
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 73
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "poissons_gras",
+      "label": "Poissons gras",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 5,
+          "sd": 11.2,
+          "upper": 27,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 4,
+          "sd": 8.4,
+          "upper": 25,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "autres_poissons",
+      "label": "Autres poissons, mollusques et crustacés",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 23,
+          "sd": 26.8,
+          "upper": 70,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 22,
+          "sd": 20.6,
+          "upper": 67,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "oeufs",
+      "label": "Œufs",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 13,
+          "sd": 17.7,
+          "upper": 46,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 12,
+          "sd": 15,
+          "upper": 43,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "lait",
+      "label": "Lait",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 98,
+          "sd": 177.8,
+          "upper": 386,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 87,
+          "sd": 116.8,
+          "upper": 350,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [
+        "lait"
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "frais_nature",
+      "label": "Produits laitiers frais nature",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 28,
+          "sd": 59,
+          "upper": 129,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 36,
+          "sd": 50.6,
+          "upper": 157,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [
+        "frais_nature"
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "frais_sucres",
+      "label": "Produits laitiers frais sucrés",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 42,
+          "sd": 64.4,
+          "upper": 154,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 47,
+          "sd": 55.7,
+          "upper": 161,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "desserts_lactes",
+      "label": "Desserts sucrés lactés",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 18,
+          "sd": 36,
+          "upper": 86,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 16,
+          "sd": 21.6,
+          "upper": 57,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "fromages",
+      "label": "Fromages",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 36,
+          "sd": 33.6,
+          "upper": 94,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 24,
+          "sd": 20.7,
+          "upper": 65,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [
+        "fromages"
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "beurre",
+      "label": "Beurre et beurre allégé",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 6,
+          "sd": 10.6,
+          "upper": 26,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 4,
+          "sd": 6,
+          "upper": 17,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "huiles_riches_ala",
+      "label": "Huiles végétales riches en ALA",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 0,
+          "sd": 1.9,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 0,
+          "sd": 1.2,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": "huiles_pauvres_ala",
+      "coupled_upper": {
+        "male": 21,
+        "female": 16,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 74
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "huiles_pauvres_ala",
+      "label": "Huiles végétales pauvres en ALA et margarines",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 5,
+          "sd": 7.7,
+          "upper": 20,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 4,
+          "sd": 5.4,
+          "upper": 16,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": "huiles_riches_ala",
+      "coupled_upper": {
+        "male": 21,
+        "female": 16,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 74
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "sauces_condiments",
+      "label": "Sauces, crèmes fraîches et condiments",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 13,
+          "sd": 16.5,
+          "upper": 43,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 14,
+          "sd": 12.5,
+          "upper": 39,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "produits_sucres",
+      "label": "Produits sucrés ou sucrés et gras",
+      "direction": "mean",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 68,
+          "sd": 58,
+          "upper": 174,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 1,
+          "mean": 59,
+          "sd": 41.6,
+          "upper": 141,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": null,
+      "coupled_upper": null,
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "boissons_sucrees",
+      "label": "Boissons sucrées de type soda",
+      "direction": "minimize",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 93,
+          "sd": 189.9,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 58,
+          "sd": 159.2,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": "jus_de_fruits",
+      "coupled_upper": {
+        "male": 263,
+        "female": 216,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 74
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    },
+    {
+      "code": "jus_de_fruits",
+      "label": "Jus de fruits",
+      "direction": "minimize",
+      "by_sex": {
+        "male": {
+          "lower": 0,
+          "mean": 59,
+          "sd": 100.6,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        },
+        "female": {
+          "lower": 0,
+          "mean": 61,
+          "sd": 80.9,
+          "upper": null,
+          "provenance": {
+            "lower": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "mean": {
+              "table": "Tableau 9",
+              "page": 74
+            },
+            "sd": {
+              "table": "Annexe 6",
+              "page": 81
+            },
+            "upper": {
+              "table": "Tableau 9",
+              "page": 74
+            }
+          }
+        }
+      },
+      "coupled_with": "boissons_sucrees",
+      "coupled_upper": {
+        "male": 263,
+        "female": 216,
+        "provenance": {
+          "table": "Tableau 9",
+          "page": 74
+        }
+      },
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
+    }
+  ]
+}

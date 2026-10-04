@@ -7,7 +7,8 @@ export type ErrorCode =
   | 'profile_out_of_scope'
   | 'unauthorized'
   | 'not_found'
-  | 'reference_data_unavailable';
+  | 'reference_data_unavailable'
+  | 'plan_computation_interrupted';
 
 export const errorStatus: Record<ErrorCode, number> = {
   validation_error: 400,
@@ -15,6 +16,7 @@ export const errorStatus: Record<ErrorCode, number> = {
   unauthorized: 401,
   not_found: 404,
   reference_data_unavailable: 503,
+  plan_computation_interrupted: 503,
 };
 
 export type FieldIssue = { field: string; expected: string };
@@ -43,6 +45,16 @@ export class ApiError extends Error {
       error: { code: this.code, message: this.message, ...(this.fields ? { fields: this.fields } : {}) },
     };
   }
+}
+
+/**
+ * Le calcul de la liste n'a pas abouti (feature 004, FR-319).
+ *
+ * Une résolution interrompue n'est jamais présentée comme un écart
+ * nutritionnel: la personne voit que le calcul a échoué, et peut le relancer.
+ */
+export function planComputationInterrupted(): ApiError {
+  return new ApiError('plan_computation_interrupted', "Le calcul de la liste n'a pas abouti. Réessayez.");
 }
 
 /** Traduit une erreur Zod en réponse 400 nommant chaque champ fautif (FR-002). */
