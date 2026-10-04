@@ -65,10 +65,10 @@ sécurité, rattachement des aliments — et leur chemin jusqu'à la base.
 
 ### Chemin jusqu'à la base
 
-- [ ] T014 Écrire `supabase/migrations/0007_consumption_model.sql` : tables `consumption_subgroups` et `upper_limits` (colonnes de traçabilité `source`, `version`, `retrieved_at`, lecture publique par RLS comme les autres tables de référence) ; colonnes `anses_subgroup text null`, `family text not null default ''`, `attached_by jsonb null` sur `public.foods`, avec un commentaire par colonne dans le style de `0006_food_selected_by.sql`
-- [ ] T015 Étendre `scripts/seed-reference.ts` aux deux fichiers nouveaux (stratégie `replace`, `required: true`), en conservant le refus de tout fichier sans `_meta.source`, `_meta.version`, `_meta.retrieved_at`
-- [ ] T016 Ajouter à `src/domain/types.ts` les types `ConsumptionSubgroup` et `UpperLimit` (data-model §§ 1-2) et les champs `ansesSubgroup: string | null` et `family: string` à `Food`
-- [ ] T017 Ajouter à `src/data/repositories/reference.ts` `fetchConsumptionModel()` et `fetchUpperLimits()`, et lire les nouvelles colonnes dans `fetchFoods()` ; ajouter les fixtures correspondantes à `tests/unit/fixtures/reference.ts` (lecture des fichiers JSON, comme les fixtures existantes)
+- [X] T014 Écrire `supabase/migrations/0007_consumption_model.sql` : tables `consumption_subgroups` et `upper_limits` (colonnes de traçabilité `source`, `version`, `retrieved_at`, lecture publique par RLS comme les autres tables de référence) ; colonnes `anses_subgroup text null`, `family text not null default ''`, `attached_by jsonb null` sur `public.foods`, avec un commentaire par colonne dans le style de `0006_food_selected_by.sql`
+- [X] T015 Étendre `scripts/seed-reference.ts` aux deux fichiers nouveaux (stratégie `replace`, `required: true`), en conservant le refus de tout fichier sans `_meta.source`, `_meta.version`, `_meta.retrieved_at`
+- [X] T016 Ajouter à `src/domain/types.ts` les types `ConsumptionSubgroup` et `UpperLimit` (data-model §§ 1-2) et les champs `ansesSubgroup: string | null` et `family: string` à `Food`
+- [X] T017 Ajouter à `src/data/repositories/reference.ts` `fetchConsumptionModel()` et `fetchUpperLimits()`, et lire les nouvelles colonnes dans `fetchFoods()` ; ajouter les fixtures correspondantes à `tests/unit/fixtures/reference.ts` (lecture des fichiers JSON, comme les fixtures existantes)
 
 **Checkpoint**: données prêtes — `npm run test:unit` vert, calcul encore inchangé
 
@@ -85,23 +85,23 @@ seconde ; pour l'omnivore, sous-groupes dans leurs bornes et ≥ 400 g de fruits
 
 ### Tests for User Story 1 + 4
 
-- [ ] T018 [P] [US1] Réécrire `tests/unit/plan-solver.test.ts`, bloc omnivore : aucune algue ni aliment à sous-groupe `null` ; chaque sous-groupe présent entre ses bornes ANSES du sexe du profil ; viande hors volaille ≤ 71 g/j et charcuterie ≤ 25 g/j ; deux profils ne différant que par le sexe reçoivent les bornes de leur sexe ; supprimer le test « atteint le plancher de fruits et légumes », remplacé par « fournit au moins 400 g de fruits et légumes sans plancher imposé » (SC-003)
-- [ ] T019 [P] [US4] Ajouter à `tests/unit/plan-solver.test.ts` un bloc « garde-fous » : énergie entre 100 % et 110 % ou écart signalé ; lipides et glucides jamais au-delà de leur borne haute ; aucun nutriment au-delà de sa limite de sécurité (iode compris) ; le taux de chaque écart égale celui de la couverture ; sur un jeu de candidats construit pour rendre un nutriment inatteignable, la liste sort quand même, avec ce seul écart et le plafond énergétique respecté
-- [ ] T020 [P] [US4] Ajouter à `tests/unit/plan-solver.test.ts` un test d'interruption : un `solveBounded` simulé qui s'interrompt deux fois fait lever l'erreur `plan_computation_interrupted`, et ne produit aucun écart
+- [X] T018 [P] [US1] Réécrire `tests/unit/plan-solver.test.ts`, bloc omnivore : aucune algue ni aliment à sous-groupe `null` ; chaque sous-groupe présent entre ses bornes ANSES du sexe du profil ; viande hors volaille ≤ 71 g/j et charcuterie ≤ 25 g/j ; deux profils ne différant que par le sexe reçoivent les bornes de leur sexe ; supprimer le test « atteint le plancher de fruits et légumes », remplacé par « fournit au moins 400 g de fruits et légumes sans plancher imposé » (SC-003)
+- [X] T019 [P] [US4] Ajouter à `tests/unit/plan-solver.test.ts` un bloc « garde-fous » : énergie entre 100 % et 110 % ou écart signalé ; lipides et glucides jamais au-delà de leur borne haute ; aucun nutriment au-delà de sa limite de sécurité (iode compris) ; le taux de chaque écart égale celui de la couverture ; sur un jeu de candidats construit pour rendre un nutriment inatteignable, la liste sort quand même, avec ce seul écart et le plafond énergétique respecté
+- [X] T020 [P] [US4] Ajouter à `tests/unit/plan-solver.test.ts` un test d'interruption : un `solveBounded` simulé qui s'interrompt deux fois fait lever l'erreur `plan_computation_interrupted`, et ne produit aucun écart
 
 ### Implementation for User Story 1 + 4
 
-- [ ] T021 [US1] Créer `src/domain/plan/consumption-model.ts` : à partir des sous-groupes, du sexe, de la période et des candidats, calculer les sous-groupes actifs (au moins un candidat), leurs bornes (× période), la borne basse levée pour un sous-groupe sans candidat, les couplages, et les coefficients du critère (`1/sd` pour `mean`, `−1/upper` ou `−1/coupled_upper` pour `maximize`, `+1/upper` pour `minimize`, research R2)
-- [ ] T022 [US1] Réécrire `src/domain/plan/solver.ts` : variables d'aliments et variables `ecart_plus_g`/`ecart_moins_g` par sous-groupe actif ; contrainte d'équilibre par sous-groupe ; bornes de sous-groupe et couplages ; plafond par aliment ; objectif de minimisation du coût de R2. Supprimer `CATEGORY_DAILY_CAP_G`, `PRODUCE_FLOOR_G_PER_DAY` et leurs commentaires. Ne proposer aucun aliment à `ansesSubgroup` nul (FR-309)
-- [ ] T023 [US4] Dans `src/domain/plan/solver.ts`, rendre chaque seuil bas de nutriment flexible : variable `manque_n` de coût `P × manque_n / seuil_n`, `P = 1000`, ×10 pour l'énergie, les protéines et les nutriments prioritaires (research R3) ; garder **dures** le plafond énergétique (`ENERGY_UPPER_TOLERANCE`), les bornes hautes `valueMax` et les limites de sécurité reçues en entrée. Exposer dans `SolverOutput` les manques par nutriment. Documenter le poids comme décision du projet
-- [ ] T024 [US4] Créer `src/domain/plan/gaps.ts` : écarts = nutriments à manque positif dans la liste livrée ; taux = ratio de la couverture calculée par `computeCoverage` ; cause établie en rejouant le modèle flexible sur `dietOnly` (manque disparu → `seasonality_restriction`) puis sur `allFoods` (→ `diet_restriction`), sinon `no_source_available` — rejeux uniquement s'il existe un écart (FR-320)
-- [ ] T025 [US4] Dans `src/domain/plan/bounded-solve.ts`, sur interruption, rejouer une fois à précision `1e-4` ; si la seconde résolution est aussi interrompue, lever une erreur typée que `buildIngredientPlan` propage sans la convertir en écart (FR-319, research R8)
-- [ ] T026 [US1] Mettre à jour `src/domain/plan/index.ts` : `PlanInput` reçoit `referenceSex`, `subgroups`, `upperLimits` ; enchaîne `consumption-model` → `solver` → `gaps` ; supprimer `src/domain/plan/relax.ts` et ses exports (`maxAchievable`, `maxAchievableWithinEnergy`, `solveWithRelaxation`), et le filtre des écarts « réellement sous le seuil », devenu inutile
-- [ ] T027 [US4] Ajouter le code `plan_computation_interrupted` (statut 503) à `src/lib/errors.ts`, le lever depuis `src/app/api/plan/route.ts`, et transmettre `referenceSex`, `fetchConsumptionModel()` et `fetchUpperLimits()` à `buildIngredientPlan` dans cette route ; afficher le message « Le calcul de la liste n'a pas abouti. Réessayez. » dans `src/app/(public)/liste/page.tsx` avec le composant `Notice` existant
-- [ ] T028 [P] [US1] Adapter les appelants de `buildIngredientPlan` et de `solvePlan` : `scripts/simulate-plans.ts`, `scripts/measure-catalogue.ts`, `scripts/smoke-plan.ts`, `scripts/smoke-solver.ts`, en passant sexe, sous-groupes et limites
-- [ ] T029 [P] [US4] Supprimer `scripts/check-caps.ts` et son entrée `check:caps` dans `package.json` (research R12)
-- [ ] T030 [US4] Ajouter à `scripts/simulate-plans.ts` les contrôles : aliment à sous-groupe nul (SC-001), sous-groupe hors bornes pour l'omnivore (SC-002), limite de sécurité dépassée (SC-009), écart dont le taux diffère de la couverture (SC-010), nombre de sous-groupes et grammes de fruits et légumes de l'omnivore (SC-003, SC-004)
-- [ ] T031 [US1] Exécuter `npm run test:unit` puis `npm run simulate:plans` ; si un nutriment couvert dans `baseline/simulation-avant.json` passe sous son seuil (SC-005), ajuster `P` et le documenter dans `src/domain/plan/solver.ts` et `research.md` R3 avant de poursuivre
+- [X] T021 [US1] Créer `src/domain/plan/consumption-model.ts` : à partir des sous-groupes, du sexe, de la période et des candidats, calculer les sous-groupes actifs (au moins un candidat), leurs bornes (× période), la borne basse levée pour un sous-groupe sans candidat, les couplages, et les coefficients du critère (`1/sd` pour `mean`, `−1/upper` ou `−1/coupled_upper` pour `maximize`, `+1/upper` pour `minimize`, research R2)
+- [X] T022 [US1] Réécrire `src/domain/plan/solver.ts` : variables d'aliments et variables `ecart_plus_g`/`ecart_moins_g` par sous-groupe actif ; contrainte d'équilibre par sous-groupe ; bornes de sous-groupe et couplages ; plafond par aliment ; objectif de minimisation du coût de R2. Supprimer `CATEGORY_DAILY_CAP_G`, `PRODUCE_FLOOR_G_PER_DAY` et leurs commentaires. Ne proposer aucun aliment à `ansesSubgroup` nul (FR-309)
+- [X] T023 [US4] Dans `src/domain/plan/solver.ts`, rendre chaque seuil bas de nutriment flexible : variable `manque_n` de coût `P × manque_n / seuil_n`, `P = 1000`, ×10 pour l'énergie, les protéines et les nutriments prioritaires (research R3) ; garder **dures** le plafond énergétique (`ENERGY_UPPER_TOLERANCE`), les bornes hautes `valueMax` et les limites de sécurité reçues en entrée. Exposer dans `SolverOutput` les manques par nutriment. Documenter le poids comme décision du projet
+- [X] T024 [US4] Créer `src/domain/plan/gaps.ts` : écarts = nutriments à manque positif dans la liste livrée ; taux = ratio de la couverture calculée par `computeCoverage` ; cause établie en rejouant le modèle flexible sur `dietOnly` (manque disparu → `seasonality_restriction`) puis sur `allFoods` (→ `diet_restriction`), sinon `no_source_available` — rejeux uniquement s'il existe un écart (FR-320)
+- [X] T025 [US4] Dans `src/domain/plan/bounded-solve.ts`, sur interruption, rejouer une fois à précision `1e-4` ; si la seconde résolution est aussi interrompue, lever une erreur typée que `buildIngredientPlan` propage sans la convertir en écart (FR-319, research R8)
+- [X] T026 [US1] Mettre à jour `src/domain/plan/index.ts` : `PlanInput` reçoit `referenceSex`, `subgroups`, `upperLimits` ; enchaîne `consumption-model` → `solver` → `gaps` ; supprimer `src/domain/plan/relax.ts` et ses exports (`maxAchievable`, `maxAchievableWithinEnergy`, `solveWithRelaxation`), et le filtre des écarts « réellement sous le seuil », devenu inutile
+- [X] T027 [US4] Ajouter le code `plan_computation_interrupted` (statut 503) à `src/lib/errors.ts`, le lever depuis `src/app/api/plan/route.ts`, et transmettre `referenceSex`, `fetchConsumptionModel()` et `fetchUpperLimits()` à `buildIngredientPlan` dans cette route ; afficher le message « Le calcul de la liste n'a pas abouti. Réessayez. » dans `src/app/(public)/liste/page.tsx` avec le composant `Notice` existant
+- [X] T028 [P] [US1] Adapter les appelants de `buildIngredientPlan` et de `solvePlan` : `scripts/simulate-plans.ts`, `scripts/measure-catalogue.ts`, `scripts/smoke-plan.ts`, en passant sexe, sous-groupes et limites ; `scripts/smoke-solver.ts`, mesure préalable à la relaxation supprimée, est retiré avec elle
+- [X] T029 [P] [US4] Supprimer `scripts/check-caps.ts` et son entrée `check:caps` dans `package.json` (research R12)
+- [X] T030 [US4] Ajouter à `scripts/simulate-plans.ts` les contrôles : aliment à sous-groupe nul (SC-001), sous-groupe hors bornes pour l'omnivore (SC-002), limite de sécurité dépassée (SC-009), écart dont le taux diffère de la couverture (SC-010), nombre de sous-groupes et grammes de fruits et légumes de l'omnivore (SC-003, SC-004)
+- [X] T031 [US1] Exécuter `npm run test:unit` puis `npm run simulate:plans` ; si un nutriment couvert dans `baseline/simulation-avant.json` passe sous son seuil (SC-005), ajuster `P` et le documenter dans `src/domain/plan/solver.ts` et `research.md` R3 avant de poursuivre
 
 **Checkpoint**: MVP — la liste suit le critère de l'ANSES, sans algue ni dépassement
 
@@ -117,13 +117,13 @@ de départ.
 
 ### Tests for User Story 2
 
-- [ ] T032 [P] [US2] Ajouter à `tests/unit/plan-solver.test.ts` : pour un régime végétarien, les sous-groupes viande, volaille, charcuterie et poissons sont inactifs et `legumineuses` n'a plus de borne haute ; pour un régime végan, `lait` reste actif, alimenté par les seules boissons végétales, sans borne haute ; aucun sous-groupe exclu n'apparaît dans le coût ; la B12 végane reste un écart `diet_restriction`
-- [ ] T033 [P] [US2] Vérifier que `tests/unit/needs-diet-invariant.test.ts` et `tests/unit/diet-compatibility.test.ts` restent verts sans modification (principe III)
+- [X] T032 [P] [US2] Ajouter à `tests/unit/plan-solver.test.ts` : pour un régime végétarien, les sous-groupes viande, volaille, charcuterie et poissons sont inactifs et `legumineuses` n'a plus de borne haute ; pour un régime végan, `lait` reste actif, alimenté par les seules boissons végétales, sans borne haute ; aucun sous-groupe exclu n'apparaît dans le coût ; la B12 végane reste un écart `diet_restriction`
+- [X] T033 [P] [US2] Vérifier que `tests/unit/needs-diet-invariant.test.ts` et `tests/unit/diet-compatibility.test.ts` restent verts sans modification (principe III)
 
 ### Implementation for User Story 2
 
-- [ ] T034 [US2] Dans `src/domain/plan/consumption-model.ts`, déterminer les sous-groupes exclus : tous leurs aliments **non substituts** (`attached_by.substitut = false`) sont incompatibles avec le régime (research R5) ; les retirer du critère et des contraintes ; lever la borne haute des sous-groupes dont `substitutes_for` contient un sous-groupe exclu, et d'un sous-groupe dont seuls les substituts restent
-- [ ] T035 [US2] Exécuter `npm run simulate:plans` (sortie dans `specs/004-reperes-anses/baseline/`) et relire les listes végétariennes et véganes : aucun sous-groupe exclu présent, écarts limités à ceux de la mesure de départ, plus l'iode s'il apparaît (cas limite de la spec)
+- [X] T034 [US2] Dans `src/domain/plan/consumption-model.ts`, déterminer les sous-groupes exclus : tous leurs aliments **non substituts** (`attached_by.substitut = false`) sont incompatibles avec le régime (research R5) ; les retirer du critère et des contraintes ; lever la borne haute des sous-groupes dont `substitutes_for` contient un sous-groupe exclu, et d'un sous-groupe dont seuls les substituts restent
+- [X] T035 [US2] Exécuter `npm run simulate:plans` (sortie dans `specs/004-reperes-anses/baseline/`) et relire les listes végétariennes et véganes : aucun sous-groupe exclu présent, écarts limités à ceux de la mesure de départ, plus l'iode s'il apparaît (cas limite de la spec)
 
 **Checkpoint**: les quatre régimes de base suivent le modèle
 
@@ -138,14 +138,14 @@ sous la demi-unité, aucun écart nouveau non expliqué.
 
 ### Tests for User Story 5
 
-- [ ] T036 [P] [US5] Écrire `tests/unit/plan-consolidate.test.ts` : sur un jeu où le solveur répartit naturellement deux laits, la liste consolidée n'en garde qu'un, le plus abondant ; aucune ligne sous `unitGrams × période / 2` ; la boucle termine sur un jeu de candidats qui décroît ; un nutriment rendu inatteignable par la consolidation apparaît comme écart, la règle n'étant pas levée (FR-324)
+- [X] T036 [P] [US5] Écrire `tests/unit/plan-consolidate.test.ts` : sur un jeu où le solveur répartit naturellement deux laits, la liste consolidée n'en garde qu'un, le plus abondant ; aucune ligne sous `unitGrams × période / 2` ; la boucle termine sur un jeu de candidats qui décroît ; un nutriment rendu inatteignable par la consolidation apparaît comme écart, la règle n'étant pas levée (FR-324)
 
 ### Implementation for User Story 5
 
-- [ ] T037 [US5] Créer `src/domain/plan/consolidate.ts` : boucle « résoudre → garder la variante la plus abondante de chaque famille → retirer les lignes sous la demi-unité sur la période → résoudre à nouveau » tant qu'un aliment a été retiré (research R7) ; borne basse levée pour un sous-groupe vidé par la consolidation
-- [ ] T038 [US5] Brancher la consolidation dans `src/domain/plan/index.ts` entre la résolution et le calcul des écarts ; supprimer dans `src/domain/plan/solver.ts` le relèvement au gramme (`MIN_DISPLAY_G`) devenu sans objet, la demi-unité le remplaçant
-- [ ] T039 [US5] Ajouter à `scripts/simulate-plans.ts` le contrôle « deux variantes d'une même famille » (SC-011) ; le contrôle `sous_demi_portion` (SC-012) existe déjà
-- [ ] T040 [US5] Exécuter `npm run simulate:plans` ; comparer les écarts à ceux de la phase 4 et nommer chaque écart nouveau avec sa cause (SC-013) ; si SC-013 échoue de façon inacceptable, consigner le constat dans `research.md` R7 et revenir vers le commanditaire avant d'envisager HiGHS
+- [X] T037 [US5] Créer `src/domain/plan/consolidate.ts` : boucle « résoudre → garder la variante la plus abondante de chaque famille → retirer les lignes sous la demi-unité sur la période → résoudre à nouveau » tant qu'un aliment a été retiré (research R7) ; borne basse levée pour un sous-groupe vidé par la consolidation
+- [X] T038 [US5] Brancher la consolidation dans `src/domain/plan/index.ts` entre la résolution et le calcul des écarts ; supprimer dans `src/domain/plan/solver.ts` le relèvement au gramme (`MIN_DISPLAY_G`) devenu sans objet, la demi-unité le remplaçant
+- [X] T039 [US5] Ajouter à `scripts/simulate-plans.ts` le contrôle « deux variantes d'une même famille » (SC-011) ; le contrôle `sous_demi_portion` (SC-012) existe déjà
+- [X] T040 [US5] Exécuter `npm run simulate:plans` ; comparer les écarts à ceux de la phase 4 et nommer chaque écart nouveau avec sa cause (SC-013) ; si SC-013 échoue de façon inacceptable, consigner le constat dans `research.md` R7 et revenir vers le commanditaire avant d'envisager HiGHS
 
 **Checkpoint**: liste achetable telle quelle
 
@@ -158,9 +158,9 @@ sous la demi-unité, aucun écart nouveau non expliqué.
 **Independent Test**: tirer au hasard des paramètres et des aliments et retrouver pour chacun sa
 source ou sa règle ; aucun seuil en grammes propre au projet dans le calcul.
 
-- [ ] T041 [P] [US3] Ajouter à `docs/sources.md` une section « Modèle de consommation » (avis, tableaux et pages, écarts assumés : substitutions, extension d'âge, contaminants, demi-portion, poids des manques) et une section « Limites de sécurité » (une ligne par nutriment avec sa source primaire, nutriments écartés et pourquoi)
-- [ ] T042 [P] [US3] Ajouter un test dans `tests/unit/plan-solver.test.ts` qui échoue si `src/domain/plan/` contient une constante numérique en grammes autre que celles issues des fichiers de référence — par recherche des anciens noms (`CATEGORY_DAILY_CAP_G`, `PRODUCE_FLOOR_G_PER_DAY`) et revue de `solver.ts` (SC-006)
-- [ ] T043 [US3] Vérifier que `seed-reference.ts` refuse un `consumption-model.json` privé de la provenance d'une valeur (test manuel ou unitaire selon la structure du script)
+- [X] T041 [P] [US3] Ajouter à `docs/sources.md` une section « Modèle de consommation » (avis, tableaux et pages, écarts assumés : substitutions, extension d'âge, contaminants, demi-portion, poids des manques) et une section « Limites de sécurité » (une ligne par nutriment avec sa source primaire, nutriments écartés et pourquoi)
+- [X] T042 [P] [US3] Ajouter un test dans `tests/unit/plan-solver.test.ts` qui échoue si `src/domain/plan/` contient une constante numérique en grammes autre que celles issues des fichiers de référence — par recherche des anciens noms (`CATEGORY_DAILY_CAP_G`, `PRODUCE_FLOOR_G_PER_DAY`) et revue de `solver.ts` (SC-006)
+- [X] T043 [US3] Vérifier que `seed-reference.ts` refuse un `consumption-model.json` privé de la provenance d'une valeur (test manuel ou unitaire selon la structure du script)
 
 **Checkpoint**: traçabilité vérifiable
 
@@ -168,10 +168,10 @@ source ou sa règle ; aucun seuil en grammes propre au projet dans le calcul.
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T044 Exécuter `npm run simulate:plans -- specs/004-reperes-anses/baseline/simulation-apres.json`, puis rédiger `specs/004-reperes-anses/baseline/comparaison.md` dans le style de `specs/003-catalogue-pertinence/baseline/comparaison.md` : tableau avant/après par critère de succès (SC-001 à SC-013), écarts nouveaux avec leur cause, constats inattendus
-- [ ] T045 [P] Mettre à jour la spec si l'implémentation a révélé une divergence (principe I), et cocher la checklist `specs/004-reperes-anses/checklists/requirements.md`
-- [ ] T046 [P] Contrôles statiques et tests du dépôt (`package.json`) : `npm run typecheck`, `npm run lint`, `npm run test:unit`, `npm run test:contract`
-- [ ] T047 `npm run build` puis `npm run check:build` (`scripts/check-build-output.ts`) (le worker du solveur et sa dépendance doivent rester dans la sortie de build)
+- [X] T044 Exécuter `npm run simulate:plans -- specs/004-reperes-anses/baseline/simulation-apres.json`, puis rédiger `specs/004-reperes-anses/baseline/comparaison.md` dans le style de `specs/003-catalogue-pertinence/baseline/comparaison.md` : tableau avant/après par critère de succès (SC-001 à SC-013), écarts nouveaux avec leur cause, constats inattendus
+- [X] T045 [P] Mettre à jour la spec si l'implémentation a révélé une divergence (principe I), et cocher la checklist `specs/004-reperes-anses/checklists/requirements.md`
+- [X] T046 [P] Contrôles statiques et tests du dépôt (`package.json`) : `npm run typecheck`, `npm run lint`, `npm run test:unit`, `npm run test:contract`
+- [X] T047 `npm run build` puis `npm run check:build` (`scripts/check-build-output.ts`) (le worker du solveur et sa dépendance doivent rester dans la sortie de build)
 - [ ] T048 Avec accord explicite du commanditaire : appliquer la migration `supabase/migrations/0007_consumption_model.sql` et `npm run seed:reference`, puis `npm run test:e2e` et le contrôle manuel de `quickstart.md` § 4
 - [ ] T049 Montrer le résultat (`specs/004-reperes-anses/baseline/comparaison.md`, deux listes réelles omnivore et végane) et attendre l'accord avant tout commit final et la mise à jour de la PR
 

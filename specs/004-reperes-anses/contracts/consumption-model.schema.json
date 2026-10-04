@@ -61,7 +61,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["code", "label", "direction", "by_sex"],
+        "required": ["code", "label", "direction", "by_sex", "reference_energy_kcal"],
         "additionalProperties": false,
         "properties": {
           "code": { "type": "string", "pattern": "^[a-z_]+$" },
@@ -84,6 +84,17 @@
             "properties": {
               "male": { "type": "number", "minimum": 0 },
               "female": { "type": "number", "minimum": 0 },
+              "provenance": { "$ref": "#/$defs/provenance" }
+            }
+          },
+          "reference_energy_kcal": {
+            "type": "object",
+            "required": ["male", "female", "provenance"],
+            "additionalProperties": false,
+            "description": "Besoin énergétique sur lequel l'ANSES a calibré son modèle (avis, page 13). Décision du projet: les bornes sont proportionnées au besoin du profil, sauf les plafonds épidémiologiques.",
+            "properties": {
+              "male": { "type": "number", "exclusiveMinimum": 0 },
+              "female": { "type": "number", "exclusiveMinimum": 0 },
               "provenance": { "$ref": "#/$defs/provenance" }
             }
           },

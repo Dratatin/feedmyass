@@ -11,6 +11,7 @@
       "Eaux de boisson et sel ne sont pas repris: l'annexe 6 ne leur donne pas d'écart-type, et le catalogue ne propose aucun aliment de ces sous-groupes.",
       "Population de l'ANSES: hommes de 18 à 64 ans, femmes de 18 à 54 ans. Décision du projet: les paramètres s'appliquent à tous les adultes acceptés par l'application, jusqu'à 70 ans.",
       "Décision du projet (FR-310a, 2026-10-04): le champ substitutes_for n'est pas de l'ANSES, dont le modèle est établi sur une population omnivore. Il lève la borne haute des légumineuses quand le régime exclut viande, volaille, poissons ou œufs, et celle du lait, des produits laitiers frais nature et des fromages quand seuls leurs substituts végétaux restent.",
+      "Énergie de référence: l'ANSES a calibré son modèle sur un besoin énergétique de 2 600 kcal/j pour les hommes et 2 100 kcal/j pour les femmes (avis, page 13). Décision du projet: les bornes, moyennes, écarts-types et limites couplantes sont proportionnés au besoin énergétique du profil — un adulte de 110 kg très actif a besoin de 4 400 kcal, que les bornes d'un besoin de 2 600 kcal ne permettent pas d'atteindre. Les plafonds épidémiologiques (viande hors volaille, charcuterie, boissons sucrées) ne le sont pas: ce sont des seuils de risque, pas des habitudes.",
       "Les contraintes de contaminants du modèle de l'ANSES sont hors périmètre: elles reposent sur des données d'exposition (EAT 2) que l'application n'a pas."
     ]
   },
@@ -71,7 +72,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "fruits_frais",
@@ -129,7 +138,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "fruits_secs",
@@ -187,7 +204,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "fruits_transformes",
@@ -245,7 +270,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "oleagineux",
@@ -303,7 +336,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "pain_raffine",
@@ -368,7 +409,15 @@
           "page": 73
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "pain_complet",
@@ -433,7 +482,15 @@
           "page": 73
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "autres_feculents_raffines",
@@ -498,7 +555,15 @@
           "page": 73
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "autres_feculents_complets",
@@ -563,7 +628,15 @@
           "page": 73
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "amidon_sucre_gras",
@@ -621,7 +694,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "amidon_sale_gras",
@@ -679,7 +760,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "legumineuses",
@@ -743,7 +832,15 @@
         "poissons_gras",
         "autres_poissons",
         "oeufs"
-      ]
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "volaille",
@@ -801,7 +898,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "viande_hors_volaille",
@@ -859,7 +964,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "charcuterie",
@@ -917,7 +1030,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "poissons_gras",
@@ -975,7 +1096,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "autres_poissons",
@@ -1033,7 +1162,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "oeufs",
@@ -1091,7 +1228,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "lait",
@@ -1151,7 +1296,15 @@
       "coupled_upper": null,
       "substitutes_for": [
         "lait"
-      ]
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "frais_nature",
@@ -1211,7 +1364,15 @@
       "coupled_upper": null,
       "substitutes_for": [
         "frais_nature"
-      ]
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "frais_sucres",
@@ -1269,7 +1430,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "desserts_lactes",
@@ -1327,7 +1496,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "fromages",
@@ -1387,7 +1564,15 @@
       "coupled_upper": null,
       "substitutes_for": [
         "fromages"
-      ]
+      ],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "beurre",
@@ -1445,7 +1630,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "huiles_riches_ala",
@@ -1510,7 +1703,15 @@
           "page": 74
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "huiles_pauvres_ala",
@@ -1575,7 +1776,15 @@
           "page": 74
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "sauces_condiments",
@@ -1633,7 +1842,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "produits_sucres",
@@ -1691,7 +1908,15 @@
       },
       "coupled_with": null,
       "coupled_upper": null,
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "boissons_sucrees",
@@ -1756,7 +1981,15 @@
           "page": 74
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     },
     {
       "code": "jus_de_fruits",
@@ -1821,7 +2054,15 @@
           "page": 74
         }
       },
-      "substitutes_for": []
+      "substitutes_for": [],
+      "reference_energy_kcal": {
+        "male": 2600,
+        "female": 2100,
+        "provenance": {
+          "table": "Avis, identification des besoins énergétiques",
+          "page": 13
+        }
+      }
     }
   ]
 }

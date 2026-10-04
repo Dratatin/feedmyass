@@ -105,6 +105,62 @@ résolutions.
 
 ---
 
+### Amendement à l'implémentation (2026-10-04) — la vitamine D, et elle seule
+
+> **Remplacé** par la décision ci-dessous, après mesure. Le texte des deux passages est conservé
+> pour l'historique.
+
+La démarche en deux passages a été mesurée sur la simulation complète : un nutriment à peine hors
+d'atteinte (couvrable à 79 %) recevait le poids d'une habitude et chutait à 25 % — folates d'un
+omnivore sans gluten, B12 d'un pescétarien. L'ANSES, elle, n'a rendu flexible **que la vitamine D**,
+pour une raison qui lui est propre : sa référence ignore la synthèse cutanée (avis, pages 41-42).
+
+**Decision** : la vitamine D reçoit le coût de l'ANSES ; tout autre manque coûte 1 000 (×10 pour les
+nutriments prioritaires), en un seul passage. Résultat mesuré : la vitamine D se stabilise entre
+11 et 38 % (médiane 21 %) — l'ANSES obtient 36 % (5,4 µg sur 15) —, et les écarts nouveaux sur les folates et la
+B12 disparaissent.
+
+### Amendement à l'implémentation (2026-10-04) — mise à l'échelle énergétique
+
+Les bornes de l'ANSES sont calibrées sur un besoin de 2 600 kcal/j (hommes) et 2 100 kcal/j
+(femmes), avis page 13. Mesuré : 21 listes restaient sous leur besoin énergétique, toutes pour des
+profils lourds et très actifs (jusqu'à 4 400 kcal), à 75-78 %.
+
+**Decision** : bornes, moyennes, écarts-types et limites couplantes sont multipliés par le rapport
+entre le besoin du profil et l'énergie de référence de son sexe — à composition d'assiette
+constante. Les plafonds épidémiologiques ne le sont pas : un seuil de risque ne grandit pas avec
+l'appétit. L'énergie de référence est une donnée du fichier, avec sa provenance.
+
+**Alternatives considered** : lever les bornes hautes au-delà d'un certain besoin (seuil inventé) ;
+laisser l'écart d'énergie (une liste qui ne nourrit pas n'est pas une liste).
+
+### Amendement à l'implémentation (2026-10-04) — deux passages, comme l'ANSES (remplacé)
+
+Le poids unique de 1 000 s'est révélé faux à la première mesure. La vitamine D n'est pas couverte
+par une alimentation courante : le premier essai poussait **tous** les sous-groupes à leur P95
+(386 g de lait, 376 g de coing, 260 g de pain) pour grappiller les derniers pourcents de vitamine D.
+
+Le rapport de l'ANSES décrit précisément ce cas (scénarios B0 et B1, avis page 40 et rapport) : les
+seuils sont durs, l'ajout des bornes de consommation rend le modèle infaisable, et **seule la
+vitamine D** est alors rendue flexible ; sa « variable de goal », rapportée à la référence, est
+sommée **sans pondération** aux autres termes. L'ANSES accepte ainsi 5,4 µg/j de vitamine D sur 15.
+
+**Decision** : la démarche est automatisée en deux temps.
+
+1. Un premier passage, où chaque manque coûte 1 000 (×10 pour les nutriments prioritaires), sur le
+   jeu de candidats complet, repère les nutriments **hors d'atteinte**.
+2. Ces nutriments reçoivent ensuite le coût de l'ANSES (1 par manque de 100 %) ; tous les autres
+   gardent le coût de 1 000, ce qui équivaut à un seuil dur sans jamais rendre le modèle infaisable.
+
+Le repérage se fait **une seule fois**, avant la consolidation : refait à chaque tour, il désignait
+comme hors d'atteinte ce que la consolidation venait de retirer, et le laissait chuter (vitamine A à
+47 % pour un omnivore, constaté).
+
+**Conséquence assumée** : la vitamine D devient un écart pour la plupart des profils, à un taux de
+l'ordre de 10 à 20 %. La mesure de départ la déclarait couverte grâce aux algues et à des quantités
+que les bornes de l'ANSES interdisent désormais. C'est le traitement de l'ANSES ; SC-005 est amendé
+en conséquence dans la spec.
+
 ## R4 — Rattachement des aliments aux sous-groupes, et familles
 
 **Decision**: le rattachement est calculé par le script de construction du catalogue, à partir de
@@ -242,6 +298,45 @@ dépendance binaire nouvelle à embarquer dans la sortie de build, dont la 003 a
 À reconsidérer si SC-013 échoue.
 
 ---
+
+### Amendement à l'implémentation (2026-10-04) — relever ou retirer
+
+Retirer toute ligne sous la demi-unité vidait les listes journalières de ce que l'on mange moins
+d'une fois par jour : l'ANSES place les autres poissons à 23 g/j, les œufs à 13 g/j, sous leur
+demi-unité. L'omnivore perdait poisson, œufs et fromages, et manquait de B12.
+
+**Decision** : une ligne sous la demi-unité est **relevée** à la demi-unité si elle dépasse le quart
+d'unité, **retirée** sinon — l'arrondi usuel d'un choix « zéro ou au moins X ». Une ligne relevée ne
+redescend plus ; si le relèvement contredit une contrainte dure, les lignes relevées au dernier tour
+sont retirées. Chaque tour retire ou relève au moins un aliment : la boucle termine.
+
+Les aliments dont la demi-unité dépasse la borne haute de leur sous-groupe (ou sa limite couplante)
+sont écartés **avant** la consolidation : les oléagineux, plafonnés à 9 g/j chez l'homme et 5 g/j chez
+la femme pour une demi-poignée de 15 g, ne peuvent figurer sur aucune liste journalière. Les laisser
+candidats faisait tourner la consolidation une vingtaine de tours (le solveur en ajoutait quelques
+grammes, la consolidation les retirait, un autre prenait leur place) et lui faisait perdre au passage
+des sources de folates. Sur une liste hebdomadaire, ils restent possibles.
+
+**Anti-cyclage** : au second essai d'une résolution interrompue, un coût infime et propre à chaque
+aliment (un millionième par gramme) rend les sommets deux à deux distincts — la parade classique d'un
+simplexe dégénéré. Changer seulement de précision ne suffisait pas sur un cas mesuré.
+
+### Amendement à l'implémentation (2026-10-04) — positivité des quantités
+
+La simulation a fait apparaître des listes qui violaient des contraintes dures : énergie à 123 %,
+légumes à 866 g pour une borne de 277, cuivre et sélénium au-delà de leur limite de sécurité — tous
+sur des profils véganes extrêmes. Cause : sur une instance dégénérée, le simplexe de
+`javascript-lp-solver` a rendu **−589 g** d'un légume dans une solution déclarée réalisable. La
+contrainte, vraie sur la solution du solveur, était fausse sur la liste affichée, qui écarte toute
+quantité négative comme du bruit.
+
+**Decision** : borne basse à zéro explicite sur chaque aliment ; une solution portant une quantité
+négative est traitée comme une résolution ratée (second essai perturbé, puis erreur franche). Un
+modèle déclaré infaisable reçoit le même second essai : constaté sur une liste végane après le seul
+retrait d'aliments, ce qui ne peut pas rendre infaisable un modèle aux seuils flexibles.
+
+Une borne basse de sous-groupe qui dépasse ce que les candidats restants peuvent fournir est aussi
+ramenée à cette capacité : un seul féculent, plafonné à 15 g, restait pour une borne de 16 g.
 
 ## R8 — Échéance et cyclage (FR-319)
 

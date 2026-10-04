@@ -33,6 +33,8 @@ import {
   nutrientsFixture,
   seasonalCodesByMonth,
   seasonMonthsByFood,
+  consumptionModelFixture,
+  upperLimitsFixture,
 } from '../tests/unit/fixtures/reference';
 
 const foodByCode = new Map(foodsFixture.map((f) => [f.code, f]));
@@ -87,7 +89,8 @@ for (const r of runs) {
     plan = buildIngredientPlan({
       needs: r.period === 'week' ? needs.weekly : needs.daily,
       nutrients: nutrientsFixture, allFoods: foodsFixture, seasonalCodes, seasonMonthsByFood,
-      diet: r.diet, period: r.period, generatedAt: new Date('2026-10-04T10:00:00Z'), referenceVersions: needs.referenceVersions,
+      diet: r.diet, period: r.period, referenceSex: r.profile.referenceSex,
+      subgroups: consumptionModelFixture, upperLimits: upperLimitsFixture, generatedAt: new Date('2026-10-04T10:00:00Z'), referenceVersions: needs.referenceVersions,
     });
   } catch (e) {
     issues.push({ type: 'exception', detail: String(e), run: runLabel(r) });
@@ -111,12 +114,48 @@ for (const r of runs) {
     const shown = item.displayQuantity.unit === 'g' ? item.displayQuantity.value : item.displayQuantity.value * food.unitGrams;
     if (Math.abs(shown - item.quantityG) / Math.max(item.quantityG, 1) > 0.35 && Math.abs(shown - item.quantityG) > 5)
       issues.push({ type: 'affichage_ecart', detail: `${food.label}: ${item.quantityG} g affiché ${item.displayQuantity.value} x ${item.displayQuantity.unit}`, run: L });
-    // FR-323 de la 004: au moins une demi-unité d'achat sur la période.
-    if (item.quantityG < (food.unitGrams * pf) / 2 - 0.5)
+    // FR-323 de la 004: au moins une demi-unité d'achat par ligne.
+    if (item.quantityG < food.unitGrams / 2 - 0.5)
       issues.push({ type: 'sous_demi_portion', detail: `${food.label}: ${item.quantityG} g (unité ${food.unitGrams} g)`, run: L });
-    if (/alg|spirul|kombu|nori|dulse|wakam|goémon|laitue de mer/i.test(food.label)) issues.push({ type: 'algue', detail: food.label, run: L });
+    if (/algue|spirul|kombu|nori|dulse|wakam|goémon|laitue de mer/i.test(food.label)) issues.push({ type: 'algue', detail: food.label, run: L });
   }
   for (const [c, g] of Object.entries(cat)) (categoryTotals[c] ??= []).push(g);
+
+  // --- Contrôles de la feature 004 ---
+  const families = new Map<string, number>();
+  const groups = new Map<string, number>();
+  let produceG = 0;
+  for (const item of plan.items) {
+    const food = foodByCode.get(item.foodCode)!;
+    if (food.ansesSubgroup === null) issues.push({ type: 'sans_sous_groupe', detail: food.label, run: L }); // SC-001
+    families.set(food.family, (families.get(food.family) ?? 0) + 1);
+    if (food.ansesSubgroup) groups.set(food.ansesSubgroup, (groups.get(food.ansesSubgroup) ?? 0) + item.quantityG);
+    if (food.ansesSubgroup === 'fruits_frais' || food.ansesSubgroup === 'legumes') produceG += item.quantityG / pf;
+  }
+  for (const [family, n] of families) if (n > 1) issues.push({ type: 'deux_variantes_famille', detail: family, run: L }); // SC-011
+  if (r.diet.base === 'omnivore' && r.diet.exclusions.length === 0) { // SC-002 à SC-004
+    for (const [code, grams] of groups) {
+      const g = consumptionModelFixture.find((s) => s.code === code)!;
+      const p = g.bySex[r.profile.referenceSex];
+      // Bornes proportionnées au besoin énergétique, sauf plafonds épidémiologiques.
+      const energyNeed = (needs.daily.find((n) => n.nutrient === 'energy')?.value ?? 0);
+      const scale = energyNeed / g.referenceEnergyKcal[r.profile.referenceSex];
+      const upper = p.upper === null ? null : p.upper * (g.direction === 'minimize' ? 1 : scale);
+      if (grams < p.lower * scale * pf - 1 || (upper !== null && grams > upper * pf + 1))
+        issues.push({ type: 'sous_groupe_hors_bornes', detail: `${code} ${grams} g`, run: L });
+    }
+    if (produceG < 400) issues.push({ type: 'omnivore_fruits_legumes_sous_400g', detail: `${Math.round(produceG)} g/j`, run: L });
+    if (groups.size < 8) issues.push({ type: 'omnivore_moins_de_8_sous_groupes', detail: String(groups.size), run: L });
+  }
+  for (const limit of upperLimitsFixture) { // SC-009
+    let provided = 0;
+    for (const item of plan.items) provided += ((foodByCode.get(item.foodCode)!.composition[limit.nutrientCode] ?? 0) / 100) * item.quantityG;
+    if (provided > limit.value * pf * 1.01) issues.push({ type: 'limite_securite_depassee', detail: `${limit.nutrientCode} ${provided.toFixed(0)} > ${limit.value * pf}`, run: L });
+  }
+  for (const gap of plan.gaps) { // SC-010
+    const entry = plan.coverage.find((c) => c.nutrient === gap.nutrient);
+    if (!entry || Math.abs(entry.ratio - gap.ratio) > 1e-9) issues.push({ type: 'taux_ecart_incoherent', detail: gap.nutrient, run: L });
+  }
 
   const energy = plan.coverage.find((c) => c.nutrient === 'energy');
   if (energy && (energy.ratio < 0.999 || energy.ratio > 1.101)) issues.push({ type: 'energie_hors_cible', detail: energy.ratio.toFixed(3), run: L });

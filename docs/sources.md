@@ -188,12 +188,109 @@ Les 8 restants — banane, mangue, litchi, fruit de la passion, canneberge, citr
 pousses de soja — **n'ont aucune saison en France métropolitaine et ne sont donc jamais proposés**.
 C'est le comportement attendu de FR-014, pas un oubli.
 
-## Repère de santé publique
+## Modèle de consommation (feature 004)
 
-**Au moins cinq fruits et légumes par jour** (PNNS), soit environ 400 g. Utilisé comme plancher par
-le solveur : sans lui, minimiser la masse totale écarte presque tous les fruits et légumes, peu
-denses en nutriments par gramme. Une liste qui n'en contiendrait qu'un seul trahirait la promesse du
-produit.
+**Anses, *Actualisation des repères du PNNS : révision des repères de consommations alimentaires***,
+avis et rapport, saisine 2012-SA-0103, décembre 2016 —
+<https://www.anses.fr/fr/system/files/NUT2012SA0103Ra-1.pdf>. Saisi dans
+`src/data/reference/consumption-model.json`.
+
+Pour actualiser les repères du PNNS, l'ANSES a construit un programme linéaire qui cherche
+l'alimentation couvrant les références nutritionnelles **en restant au plus près de ce que les
+Français mangent réellement** (enquête INCA 2). La liste d'ingrédients reprend ce modèle : elle
+minimisait jusqu'ici sa masse totale, ce qui récompensait les aliments les plus denses par gramme —
+quatre ou cinq algues séchées ouvraient toutes les listes, omnivore comprise.
+
+| Paramètre | Origine | Page de l'avis |
+|---|---|---|
+| Bornes (P5, P95) et moyennes, par sous-groupe et par sexe | Tableau 9 | 73-74 |
+| Plafonds épidémiologiques : viande hors volaille 71 g/j, charcuterie 25 g/j | Tableaux 5 et 9 | 31, 73 |
+| Limites couplantes (pains, autres féculents, huiles, boissons sucrées) | Tableau 9 | 73-74 |
+| Écarts-types | Annexe 6, colonnes du sous-groupe | 80-81 |
+| Sens d'optimisation (favoriser, défavoriser, rapprocher de la moyenne) | Tableau 5, § 3.2.2.1 | 31-32 |
+
+Les pages sont celles du pied de page « Page n/82 ». Les valeurs ont été relues sur la mise en page
+du PDF, par extraction positionnée des cellules, et plusieurs d'entre elles sont verrouillées par
+test. Les eaux de boisson et le sel ne sont pas repris : l'annexe 6 ne leur donne pas d'écart-type,
+et le catalogue n'en propose pas.
+
+Chaque aliment du catalogue est rattaché à un sous-groupe par une table nommée
+(`_meta.rattachement` de `foods.json`), à partir de sa classe CIQUAL. Deux rattachements suivent
+l'ANSES et surprennent : la **pomme de terre** est un féculent, pas un légume ; les **poissons gras**
+sont exactement ceux que l'avis nomme (hareng, maquereau, saumon). Les algues n'appartiennent à aucun
+sous-groupe consommé en France : elles ne sont plus proposées.
+
+### Écarts assumés au modèle de l'ANSES
+
+- **Régimes végétariens et végans** (FR-310, FR-310a). Le modèle est établi sur une population
+  omnivore. Les substituts végétaux sont rattachés au sous-groupe dont ils remplacent l'usage —
+  boissons végétales au lait, tofu, tempeh et seitan aux légumineuses ; le seitan, protéine de blé,
+  n'est pas une légumineuse. Quand le régime exclut un sous-groupe, ceux qui le remplacent peuvent
+  dépasser leur P95 : sans cela, 64 g de légumineuses par jour ne nourrissent pas un végane. Décision
+  du commanditaire du 2026-10-04.
+- **Âge.** L'ANSES a travaillé sur les hommes de 18 à 64 ans et les femmes de 18 à 54 ans ; les
+  paramètres s'appliquent à tous les adultes acceptés par l'application, jusqu'à 70 ans.
+- **Contaminants.** Les contraintes de contaminants du modèle reposent sur des données d'exposition
+  (EAT 2) que l'application n'a pas : elles sont hors périmètre.
+- **Coût d'un manque.** L'ANSES tient les seuils nutritionnels pour durs et n'a rendu flexible que la
+  vitamine D (avis, pages 41-42), au poids des autres termes du critère. L'application fait de même :
+  la vitamine D reçoit le coût de l'ANSES ; tout autre manque coûte 1 000 fois un écart-type
+  d'habitude, ce qui équivaut à un seuil dur sans jamais rendre le modèle infaisable. Le facteur
+  1 000 est une décision du projet. Étendre la flexibilité à tout nutriment hors d'atteinte a été
+  essayé et mesuré : un nutriment couvrable à 79 % chutait à 25 %.
+- **Énergie.** L'ANSES a calibré ses bornes sur un besoin de 2 600 kcal/j pour les hommes et
+  2 100 kcal/j pour les femmes (avis, page 13). Les bornes, moyennes, écarts-types et limites
+  couplantes sont proportionnés au besoin énergétique du profil : sans cela, 21 listes simulées
+  restaient sous leur besoin, les bornes d'un besoin de 2 600 kcal ne permettant pas d'en fournir
+  4 400. Les plafonds épidémiologiques (viande hors volaille, charcuterie) restent absolus : ce sont
+  des seuils de risque, pas des habitudes.
+- **Demi-portion.** Une ligne porte au moins une demi-unité d'achat, ou n'apparaît pas : décision du
+  commanditaire du 2026-10-04, faute de référence. Une ligne entre le quart et la demi-unité est
+  relevée, une ligne plus petite est retirée.
+
+### Ce que cela change, et qu'il faut savoir lire
+
+**La vitamine D devient un écart pour la plupart des profils**, couverte entre 11 et 38 % selon les profils (médiane 21 %). C'est le
+constat de l'ANSES elle-même : la référence « a été construite en ne considérant pas la synthèse
+endogène » et « est très difficile à atteindre compte tenu de l'offre et des habitudes de
+consommation » ; son propre modèle s'arrête à 5,4 µg/j sur 15. La couverture que la liste affichait
+auparavant reposait sur des algues et des quantités que les bornes de l'ANSES interdisent.
+
+**Le repère « cinq fruits et légumes par jour »** n'est plus un plancher imposé : il découle du
+critère de l'ANSES, qui favorise fruits et légumes jusqu'à leur P95. Il reste contrôlé par la
+simulation (`npm run simulate:plans`).
+
+## Limites de sécurité (feature 004)
+
+**EFSA, *Overview on Tolerable Upper Intake Levels***, version 11 (août 2025) —
+<https://www.efsa.europa.eu/sites/default/files/2024-05/ul-summary-report.pdf>. Saisi dans
+`src/data/reference/upper-limits.json`, chaque ligne citant l'avis primaire dont la valeur est
+issue.
+
+| Nutriment | Limite, adulte | Avis primaire |
+|---|---|---|
+| Iode | 600 µg/j | SCF (2003) |
+| Sélénium | 255 µg/j | EFSA (2023) |
+| Zinc | 25 mg/j | SCF (2002) |
+| Cuivre | 5 mg/j | SCF (2003) ; DJA de 0,07 mg/kg établie en 2023 |
+| Calcium | 2 500 mg/j | EFSA (2012) |
+| Vitamine D | 100 µg/j | EFSA (2023) |
+| Vitamine B6 | 12 mg/j | EFSA (2023) |
+| Vitamine E | 300 mg/j | SCF (2003), révision en cours |
+| Rétinol (vitamine A préformée) | 3 000 µg/j | EFSA (2024) |
+
+Ce sont des contraintes dures : la liste ne les dépasse jamais. Avant elles, 15 g de kombu portaient
+l'iode à 77 mg/j, 128 fois la limite.
+
+- **Vitamine A** : la limite porte sur le rétinol préformé, pas sur les équivalents rétinol totaux qui
+  comptent le bêta-carotène. Le rétinol est donc extrait séparément de CIQUAL (constituant 51200) ;
+  sans cela, la limite plafonnerait à tort les carottes.
+- **Écartés** : le magnésium, les vitamines B3 et B9, dont la limite ne vise que les compléments ou
+  les formes ajoutées ; le fer et le manganèse, pour lesquels l'EFSA ne fixe qu'un niveau d'apport
+  sûr, qui « ne peut servir à caractériser un risque ».
+
+Les limites ne sont pas des besoins : elles vivent hors des apports de référence, et le calcul des
+besoins ne les lit pas (principe III).
 
 ## Ce que l'application ne détient pas
 

@@ -21,6 +21,8 @@ import {
   intakesFixture,
   nutrientsFixture,
   seasonalCodesByMonth,
+  consumptionModelFixture,
+  upperLimitsFixture,
 } from '../tests/unit/fixtures/reference';
 
 const CATALOGUE_PATH = 'src/data/reference/foods.json';
@@ -94,6 +96,9 @@ function measure(): Measure {
       seasonalCodes: seasonalCodesByMonth.get(MONTH)!,
       diet,
       period: 'day',
+      referenceSex: PROFILE.referenceSex,
+      subgroups: consumptionModelFixture,
+      upperLimits: upperLimitsFixture,
       generatedAt: new Date('2026-09-13T10:00:00Z'),
       referenceVersions: needs.referenceVersions,
     });

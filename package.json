@@ -19,7 +19,6 @@
     "build:foods": "node scripts/build-foods-from-ciqual.mjs",
     "build:seasonality": "node scripts/build-seasonality.mjs",
     "measure:catalogue": "tsx scripts/measure-catalogue.ts",
-    "check:caps": "tsx scripts/check-caps.ts",
     "check:build": "tsx scripts/check-build-output.ts",
     "simulate:plans": "tsx scripts/simulate-plans.ts"
   },

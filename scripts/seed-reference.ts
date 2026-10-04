@@ -49,6 +49,8 @@ type ReferenceFile = {
   strategy: 'upsert-prune' | 'replace';
   /** Clé technique utilisée pour l'élagage. */
   pruneKey?: string;
+  /** Contrôle propre au fichier, au-delà du _meta. Lève une erreur si le fichier est refusé. */
+  validate?: (fileName: string, rows: Record<string, unknown>[]) => void;
 };
 
 const files: ReferenceFile[] = [
@@ -56,7 +58,31 @@ const files: ReferenceFile[] = [
   { name: 'reference-intakes.json', table: 'reference_intakes', key: 'reference_intakes', conflictTarget: 'nutrient_code,reference_sex,age_min,age_max,kind', required: true, traceColumns: ['source', 'version', 'retrieved_at'], strategy: 'replace' },
   { name: 'foods.json', table: 'foods', key: 'foods', conflictTarget: 'code', required: true, traceColumns: ['source', 'version', 'retrieved_at'], strategy: 'upsert-prune', pruneKey: 'code' },
   { name: 'seasonality.json', table: 'seasonality', key: 'seasonality', conflictTarget: 'food_code,month', required: true, traceColumns: ['source', 'version'], strategy: 'replace' },
+  { name: 'consumption-model.json', table: 'consumption_subgroups', key: 'subgroups', conflictTarget: 'code', required: true, traceColumns: ['source', 'version', 'retrieved_at'], strategy: 'replace', validate: assertProvenance },
+  // La source est portée ligne à ligne (l'avis primaire de chaque limite): elle prime sur celle du _meta.
+  { name: 'upper-limits.json', table: 'upper_limits', key: 'upper_limits', conflictTarget: 'nutrient_code', required: true, traceColumns: ['source', 'version', 'retrieved_at'], strategy: 'replace' },
 ];
+
+/**
+ * Le modèle de consommation exige plus que le _meta: CHAQUE valeur doit dire de
+ * quel tableau et de quelle page de l'avis elle vient (feature 004, FR-313). Un
+ * paramètre sans provenance pèserait sur toutes les listes sans pouvoir être
+ * vérifié.
+ */
+function assertProvenance(fileName: string, rows: Record<string, unknown>[]): void {
+  for (const row of rows) {
+    const bySex = row.by_sex as Record<string, { provenance?: Record<string, { table?: string; page?: number }> }> | undefined;
+    for (const sex of ['male', 'female']) {
+      const provenance = bySex?.[sex]?.provenance;
+      for (const key of ['lower', 'mean', 'upper']) {
+        const p = provenance?.[key];
+        if (!p?.table || !p.page) {
+          throw new Error(`${fileName}: sous-groupe ${String(row.code)}, ${sex}, « ${key} » sans provenance (tableau et page).`);
+        }
+      }
+    }
+  }
+}
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -91,6 +117,7 @@ async function loadFile(file: ReferenceFile) {
   if (!Array.isArray(rows) || rows.length === 0) {
     throw new Error(`${file.name}: clé "${file.key}" absente ou vide.`);
   }
+  file.validate?.(file.name, rows as Record<string, unknown>[]);
 
   return { meta: parsed._meta, rows: rows as Record<string, unknown>[] };
 }

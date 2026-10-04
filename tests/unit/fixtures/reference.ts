@@ -48,6 +48,9 @@ export const foodsFixture: Food[] = foodsJson.foods.map((f) => ({
   maxQtyG: f.max_qty_g,
   unitLabel: f.unit_label,
   unitGrams: f.unit_grams,
+  ansesSubgroup: f.anses_subgroup,
+  family: f.family,
+  isSubstitute: f.attached_by.substitut,
 }));
 
 /** Codes d'aliments de saison, par mois (1 à 12). */
@@ -71,3 +74,20 @@ export const seasonMonthsByFood: Map<string, number[]> = (() => {
   for (const months of map.values()) months.sort((a, b) => a - b);
   return map;
 })();
+
+import consumptionModelJson from '@/data/reference/consumption-model.json';
+import upperLimitsJson from '@/data/reference/upper-limits.json';
+import { toConsumptionSubgroup, type ConsumptionSubgroupRow } from '@/data/repositories/reference';
+import type { ConsumptionSubgroup, UpperLimit } from '@/domain/types';
+
+/** Modèle de consommation de l'ANSES, lu comme la base le restitue (feature 004). */
+export const consumptionModelFixture: ConsumptionSubgroup[] = (
+  consumptionModelJson.subgroups as unknown as ConsumptionSubgroupRow[]
+).map(toConsumptionSubgroup);
+
+/** Limites supérieures de sécurité (feature 004). */
+export const upperLimitsFixture: UpperLimit[] = upperLimitsJson.upper_limits.map((l) => ({
+  nutrientCode: l.nutrient_code,
+  value: l.value,
+  unit: l.unit,
+}));

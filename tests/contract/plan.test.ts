@@ -4,7 +4,7 @@ import { buildIngredientPlan } from '@/domain/plan';
 import { computeNeeds } from '@/domain/needs';
 import { energyReference } from '@/data/reference/energy';
 import schema from '../../specs/001-nutrition-ingredient-planner/contracts/ingredient-plan.schema.json';
-import { foodsFixture, intakesFixture, nutrientsFixture, seasonalCodesByMonth, seasonMonthsByFood } from '../unit/fixtures/reference';
+import { consumptionModelFixture, foodsFixture, intakesFixture, nutrientsFixture, seasonalCodesByMonth, seasonMonthsByFood, upperLimitsFixture } from '../unit/fixtures/reference';
 import type { Profile } from '@/domain/types';
 
 /**
@@ -60,6 +60,9 @@ describe('conformité au schéma IngredientPlan', () => {
     seasonMonthsByFood,
     diet: { base: 'omnivore', exclusions: [] },
     period: 'day',
+    referenceSex: profile.referenceSex,
+    subgroups: consumptionModelFixture,
+    upperLimits: upperLimitsFixture,
     generatedAt: new Date('2026-09-13T10:00:00Z'),
     referenceVersions: needs.referenceVersions,
     disclaimer: 'Estimation informative.',

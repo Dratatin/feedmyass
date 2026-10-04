@@ -340,6 +340,16 @@ représentées par plus d'une variante et les lignes sous la demi-portion.
   saison, aucune source) DOIT être établie sous les mêmes contraintes que la liste, plafond
   énergétique compris.
 
+- **FR-325**: Seule la vitamine D DOIT être traitée comme une contrainte flexible au sens de
+  l'ANSES (manque rapporté à la référence, au poids d'un terme d'habitude ; avis, pages 41-42). Tout
+  autre manque DOIT coûter assez cher pour qu'aucune habitude alimentaire ne l'emporte tant que le
+  nutriment peut être couvert. *Décision d'implémentation du 2026-10-04, à valider par le
+  commanditaire.*
+- **FR-326**: Les bornes, moyennes, écarts-types et limites couplantes des sous-groupes DOIVENT être
+  proportionnés au besoin énergétique du profil, rapporté à l'énergie de référence de l'ANSES
+  (2 600 kcal/j hommes, 2 100 kcal/j femmes ; avis, page 13). Les plafonds épidémiologiques NE
+  DOIVENT PAS l'être. *Décision d'implémentation du 2026-10-04, à valider par le commanditaire.*
+
 **Liste achetable**
 
 - **FR-321**: Chaque aliment du catalogue DOIT appartenir à une famille, définie par une règle
@@ -402,7 +412,10 @@ représentées par plus d'une variante et les lignes sous la demi-portion.
   de l'ANSES, avec au moins **3 fruits et légumes distincts** (contre 2 aujourd'hui).
 - **SC-005**: **Aucune régression de couverture** : aucun nutriment couvert avant la feature ne
   passe sous son seuil, pour aucune des combinaisons mesurées ; les écarts restants sont exactement
-  ceux de la mesure de départ (B12 végane).
+  ceux de la mesure de départ (B12 végane). **Exception amendée le 2026-10-04 (à valider)** : la
+  vitamine D, que l'ANSES elle-même déclare inatteignable par une alimentation courante (son modèle
+  s'arrête à 5,4 µg/j sur 15). La couverture que la mesure de départ lui attribuait reposait sur les
+  algues et sur des quantités que les bornes de l'ANSES interdisent.
 - **SC-006**: **Zéro** plafond ou plancher en grammes propre au projet ne subsiste dans le calcul de
   la liste, hors plafond par aliment du catalogue.
 - **SC-007**: **100 %** des paramètres du modèle se rattachent à un tableau et une page de l'avis de
